@@ -8,6 +8,12 @@ public class ObjectManager : MonoBehaviour
     public List<PlantTypeSprites> PlantSprites;
     public List<Plant> SpawnablePlants;
 
+    public AudioClip PickupPlantSfx;
+    public AudioClip PlaceSeedSfx;
+    public AudioClip PlantGrowSfx;
+    public AudioClip PrepSfx;
+    public AudioClip PlantCompleteSfx;
+
     public int InitalSpawnableAmount = 10;
 
     void Start()

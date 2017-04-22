@@ -43,11 +43,15 @@ public class GroundManager : MonoBehaviour
     private float _timeToNextSpawn = 0.0f;
     private float _currentSpawnTime = 0.0f;
 
+    //Audio
+    private AudioSource _audioSource;
+
 	// Use this for initialization
 	void Start ()
 	{
 	    _renderer = GetComponent<Renderer>();
 	    _plantManager = GetComponent<PlantManager>();
+	    _audioSource = GetComponent<AudioSource>();
 	    _objectManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ObjectManager>();
 	    _landStage = LandStage.Prepable; //TODO: Change when loading stuff is complete.
 	    //_timeToNextSpawn = Random.Range(120.0f, 241.0f);
@@ -80,15 +84,18 @@ public class GroundManager : MonoBehaviour
 
             if (_landStage == LandStage.Prepable)
             {
+                _audioSource.PlayOneShot(_objectManager.PrepSfx);
                 PrepGround();
             }
             else if (_landStage == LandStage.Prepped && plant != null)
             {
+                _audioSource.PlayOneShot(_objectManager.PlaceSeedSfx);
                 PlaceSeed(plant);
                 planted.Invoke();
             }
             else if (_landStage == LandStage.Collectable)
             {
+                _audioSource.PlayOneShot(_objectManager.PickupPlantSfx);
                 plantToReturn = CollectPlant();
                 RemovePlant();
                 _plantManager.ResetPlant();
@@ -137,6 +144,7 @@ public class GroundManager : MonoBehaviour
         Plant.Grow(true, () =>
         {
             _plantManager.UpdatePlantVisuals(Plant);
+            _audioSource.PlayOneShot(_objectManager.PlantGrowSfx);
         }, SetCollectable);
     }
     #endregion
@@ -167,6 +175,7 @@ public class GroundManager : MonoBehaviour
 
     private void SetCollectable()
     {
+        _audioSource.PlayOneShot(_objectManager.PlantCompleteSfx);
         _landStage = LandStage.Collectable;
         _renderer.material = CollectableMaterial;
     }
