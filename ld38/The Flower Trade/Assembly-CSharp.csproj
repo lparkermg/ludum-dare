@@ -4,7 +4,7 @@
     <unityVersion>5.6.0f3</unityVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <unityProcessId>7727</unityProcessId>
+    <unityProcessId>9373</unityProcessId>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>4</LangVersion>
@@ -60,6 +60,8 @@
     <Compile Include="Assets\Scripts\Entities\Plant.cs" />
     <Compile Include="Assets\Scripts\Entities\PlantTemplate.cs" />
     <Compile Include="Assets\Scripts\Managers\GroundManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\ObjectManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\PlantManager.cs" />
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>/Users/lukeparker/Documents/Projects/MoongateGames/Games/Prototypes/ludum-dare/ld38/The Flower Trade/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
     </Reference>

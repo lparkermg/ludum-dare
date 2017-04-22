@@ -13,8 +13,7 @@ public class GroundManager : MonoBehaviour
 {
     //Plant Details
     public Plant Plant { get; private set; }
-    public Transform PlantSpawn;
-    //private PlantManager _plantManager; TODO: Add this in.
+    private PlantManager _plantManager;
     private bool _collected = false;
 
     //Ground Visuals
@@ -35,21 +34,30 @@ public class GroundManager : MonoBehaviour
 	void Start ()
 	{
 	    _renderer = GetComponent<Renderer>();
+	    _plantManager = GetComponent<PlantManager>();
 	    _landStage = LandStage.Prepable; //TODO: Change when loading stuff is complete.
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    CheckPrep();
+	    RunChecks();
 	}
+
+    private void RunChecks()
+    {
+        CheckPrep();
+        if (Plant != null && _landStage != LandStage.Collectable))
+        {
+            GrowPlant();
+        }
+    }
 
     #region Plant Specific Commants
     public Plant CollectPlant()
     {
         if (Plant.Stage != PlantStage.Flower)
             return null;
-
 
         return Plant;
     }
@@ -71,7 +79,7 @@ public class GroundManager : MonoBehaviour
     {
         Plant.Grow(true, () =>
         {
-            //Call PlantManager to update visuals.
+            _plantManager.UpdatePlantVisuals(Plant);
         }, SetCollectable);
     }
     #endregion
