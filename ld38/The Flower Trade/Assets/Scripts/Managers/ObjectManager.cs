@@ -28,8 +28,6 @@ public class ObjectManager : MonoBehaviour
 
             SpawnablePlants.Add(plant);
         }
-
-        Debug.Log("Created " + SpawnablePlants.Count + " spawnable plants!");
     }
 }
 

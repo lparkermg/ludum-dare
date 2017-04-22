@@ -63,7 +63,6 @@ public class Plant : PlantTemplate {
         //TODO: if there's time implement lightening/darkening of the plant colour based on isLight.
         //We don't need to grow anymore.
         if (_stage == PlantStage.Flower) return;
-
         if (_currentTime >= _timeCurrentStage)
         {
             IncrementPlantStage();
@@ -112,9 +111,6 @@ public class Plant : PlantTemplate {
             case PlantRarity.Legendary:
                 time = 12.0f * 30.0f;
                 break;
-            default:
-                Debug.LogError("Null or wrong Rarity type.");
-                break;
         }
 
         switch (_type)
@@ -126,9 +122,6 @@ public class Plant : PlantTemplate {
             case PlantType.Type4:
             case PlantType.Type5:
                 time += 1.0f * 15.0f;
-                break;
-            default:
-                Debug.LogError("Null or wrong Plant Type.");
                 break;
         }
 

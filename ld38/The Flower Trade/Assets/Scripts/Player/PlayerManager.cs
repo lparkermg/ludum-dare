@@ -56,17 +56,23 @@ public class PlayerManager : MonoBehaviour {
                     _seedInventory.Remove(_selectedSeed);
                     if (_selectedSeedIndex > _seedInventory.Count - 1)
                         _selectedSeedIndex = _seedInventory.Count - 1;
-                    _selectedSeed = _seedInventory[_selectedSeedIndex];
+                    if (_seedInventory.Count > 0)
+                        _selectedSeed = _seedInventory[_selectedSeedIndex];
+                    else
+                        _selectedSeed = null;
                 });
 
             if (plant != null && !pickupSeed)
             {
+
                 _flowerInventory.Add(plant);
             }
             else if (plant != null && pickupSeed)
             {
+                if (_seedInventory.Count == 0)
+                    _selectedSeedIndex = 0;
                 _seedInventory.Add(plant);
-                Debug.Log(_seedInventory.Count);
+                _selectedSeed = _seedInventory[_selectedSeedIndex];
             }
         }
         else if (_currentlySelected == Selected.Shop)
@@ -93,11 +99,10 @@ public class PlayerManager : MonoBehaviour {
             _selectedSeedIndex++;
         else if (!up && _selectedSeedIndex > 0)
             _selectedSeedIndex--;
-        else if (!up && _selectedSeedIndex <= 0)
-            _selectedSeedIndex = _seedInventory.Count;
+        else if (!up && _selectedSeedIndex <= 0 && _seedInventory.Count != 0)
+            _selectedSeedIndex = _seedInventory.Count - 1;
 
         SelectPlant();
-        Debug.Log("Selection is now " + _selectedSeedIndex + " out of " + _seedInventory.Count);
     }
 
     public void UpdateCurrentlySelected(Selected selected, GroundManager ground = null)

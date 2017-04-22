@@ -22,7 +22,6 @@ public class SelectionDetection : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Ground Entered.");
             PlayerManager.UpdateCurrentlySelected(Selected.Ground,other.gameObject.GetComponent<GroundManager>());
         }
     }

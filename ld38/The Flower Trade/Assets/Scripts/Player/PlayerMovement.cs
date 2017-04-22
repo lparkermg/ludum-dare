@@ -42,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
             _lookAngle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
             var rotation = Quaternion.Euler(new Vector3(0.0f, _lookAngle, 0.0f));
             transform.rotation = rotation;
-            Debug.Log("Look Angle: " + _lookAngle);
             _move = true;
         }
         else

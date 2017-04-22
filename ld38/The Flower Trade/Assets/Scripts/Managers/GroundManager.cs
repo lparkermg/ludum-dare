@@ -63,7 +63,6 @@ public class GroundManager : MonoBehaviour
 
     private void RunChecks()
     {
-        Debug.Log("Running Checks.");
         if(_seedSpawner)
             CheckSeedSpawning();
         CheckPrep();
@@ -92,13 +91,14 @@ public class GroundManager : MonoBehaviour
             {
                 plantToReturn = CollectPlant();
                 RemovePlant();
+                _plantManager.ResetPlant();
+                ResetGround();
             }
         }
         else
         {
             if (_containsSeed)
             {
-                Debug.Log("Picking up a seed.");
                 _containsSeed = false;
                 plantToReturn = _seed;
             }
@@ -112,12 +112,12 @@ public class GroundManager : MonoBehaviour
     {
         if (Plant.Stage != PlantStage.Flower)
             return null;
-
         return Plant;
     }
 
     public void RemovePlant()
     {
+
         if (Plant != null && _collected)
             Plant = null;
     }
@@ -190,7 +190,6 @@ public class GroundManager : MonoBehaviour
     {
         if (!_containsSeed)
         {
-            Debug.Log("Checking seed spawning.");
             if (_currentSpawnTime >= _timeToNextSpawn)
             {
                 _containsSeed = true;

@@ -4,7 +4,7 @@
     <unityVersion>5.6.0f3</unityVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <unityProcessId>9859</unityProcessId>
+    <unityProcessId>11477</unityProcessId>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>4</LangVersion>
@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\SelectionDetection.cs" />
+    <Compile Include="Assets\Scripts\Visuals\WaterMotion.cs" />
     <Reference Include="Facebook.Unity.Settings">
       <HintPath>/Users/lukeparker/Documents/Projects/MoongateGames/Games/Prototypes/ludum-dare/ld38/The Flower Trade/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
     </Reference>
