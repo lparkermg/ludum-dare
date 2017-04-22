@@ -42,5 +42,15 @@
     }
 
     #endregion
+
+    #region Selection Stuff
+
+    public enum Selected
+    {
+        Nothing = 0,
+        Ground = 1,
+        Shop = 2
+    }
+    #endregion
 }
 
