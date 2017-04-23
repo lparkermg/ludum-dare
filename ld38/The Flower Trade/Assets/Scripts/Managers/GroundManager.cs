@@ -43,6 +43,8 @@ public class GroundManager : MonoBehaviour
     private float _timeToNextSpawn = 0.0f;
     private float _currentSpawnTime = 0.0f;
 
+    public bool GroundDisabled;
+
     //Audio
     private AudioSource _audioSource;
 
@@ -57,12 +59,16 @@ public class GroundManager : MonoBehaviour
 	    //_timeToNextSpawn = Random.Range(120.0f, 241.0f);
 	    if (_landStage == LandStage.Prepable)
 	        _seedSpawner = true;
+
+	    if (GroundDisabled)
+	        GetComponent<BoxCollider>().enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	    RunChecks();
+	    if(!GroundDisabled)
+	        RunChecks();
 	}
 
     private void RunChecks()
@@ -136,6 +142,7 @@ public class GroundManager : MonoBehaviour
             Plant = plant;
             _landStage = LandStage.Planted;
             _renderer.material = PlantedMaterial;
+            _plantManager.UpdatePlantVisuals(plant);
         }
     }
 

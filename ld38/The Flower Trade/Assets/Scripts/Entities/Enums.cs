@@ -49,7 +49,8 @@
     {
         Nothing = 0,
         Ground = 1,
-        Shop = 2
+        ShopBuy = 2,
+        ShopSell = 3
     }
     #endregion
 }

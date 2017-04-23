@@ -24,5 +24,13 @@ public class SelectionDetection : MonoBehaviour
         {
             PlayerManager.UpdateCurrentlySelected(Selected.Ground,other.gameObject.GetComponent<GroundManager>());
         }
+        else if (other.gameObject.CompareTag("ShopSell"))
+        {
+            PlayerManager.UpdateCurrentlySelected(Selected.ShopSell,null,other.gameObject.GetComponent<ShopManager>());
+        }
+        else if (other.gameObject.CompareTag("ShopBuy"))
+        {
+            PlayerManager.UpdateCurrentlySelected(Selected.ShopBuy,null,other.gameObject.GetComponent<ShopManager>());
+        }
     }
 }
