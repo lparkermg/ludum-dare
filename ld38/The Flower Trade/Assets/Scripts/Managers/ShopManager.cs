@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class ShopManager : MonoBehaviour
@@ -17,22 +18,27 @@ public class ShopManager : MonoBehaviour
     private float _currentOpenTransactionAmount = 0.00f;
     private bool _transactionOpen = false;
 
-    private float _newSeedMax = 120.0f;
-    private float _newSeedMin = 60.0f;
+    private float _newSeedMax = 60.0f;
+    private float _newSeedMin = 20.0f;
     private float _newSeedTime = 10.0f;
     private float _currentTime = 0.0f;
+
+    public Text Display;
+    public Text SpeechMark;
 	// Use this for initialization
 	void Start ()
 	{
 	    SeedsForSale = new List<Plant>();
 	    _objectManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ObjectManager>();
 	    _newSeedTime = Random.Range(_newSeedMin, _newSeedMax);
+	    SpeechMark.text = SellingSeeds ? "Buy" : "Sell";
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 	    CheckTiming();
+	    DisplayCheck();
 	}
 
     private void CheckTiming()
@@ -48,6 +54,14 @@ public class ShopManager : MonoBehaviour
             //TODO: Change to GameManager when implemented.
             _currentTime += Time.deltaTime;
         }
+    }
+
+    private void DisplayCheck()
+    {
+        if (SellingSeeds)
+            Display.text = SeedsForSale.Count.ToString();
+        else
+            Display.text = "---";
     }
 
     private void AddSeed()
@@ -100,14 +114,12 @@ public class ShopManager : MonoBehaviour
 
     public float OpenBuyTransaction(List<Plant> seeds)
     {
-        Debug.Log("ForSale Before = " + SeedsForSale.Count);
         _transactionOpen = true;
-        for (int i = 0; i < seeds.Count - 1; i++)
+        for (int i = 0; i < seeds.Count; i++)
         {
             SeedsForSale.RemoveAt(0);
         }
 
-        Debug.Log("ForSale After = " + SeedsForSale.Count);
         SeedBasket = seeds;
         _currentOpenTransactionAmount = CalculateSale(seeds, false);
         return _currentOpenTransactionAmount;
@@ -131,7 +143,7 @@ public class ShopManager : MonoBehaviour
 
     public void CancelBuyTransaction()
     {
-        for (int i = 0; i < SeedBasket.Count - 1; i++)
+        for (int i = 0; i < SeedBasket.Count; i++)
         {
             SeedsForSale.Add(SeedBasket[i]);
         }

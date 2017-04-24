@@ -22,6 +22,9 @@ public class InputManager : MonoBehaviour {
     public bool DpadDownButton { get; private set; }
     public bool DpadRightButton { get; private set; }
 
+    //Other
+    public bool ExitButton { get; private set; }
+
 	// Use this for initialization
 	void Start () {
 		
@@ -44,5 +47,6 @@ public class InputManager : MonoBehaviour {
         DpadLeftButton = Input.GetButtonDown("DPadLeft");
         DpadDownButton = Input.GetButtonDown("DPadDown");
         DpadRightButton = Input.GetButtonDown("DPadRight");
+        ExitButton = Input.GetButtonDown("Exit");
     }
 }

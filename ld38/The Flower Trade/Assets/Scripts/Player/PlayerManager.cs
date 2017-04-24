@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour {
 
     private bool _confirmingSale = false;
 
+    private bool _started = false;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,15 +43,29 @@ public class PlayerManager : MonoBehaviour {
 
     private void InputCheck()
     {
-        if (_input.DpadLeftButton && !_input.DpadRightButton)
-            ChangeSelection(false);
-        else if (!_input.DpadLeftButton && _input.DpadRightButton)
-            ChangeSelection(true);
+        if (_started)
+        {
+            if (_input.DpadLeftButton && !_input.DpadRightButton)
+                ChangeSelection(false);
+            else if (!_input.DpadLeftButton && _input.DpadRightButton)
+                ChangeSelection(true);
 
-        if (_input.ActionButton)
-            TryAction(false);
-        else if (_input.CancelButton)
-            TryAction(true);
+            if (_input.ActionButton)
+                TryAction(false);
+            else if (_input.CancelButton)
+                TryAction(true);
+
+            if(_input.ExitButton)
+                Application.Quit();
+        }
+        else
+        {
+            if (_input.ExitButton)
+            {
+                _ui.HideStartInfo();
+                _started = true;
+            }
+        }
     }
 
     #region Action Stuff

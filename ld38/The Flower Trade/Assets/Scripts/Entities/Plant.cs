@@ -45,7 +45,7 @@ public class Plant : PlantTemplate {
     private Color _leafColour;
 
     private float _timeCurrentStage; //TODO: Add calculation based on Rarity + Type.
-    private float _currentTime;
+    private float _currentTime = 0.0f;
 
     public override void Initialize(PlantType type, PlantRarity rarity, Color? flowerColour = null, Color? stemColour = null,Color? leafColour = null)
     {
@@ -56,19 +56,19 @@ public class Plant : PlantTemplate {
         _leafColour = leafColour.HasValue ? leafColour.Value : GenerateColour();
 
         _stage = PlantStage.Seed;
+        CalculateTime();
     }
 
     public override void Grow(bool isLight, Action nextGrowStage, Action complete)
     {
         //TODO: if there's time implement lightening/darkening of the plant colour based on isLight.
-        //We don't need to grow anymore.
-        if (_stage == PlantStage.Flower) return;
         if (_currentTime >= _timeCurrentStage)
         {
             IncrementPlantStage();
             nextGrowStage.Invoke();
             if (_stage == PlantStage.Flower)
             {
+                Debug.Log("Completed");
                 complete.Invoke();
                 return;
             }
@@ -87,6 +87,8 @@ public class Plant : PlantTemplate {
     {
         var stageInt = (int) _stage;
         stageInt++;
+        if (stageInt > 2)
+            stageInt = 2;
         _stage = (PlantStage)stageInt;
     }
 
@@ -97,19 +99,19 @@ public class Plant : PlantTemplate {
         switch (_rarity)
         {
             case PlantRarity.VeryCommon:
-                time = 1.0f * 30.0f;
+                time = 1.0f * 10.0f;
                 break;
             case PlantRarity.Common:
-                time = 2.0f * 30.0f;
+                time = 2.0f * 10.0f;
                 break;
             case PlantRarity.Rare:
-                time = 4.0f * 30.0f;
+                time = 4.0f * 10.0f;
                 break;
             case PlantRarity.VeryRare:
-                time = 8.0f * 30.0f;
+                time = 8.0f * 10.0f;
                 break;
             case PlantRarity.Legendary:
-                time = 12.0f * 30.0f;
+                time = 12.0f * 10.0f;
                 break;
         }
 
@@ -121,10 +123,9 @@ public class Plant : PlantTemplate {
             case PlantType.Type3:
             case PlantType.Type4:
             case PlantType.Type5:
-                time += 1.0f * 15.0f;
+                time += 1.0f * 2.0f;
                 break;
         }
-
         _timeCurrentStage = time;
     }
 

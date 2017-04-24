@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _move;
     private float _lookAngle;
 
+    public float MovementSpeed = 1;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -27,17 +29,22 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_move)
         {
-            _rb.AddForce(transform.forward,ForceMode.Acceleration);
+            _rb.velocity = transform.forward * MovementSpeed;
         }
-
+        else
+        {
+            _rb.MovePosition(new Vector3(transform.position.x,0.6f,transform.position.z));
+            _rb.velocity = Vector3.zero;
+        }
     }
 
     private void GetInput()
     {
         var vertical = _input.VerticalMove;
         var horizontal = _input.HorizontalMove;
+        var deadZone = _input.DeadZone;
 
-        if (vertical != 0.0f || horizontal != 0.0f)
+        if ((vertical >= deadZone || vertical <= -deadZone) || (horizontal >= deadZone || horizontal <= -deadZone))
         {
             _lookAngle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
             var rotation = Quaternion.Euler(new Vector3(0.0f, _lookAngle, 0.0f));
@@ -47,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
             _move = false;
         }
     }

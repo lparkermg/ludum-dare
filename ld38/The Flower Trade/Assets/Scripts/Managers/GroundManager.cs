@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Enums;
-using NUnit.Framework;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +25,7 @@ public class GroundManager : MonoBehaviour
     public Material PreppedMaterial;
     public Material PlantedMaterial;
     public Material CollectableMaterial;
+    public Material ContainsSeedMaterial;
 
     //Ground Details
     private LandStage _landStage;
@@ -62,6 +60,8 @@ public class GroundManager : MonoBehaviour
 
 	    if (GroundDisabled)
 	        GetComponent<BoxCollider>().enabled = false;
+
+	    _timeToNextSpawn = Random.Range(10.0f, 120.0f);
 	}
 	
 	// Update is called once per frame
@@ -103,6 +103,7 @@ public class GroundManager : MonoBehaviour
             {
                 _audioSource.PlayOneShot(_objectManager.PickupPlantSfx);
                 plantToReturn = CollectPlant();
+                _collected = true;
                 RemovePlant();
                 _plantManager.ResetPlant();
                 ResetGround();
@@ -113,6 +114,7 @@ public class GroundManager : MonoBehaviour
             if (_containsSeed)
             {
                 _containsSeed = false;
+                _renderer.material = PrepableMaterial;
                 plantToReturn = _seed;
             }
         }
@@ -143,6 +145,7 @@ public class GroundManager : MonoBehaviour
             _landStage = LandStage.Planted;
             _renderer.material = PlantedMaterial;
             _plantManager.UpdatePlantVisuals(plant);
+            _seedSpawner = false;
         }
     }
 
@@ -211,7 +214,8 @@ public class GroundManager : MonoBehaviour
                 _containsSeed = true;
                 _seed = _objectManager.SpawnablePlants[Random.Range(0, _objectManager.SpawnablePlants.Count)];
                 _currentSpawnTime = 0.0f;
-                _timeToNextSpawn = Random.Range(120.0f, 241.0f);
+                _timeToNextSpawn = Random.Range(30.0f, 60.0f);
+                _renderer.material = ContainsSeedMaterial;
                 //TODO:display an indicator or something...
             }
             else

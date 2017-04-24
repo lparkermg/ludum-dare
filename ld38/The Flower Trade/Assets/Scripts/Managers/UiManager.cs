@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     public CanvasGroup BannerGroup;
+    public CanvasGroup StartGroup;
+    public CanvasGroup GameUIGroup;
 
     public Text FlowerAmount;
     public Text SeedAmount;
@@ -43,7 +45,7 @@ public class UiManager : MonoBehaviour
         {
             if (_currentTime >= _maxShowTime)
             {
-                HideBanner();
+                HideGroup(BannerGroup);
             }
             else
             {
@@ -74,22 +76,28 @@ public class UiManager : MonoBehaviour
 
         BannerText.text = message;
         _maxShowTime = time;
-        ShowBanner();
+        ShowGroup(BannerGroup);
     }
 
-    private void ShowBanner()
+    public void HideStartInfo()
     {
-        BannerGroup.alpha = 1.0f;
-        BannerGroup.interactable = true;
-        BannerGroup.blocksRaycasts = true;
+        HideGroup(StartGroup);
+        ShowGroup(GameUIGroup);
+    }
+
+    private void ShowGroup(CanvasGroup c)
+    {
+        c.alpha = 1.0f;
+        c.interactable = true;
+        c.blocksRaycasts = true;
         _showingBanner = true;
     }
 
-    private void HideBanner()
+    private void HideGroup(CanvasGroup c)
     {
-        BannerGroup.alpha = 0.0f;
-        BannerGroup.interactable = false;
-        BannerGroup.blocksRaycasts = false;
+        c.alpha = 0.0f;
+        c.interactable = false;
+        c.blocksRaycasts = false;
         _showingBanner = false;
     }
     #endregion
