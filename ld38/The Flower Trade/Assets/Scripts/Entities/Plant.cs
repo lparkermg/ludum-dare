@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -56,6 +57,7 @@ public class Plant : PlantTemplate {
         _leafColour = leafColour.HasValue ? leafColour.Value : GenerateColour();
 
         _stage = PlantStage.Seed;
+        _currentTime = 0;
         CalculateTime();
     }
 
