@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 23891953661713346}
   m_Layer: 0
   m_Name: TestLevel
-  m_TagString: Untagged
+  m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1370113307668294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.3393097, z: 0}
+  m_LocalPosition: {x: 0, y: -6.4221945, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_Children:
   - {fileID: 4462901579228274}

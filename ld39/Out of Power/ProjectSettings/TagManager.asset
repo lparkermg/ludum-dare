@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ChargePoint
   - Managers
+  - Level
   layers:
   - Default
   - TransparentFX

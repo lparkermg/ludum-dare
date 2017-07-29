@@ -55,6 +55,7 @@
     <Compile Include="Assets\Scripts\Entities\ChargePoint.cs" />
     <Compile Include="Assets\Scripts\Entities\FinishPoint.cs" />
     <Compile Include="Assets\Scripts\Entities\Fortress.cs" />
+    <Compile Include="Assets\Scripts\Entities\Level.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
     <Reference Include="UnityEngine.UI">
       <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
