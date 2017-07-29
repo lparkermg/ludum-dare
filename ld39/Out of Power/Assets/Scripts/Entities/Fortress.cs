@@ -19,9 +19,6 @@ public class Fortress : MonoBehaviour
 
 	private Rigidbody _rigidbody;
 
-	private bool _inLandingArea = false;
-
-	private Vector3 _forceDirection;
 	private float _vertAxis;
 	private float _horizAxis;
 	
@@ -47,12 +44,18 @@ public class Fortress : MonoBehaviour
 
 	void OnTriggerEnter(Collider col)
 	{
-		//TODO: Detect when entered a charge point or finish area.
+		if (col.gameObject.CompareTag("ChargePoint"))
+		{
+			col.gameObject.GetComponent<ChargePoint>().SetFortress(this);
+		}
 	}
 
 	void OnTriggerExit(Collider col)
 	{
-		//TODO: Detectn when exited a charge point or finish area etc.
+		if (col.gameObject.CompareTag("ChargePoint"))
+		{
+			col.gameObject.GetComponent<ChargePoint>().SetFortress(null);
+		}
 	}
 	
 	#region Fortress Charging
@@ -89,18 +92,35 @@ public class Fortress : MonoBehaviour
 	private void MovementUpdate()
 	{
 		var currentY = transform.position.y;
-		_forceDirection = new Vector3(_horizAxis * 50.0f, 0.0f,_vertAxis * 50.0f);
+		var forceDirection = new Vector3(_horizAxis * 50.0f, 0.0f,_vertAxis * 50.0f);
 		if (currentY < 3.0f)
 		{
-			_forceDirection = new Vector3(_forceDirection.x,100.0f,_forceDirection.z);
+			forceDirection = new Vector3(forceDirection.x,100.0f,forceDirection.z);
 		}
 		
 		if (_isFlying)
 		{
-			_rigidbody.AddForce(_forceDirection,ForceMode.Force);
+			_rigidbody.AddForce(forceDirection,ForceMode.Force);
 		}
 		
 		
 	}
 	#endregion
+
+	public void SetControlability(bool finishing)
+	{
+		if (finishing)
+		{
+			_rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+			_isFlying = false;
+			_currentCharge = MaxCharge;
+		}
+	}
+
+	public void MoveToStartPoint()
+	{
+		//TODO: FInd Startpoint and move to it.
+		_rigidbody.constraints = RigidbodyConstraints.None;
+		
+	}
 }
