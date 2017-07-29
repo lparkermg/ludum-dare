@@ -37,7 +37,6 @@ public class LevelManager : MonoBehaviour
 		GameObject levelClone =
 			GameObject.Instantiate(newLevel.Prefab, new Vector3(0.0f, 0.0f, 0.0f), newLevel.Prefab.transform.rotation) as
 				GameObject;
-		fortress.MoveToStartPoint();
 	}
 	
 	

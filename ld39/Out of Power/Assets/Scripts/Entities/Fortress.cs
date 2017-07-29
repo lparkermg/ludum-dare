@@ -115,12 +115,19 @@ public class Fortress : MonoBehaviour
 			_isFlying = false;
 			_currentCharge = MaxCharge;
 		}
+		else
+		{
+			_rigidbody.constraints = RigidbodyConstraints.None;
+			MoveToStartPoint();
+		}
 	}
 
 	public void MoveToStartPoint()
 	{
-		//TODO: FInd Startpoint and move to it.
-		_rigidbody.constraints = RigidbodyConstraints.None;
+		var startPoint = GameObject.FindGameObjectWithTag("StartPoint").transform.position;
+		Debug.Log(startPoint);
+		
+		_rigidbody.MovePosition(startPoint);
 		
 	}
 }
