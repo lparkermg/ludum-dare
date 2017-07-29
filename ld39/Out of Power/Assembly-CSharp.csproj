@@ -56,7 +56,15 @@
     <Compile Include="Assets\Scripts\Entities\FinishPoint.cs" />
     <Compile Include="Assets\Scripts\Entities\Fortress.cs" />
     <Compile Include="Assets\Scripts\Entities\Level.cs" />
+    <Compile Include="Assets\Scripts\Entities\LevelSection.cs" />
+    <Compile Include="Assets\Scripts\Entities\StartPoint.cs" />
+    <Compile Include="Assets\Scripts\Helpers\CanvasGroupExtensions.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\LevelManager.cs" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
+    <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <Reference Include="UnityEngine.UI">
       <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

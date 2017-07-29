@@ -8,6 +8,8 @@ public class Fortress : MonoBehaviour
 	public float MaxCharge = 10.0f;
 	private float _currentCharge = 10.0f;
 
+	public float MovementMultiplier = 25.0f;
+
 	private bool _isFlying = false;
 	public bool IsFlying
 	{
@@ -24,16 +26,21 @@ public class Fortress : MonoBehaviour
 	
 	//Input Vars
 	private float _deadZone = 0.01f;
+	
+	//Managers
+	private GameManager _gm;
 	// Use this for initialization
 	void Start ()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
+		_gm = GameObject.FindGameObjectWithTag("Managers").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		InputCheck();
+		if(!_gm.GameOver)
+			InputCheck();
 		UpdateCharge();
 	}
 
@@ -73,7 +80,10 @@ public class Fortress : MonoBehaviour
 			_currentCharge -= Time.deltaTime; //TODO: Change to a central deltaTime at a later date.
 
 		if (_currentCharge <= 0.0f)
+		{
 			_isFlying = false;
+			_gm.ShowGameOver();
+		}
 	}
 	#endregion
 	
@@ -92,7 +102,7 @@ public class Fortress : MonoBehaviour
 	private void MovementUpdate()
 	{
 		var currentY = transform.position.y;
-		var forceDirection = new Vector3(_horizAxis * 50.0f, 0.0f,_vertAxis * 50.0f);
+		var forceDirection = new Vector3(_horizAxis * MovementMultiplier, 0.0f,_vertAxis * MovementMultiplier);
 		if (currentY < 3.0f)
 		{
 			forceDirection = new Vector3(forceDirection.x,100.0f,forceDirection.z);

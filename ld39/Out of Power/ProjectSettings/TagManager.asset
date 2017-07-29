@@ -8,6 +8,9 @@ TagManager:
   - Managers
   - Level
   - StartPoint
+  - StartSection
+  - MainSection
+  - FinishSection
   layers:
   - Default
   - TransparentFX

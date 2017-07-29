@@ -7,10 +7,13 @@ public class ChargePoint : MonoBehaviour
 	public float ChargeAmount = 10.0f;
 	public float ChargeBandwidth = 1.2f;
 
+	private ParticleSystem _particles;
+
 	private Fortress _fortress;
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+		_particles = GetComponent<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
@@ -31,7 +34,10 @@ public class ChargePoint : MonoBehaviour
 		}
 
 		if (ChargeAmount < 0.0f)
+		{
 			ChargeAmount = 0.0f;
+			_particles.Stop();
+		}
 	}
 
 	public void SetFortress(Fortress fortress)
