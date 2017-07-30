@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Fortress : MonoBehaviour
 {
-	public float MaxCharge = 10.0f;
+	public float MaxCharge = 20.0f;
 	private float _currentCharge = 10.0f;
 
 	public float MovementMultiplier = 25.0f;
@@ -23,6 +23,11 @@ public class Fortress : MonoBehaviour
 
 	private float _vertAxis;
 	private float _horizAxis;
+
+	public ParticleSystem EngineParticles;
+	public ParticleSystem DustParticles;
+
+	private bool _infinityMode = false;
 	
 	//Input Vars
 	private float _deadZone = 0.01f;
@@ -39,8 +44,8 @@ public class Fortress : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(!_gm.GameOver)
-			InputCheck();
+
+		InputCheck();
 		UpdateCharge();
 	}
 
@@ -64,7 +69,12 @@ public class Fortress : MonoBehaviour
 			col.gameObject.GetComponent<ChargePoint>().SetFortress(null);
 		}
 	}
-	
+
+	private void OnCollisionEnter(Collision other)
+	{
+		DustParticles.Emit(25);
+	}
+
 	#region Fortress Charging
 	public void AddCharge(float chargeAmount)
 	{
@@ -76,7 +86,7 @@ public class Fortress : MonoBehaviour
 
 	private void UpdateCharge()
 	{
-		if (_isFlying)
+		if (_isFlying && !_infinityMode)
 			_currentCharge -= Time.deltaTime; //TODO: Change to a central deltaTime at a later date.
 
 		if (_currentCharge <= 0.0f)
@@ -92,11 +102,39 @@ public class Fortress : MonoBehaviour
 	{
 		_vertAxis = Input.GetAxis("Vertical");
 		_horizAxis = Input.GetAxis("Horizontal");
-		
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			_infinityMode = !_infinityMode;
+		}
 		if (Input.GetButtonDown("Jump"))
 		{
-			_isFlying = !_isFlying;
+			
+			if (_gm.Started)
+			{
+				EngineParticles.Stop();
+				_isFlying = !_isFlying;
+			}
+			if (_isFlying)
+			{
+				DustParticles.Emit(25);
+				EngineParticles.Play();
+				if (!_infinityMode)
+				{
+					_rigidbody.angularVelocity = Vector3.zero;
+					_rigidbody.MoveRotation(Quaternion.Euler(Vector3.up));
+				}
+			}
+			if (_gm.GameOver || !_gm.Started)
+			{
+				_currentCharge = MaxCharge;
+				EngineParticles.Stop();
+				_isFlying = false;
+				_gm.StartGame();
+			}
 		}
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+			_gm.ExitGame();
 	}
 
 	private void MovementUpdate()

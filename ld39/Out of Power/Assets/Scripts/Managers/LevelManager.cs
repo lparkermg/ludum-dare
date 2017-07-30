@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
 		
 	}
 
-	public void LoadLevelLayout(Fortress fortress)
+	public void LoadLevelLayout(Fortress fortress,bool starting = false)
 	{
 		var levelLayout = GameObject.FindGameObjectWithTag("Level");
 
@@ -48,7 +48,8 @@ public class LevelManager : MonoBehaviour
 			GameObject.Instantiate(newLevel.LayoutPrefab, new Vector3(0.0f, 0.0f, 0.0f), newLevel.LayoutPrefab.transform.rotation) as
 				GameObject;
 		levelClone.tag = "Level";
-		_levelsCompleted++;
+		if(!starting)
+			_levelsCompleted++;
 		StartCoroutine(PopulateNewLevel(fortress));
 	}
 
@@ -86,5 +87,10 @@ public class LevelManager : MonoBehaviour
 		GameObject finishPoint = GameObject.Instantiate(FinishPoint, finishPos.transform.position,
 			finishPos.transform.rotation, finishIsland.transform) as GameObject;
 		yield return null;
+	}
+
+	public void ResetCounter()
+	{
+		_levelsCompleted = 0;
 	}
 }

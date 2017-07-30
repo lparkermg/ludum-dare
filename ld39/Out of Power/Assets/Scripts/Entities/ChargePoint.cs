@@ -27,7 +27,7 @@ public class ChargePoint : MonoBehaviour
 		if (_fortress == null)
 			return;
 
-		if (!_fortress.IsFlying && ChargeAmount > 0.0f)
+		if (ChargeAmount > 0.0f)
 		{
 			_fortress.AddCharge(ChargeAmount > ChargeBandwidth ? ChargeBandwidth : ChargeAmount);
 			ChargeAmount -= ChargeBandwidth;
