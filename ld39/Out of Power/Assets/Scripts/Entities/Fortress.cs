@@ -102,7 +102,8 @@ public class Fortress : MonoBehaviour
 	private void MovementUpdate()
 	{
 		var currentY = transform.position.y;
-		var forceDirection = new Vector3(_horizAxis * MovementMultiplier, 0.0f,_vertAxis * MovementMultiplier);
+		var forceDirection = transform.forward * (_vertAxis * MovementMultiplier);
+		var torqueDirection = new Vector3(0.0f,_horizAxis * MovementMultiplier/10.0f,0.0f);
 		if (currentY < 3.0f)
 		{
 			forceDirection = new Vector3(forceDirection.x,100.0f,forceDirection.z);
@@ -110,6 +111,7 @@ public class Fortress : MonoBehaviour
 		
 		if (_isFlying)
 		{
+			_rigidbody.AddTorque(torqueDirection,ForceMode.Force);
 			_rigidbody.AddForce(forceDirection,ForceMode.Force);
 		}
 		
@@ -128,16 +130,16 @@ public class Fortress : MonoBehaviour
 		else
 		{
 			_rigidbody.constraints = RigidbodyConstraints.None;
-			MoveToStartPoint();
+			//MoveToStartPoint();
 		}
 	}
 
-	public void MoveToStartPoint()
+	/*public void MoveToStartPoint()
 	{
 		var startPoint = GameObject.FindGameObjectWithTag("StartPoint").transform.position;
 		Debug.Log(startPoint);
 		
 		_rigidbody.MovePosition(startPoint);
 		
-	}
+	}*/
 }

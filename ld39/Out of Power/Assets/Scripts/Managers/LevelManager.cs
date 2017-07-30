@@ -43,38 +43,48 @@ public class LevelManager : MonoBehaviour
 		var levelLayout = GameObject.FindGameObjectWithTag("Level");
 
 		Destroy(levelLayout);
-		//TODO: Loop through and destroy all the islands.
 		var newLevel = Levels[Random.Range(0, Levels.Count)];
-		Debug.Log(newLevel);
 		GameObject levelClone =
 			GameObject.Instantiate(newLevel.LayoutPrefab, new Vector3(0.0f, 0.0f, 0.0f), newLevel.LayoutPrefab.transform.rotation) as
 				GameObject;
+		levelClone.tag = "Level";
 		_levelsCompleted++;
+		StartCoroutine(PopulateNewLevel(fortress));
 	}
 
-	private void PopulateNewLevel()
+	private IEnumerator PopulateNewLevel(Fortress fortress)
 	{
+		yield return null;
 		//TODO: Select a single start position and spawn an island moving the fortress to it.
 		var startPositions = GameObject.FindGameObjectsWithTag("StartSection").ToList();
 
 		var startPos = startPositions[Random.Range(0, startPositions.Count)];
-		GameObject startIsland = GameObject.Instantiate(Islands[Random.Range(0, Islands.Count)], startPos.transform.position,
-			startPos.transform.rotation) as GameObject;
+
+		var selectedStartIsland = Islands[Random.Range(0, Islands.Count)];
+		GameObject startIsland = GameObject.Instantiate(selectedStartIsland, startPos.transform.position,
+			selectedStartIsland.transform.rotation,startPos.transform) as GameObject;
+
+		fortress.gameObject.transform.position =
+			new Vector3(startPos.transform.position.x, 2.0f, startPos.transform.position.z);
 		
 		//TODO: Randomly select half of the main area spawn random islands in with a few randomly having charging points.
 		var midPositions = GameObject.FindGameObjectsWithTag("MainSection").ToList();
 		foreach (var position in midPositions)
 		{
-			GameObject midIslandClone = GameObject.Instantiate(Islands[Random.Range(0, Islands.Count)],
-				position.transform.position, position.transform.rotation) as GameObject;
-			//TODO: Add charge point here or something.
+			var island = Islands[Random.Range(0, Islands.Count)];
+			GameObject midIslandClone = GameObject.Instantiate(island,
+				position.transform.position, island.transform.rotation,position.transform) as GameObject;
+			GameObject chargePoint = GameObject.Instantiate(ChargePoint, position.transform.position,
+				position.transform.rotation, midIslandClone.transform) as GameObject;
 		}
 		//TODO: Select a single finish position and spawn an island adding the finish point to it.
 		var finishPositions = GameObject.FindGameObjectsWithTag("FinishSection").ToList();
-
 		var finishPos = finishPositions[Random.Range(0, finishPositions.Count)];
-		GameObject finishIsland = GameObject.Instantiate(Islands[Random.Range(0, Islands.Count)],
-			finishPos.transform.position, finishPos.transform.rotation) as GameObject;
-
+		var selectedFinishIsland = Islands[Random.Range(0, Islands.Count)];
+		GameObject finishIsland = GameObject.Instantiate(selectedFinishIsland,
+			finishPos.transform.position, selectedFinishIsland.transform.rotation,finishPos.transform) as GameObject;
+		GameObject finishPoint = GameObject.Instantiate(FinishPoint, finishPos.transform.position,
+			finishPos.transform.rotation, finishIsland.transform) as GameObject;
+		yield return null;
 	}
 }

@@ -30,7 +30,8 @@ public class FinishPoint : MonoBehaviour
 	private void LoadLevel(Fortress fortress)
 	{
 		fortress.SetControlability(true);
-		_levelManager.LoadNewLevel(ToLevel,fortress);
+		//_levelManager.LoadNewLevel(ToLevel,fortress);
+		_levelManager.LoadLevelLayout(fortress);
 		fortress.SetControlability(false);
 		//Sink current level
 		//Remove current level.
