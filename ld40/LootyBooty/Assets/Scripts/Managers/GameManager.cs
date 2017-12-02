@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
-
-
+public class GameManager : MonoBehaviour
+{
+    private List<Card> _uniqueLootcards = new List<Card>();
 	// Use this for initialization
 	void Start () {
 		
@@ -14,4 +14,9 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void InitialiseCards()
+    {
+        
+    }
 }
