@@ -16,11 +16,11 @@ public class TrapCard : Card {
             case (1):
                 return "Discard all your loot cards.";
             case (2):
-                return "Discard half of your loot cards.";
+                return "Discard half of your loot cards, starting from the top of your pile.";
             case (3):
-                return "Discard a third of your loot cards.";
+                return "Discard a third of your loot cards, starting from the top of your pile.";
             case (4):
-                return "Discard a quarter of you loot cards.";
+                return "Discard a quarter of you loot cards, starting from the top of your pile.";
             default:
                 return base.ToString();
         }
