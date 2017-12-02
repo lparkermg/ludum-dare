@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
 
     public void RemoveFromHand(int amount)
     {
+        if (_heldCards.Count == 0)
+            return;
         //TODO: May need to change this to use minus 1 rather than just the count.
         for (var i = 0; i < amount; i++) _heldCards.RemoveAt(_heldCards.Count);
     }

@@ -3,22 +3,29 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public static class GameManager
 {
-    private List<LootCard> _lootDeck = new List<LootCard>();
-    private List<TrapCard> _trapDeck = new List<TrapCard>();
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private static QueueList<LootCard> _lootDeck = new QueueList<LootCard>();
+    private static QueueList<TrapCard> _trapDeck = new QueueList<TrapCard>();
 
-    public void InitialiseCards()
+    public static Player[] Players;
+    public static int CurrentPlayer = 0;
+
+    public static void InitialiseCards()
     {
         
+    }
+
+    public static void InitialisePlayers()
+    {
+        
+    }
+
+    public static Card GivePlayerCard(bool isLoot)
+    {
+        if (isLoot)
+            return _lootDeck.PopFromTop();
+        else
+            return _trapDeck.PopFromTop();
     }
 }
