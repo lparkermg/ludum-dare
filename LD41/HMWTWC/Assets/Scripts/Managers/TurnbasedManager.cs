@@ -21,12 +21,26 @@ namespace Managers
 
         private bool _finishedGame = false;
 
+        private bool _readyToStart = false;
 
+        [SerializeField]
+        private GameObject _selectorObject;
+
+        //Other Managers
+        private LevelManager _levelManager;
+
+        void Start()
+        {
+            _levelManager = GetComponent<LevelManager>();
+        }
         // Update is called once per frame
         void Update()
         {
-            if (_inPlacementSelection && GameplayManager.InGame)
+            if (_inPlacementSelection && GameplayManager.InGame && !GameplayManager.InPlacementSelection)
                 TimeCheck();
+
+            if (_readyToStart && GameplayManager.LevelGenerated && !GameplayManager.InGame)
+                GameplayManager.UpdateInGame(true);
         }
 
         public bool CanSelectTile()
@@ -34,9 +48,20 @@ namespace Managers
             return _inPlacementSelection;
         }
 
+        private void InputCheck()
+        {
+            var horiz = 0.0f;
+            var vert = 0.0f;
+
+
+        }
+
         public void StartGame(List<Player> players)
         {
-            GameplayManager.UpdateInGame(true);
+            _readyToStart = true;
+            _playersInMatch = players;
+
+            // TODO: Allow player to set their starting location for the moment though randomize it.
         }
 
         private void EndGame()
@@ -73,6 +98,11 @@ namespace Managers
                 {
                     player.Move();
                     yield return null;
+                }
+
+                if (player.CurrentTile.IsTileSunk())
+                {
+                    player.BeenHugged = true;
                 }
             }
 
@@ -114,5 +144,6 @@ namespace Managers
             _inPlacementSelection = true;
             yield return null;
         }
+
     }
 }

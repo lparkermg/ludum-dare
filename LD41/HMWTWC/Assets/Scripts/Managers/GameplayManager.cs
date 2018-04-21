@@ -21,11 +21,35 @@ namespace Managers
             get { return _inGame; }
         }
 
-        private static bool _inGame;
+        private static bool _inGame = false;
+
+        public static bool LevelGenerated
+        {
+            get { return _levelGenerated; }
+        }
+
+        private static bool _levelGenerated = false;
+
+        public static bool InPlacementSelection
+        {
+            get { return _inPlacementSelection; }
+        }
+
+        private static bool _inPlacementSelection;
 
         public static void UpdateInGame(bool inGame)
         {
             _inGame = inGame;
+        }
+
+        public static void UpdateLevelGenerated(bool generated)
+        {
+            _levelGenerated = generated;
+        }
+
+        public static void UpdateInPlacementSelection(bool inSelection)
+        {
+            _inPlacementSelection = inSelection;
         }
 
         private static Names _names;
@@ -33,6 +57,14 @@ namespace Managers
         public static void Initialise(Names names)
         {
             _names = names;
+        }
+
+        public static void StartGame()
+        {
+            var managers = GameObject.FindGameObjectWithTag("Managers");
+            var players = GeneratePlayers(50);
+            managers.GetComponent<LevelManager>().InitialiseLevel(50,50,2.0f);
+            managers.GetComponent<TurnbasedManager>().StartGame(players);
         }
 
         // TODO: Add more gameplay related parts here.
@@ -44,8 +76,8 @@ namespace Managers
             {
                 var firstName = _names.FirstNames[Random.Range(0, _names.FirstNames.Count - 1)];
                 var lastName = _names.LastNames[Random.Range(0, _names.LastNames.Count - 1)];
-
-                players.Add(new Player(firstName, lastName));
+                
+                players.Add(new Player(firstName, lastName, i == 0));
             }
 
             for (var p = 0; p < players.Count - 1; p++)

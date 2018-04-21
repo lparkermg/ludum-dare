@@ -6,6 +6,7 @@ namespace Entities
 {
     public class Player
     {
+        public bool IsPlayerControlled;
         public string FirstName;
         public string LastName;
         public Player CurrentTarget;
@@ -14,7 +15,7 @@ namespace Entities
         public Tile SelectedTileForNextTurn;
         public GameObject PlayerObject;
 
-        public Player(string firstName, string lastName)
+        public Player(string firstName, string lastName, bool isPlayerControlled)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -23,6 +24,7 @@ namespace Entities
             CurrentTile = null;
             SelectedTileForNextTurn = null;
             PlayerObject = null;
+            IsPlayerControlled = isPlayerControlled;
         }
 
         public void Move()

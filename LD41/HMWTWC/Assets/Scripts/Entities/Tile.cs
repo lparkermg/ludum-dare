@@ -15,12 +15,30 @@ public class Tile : MonoBehaviour
     private Player _playerOnStandOne;
     private Player _playerOnStandTwo;
 
+    [SerializeField]
+    private GameObject _selectableArea;
+
     private int _amountTillSunk = 5;
 
     public bool IsTileSunk()
     {
         return _amountTillSunk <= 0;
-    } 
+    }
+
+    public float XLocation()
+    {
+        return _tileLocation.x;
+    }
+
+    public float YLocation()
+    {
+        return _tileLocation.y;
+    }
+
+    public void SetSelectable(bool selectable)
+    {
+        _selectableArea.SetActive(selectable);
+    }
 
     public void Initialise(int x, int y, float multiplier)
     {

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "Entities.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "SO.csproj", "{806B430A-622F-5D36-A626-AE4D0D59A3A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "Assembly-CSharp.csproj", "{075503E2-0230-A8CC-B62E-460A7EB54E07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{806B430A-622F-5D36-A626-AE4D0D59A3A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{806B430A-622F-5D36-A626-AE4D0D59A3A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{806B430A-622F-5D36-A626-AE4D0D59A3A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
