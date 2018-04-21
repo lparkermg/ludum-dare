@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Entities;
 using UnityEngine;
 
-// TODO: Make the actual tiles.
 public class Tile : MonoBehaviour
 { 
     private Vector2 _tileLocation;
@@ -17,6 +16,8 @@ public class Tile : MonoBehaviour
 
     [SerializeField]
     private GameObject _selectableArea;
+
+    private bool _initiallySelected;
 
     private int _amountTillSunk = 5;
 
@@ -33,6 +34,16 @@ public class Tile : MonoBehaviour
     public float YLocation()
     {
         return _tileLocation.y;
+    }
+
+    public bool HasBeenSelected()
+    {
+        return _initiallySelected;
+    }
+
+    public void InitiallySelectTile()
+    {
+        _initiallySelected = true;
     }
 
     public void SetSelectable(bool selectable)
@@ -54,11 +65,13 @@ public class Tile : MonoBehaviour
         {
             // TODO: Logic on if the hug is instant or if you wait a turn
             _playerOnStandTwo = player;
+            player.PlayerObject.transform.position = _playerStandTwo.position;
             // TODO: Update player game object.
         }
         else
         {
             _playerOnStandOne = player;
+            player.PlayerObject.transform.position = _playerStandOne.position;
             // TODO: Update player game object.
         }
 

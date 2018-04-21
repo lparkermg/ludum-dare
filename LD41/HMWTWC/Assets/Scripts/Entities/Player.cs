@@ -35,8 +35,18 @@ namespace Entities
                 return;
             }
 
+            var oldTile = CurrentTile;
+
             CurrentTile = SelectedTileForNextTurn;
-            // TODO: Move the player to current tile and run checks.
+
+            if (!CurrentTile.PlacePlayer(this))
+                CurrentTile = oldTile;
+        }
+
+        public void SpawnPlayerObject()
+        {
+            PlayerObject = GameObject.Instantiate(PlayerObject, Vector3.zero, PlayerObject.transform.rotation) as GameObject;
+            CurrentTile.PlacePlayer(this);
         }
     }
 }

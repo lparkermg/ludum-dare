@@ -35,7 +35,12 @@ namespace Managers
             get { return _inPlacementSelection; }
         }
 
-        private static bool _inPlacementSelection;
+        private static bool _inPlacementSelection = false;
+
+        private static Names _names;
+
+        // TODO: Change to a list once more have been made.
+        private static GameObject _playerTemplates;
 
         public static void UpdateInGame(bool inGame)
         {
@@ -52,11 +57,12 @@ namespace Managers
             _inPlacementSelection = inSelection;
         }
 
-        private static Names _names;
+        
 
-        public static void Initialise(Names names)
+        public static void Initialise(Names names, List<GameObject> playerTemplates)
         {
             _names = names;
+            _playerTemplates = playerTemplates[0];
         }
 
         public static void StartGame()
@@ -76,8 +82,10 @@ namespace Managers
             {
                 var firstName = _names.FirstNames[Random.Range(0, _names.FirstNames.Count - 1)];
                 var lastName = _names.LastNames[Random.Range(0, _names.LastNames.Count - 1)];
-                
-                players.Add(new Player(firstName, lastName, i == 0));
+                var player = new Player(firstName, lastName, i == 0);
+
+                player.PlayerObject = _playerTemplates;
+                players.Add(player);
             }
 
             for (var p = 0; p < players.Count - 1; p++)

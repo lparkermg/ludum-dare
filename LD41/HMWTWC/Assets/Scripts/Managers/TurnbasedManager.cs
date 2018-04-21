@@ -31,12 +31,12 @@ namespace Managers
 
         void Start()
         {
-            _levelManager = GetComponent<LevelManager>();
+            
         }
         // Update is called once per frame
         void Update()
         {
-            if (_inPlacementSelection && GameplayManager.InGame && !GameplayManager.InPlacementSelection)
+            if (_inPlacementSelection && GameplayManager.InGame && GameplayManager.InPlacementSelection)
                 TimeCheck();
 
             if (_readyToStart && GameplayManager.LevelGenerated && !GameplayManager.InGame)
@@ -60,8 +60,23 @@ namespace Managers
         {
             _readyToStart = true;
             _playersInMatch = players;
-
+            _levelManager = GetComponent<LevelManager>();
             // TODO: Allow player to set their starting location for the moment though randomize it.
+            var maxSizes = _levelManager.GetCurrentSize();
+            for (var p = 0; p < _playersInMatch.Count - 1; p++)
+            {
+                var randomX = Random.Range(0, (int) maxSizes.x);
+                var randomY = Random.Range(0, (int) maxSizes.y);
+
+                if (!_levelManager.TrySetInitialSpawn(randomX, randomY))
+                {
+                    p--;
+                    continue;
+                }
+
+                _playersInMatch[p].CurrentTile = _levelManager.GetTileAtLocation(randomX, randomY);
+                _playersInMatch[p].SpawnPlayerObject();
+            }
         }
 
         private void EndGame()
@@ -92,7 +107,7 @@ namespace Managers
 
         private IEnumerator TakeTurn()
         {
-            foreach (var player in _playersInMatch)
+            foreach (var player in _playersInMatch) 
             {
                 if (player.SelectedTileForNextTurn != null && !player.BeenHugged)
                 {

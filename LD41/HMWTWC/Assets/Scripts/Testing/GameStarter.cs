@@ -7,10 +7,11 @@ using UnityEngine;
 public class GameStarter : MonoBehaviour
 {
     public Names NamesList;
+    public List<GameObject> PlayerTemplates;
 
 	// Use this for initialization
 	void Start () {
-		GameplayManager.Initialise(NamesList);
+		GameplayManager.Initialise(NamesList,PlayerTemplates);
         GameplayManager.StartGame();
 	}
 	

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
+using ProBuilder.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,7 +24,7 @@ namespace Managers
         private GameObject _selectableTileObject;
 
         // TODO: Change this to exponetially get to 0.1f or something.
-        private float _levelSinkTimerMax = 0.5f;
+        private float _levelSinkTimerMax = 5f;
         private float _levelSinkTimerCurrent = 0.0f;
 
         // Use this for initialization
@@ -74,9 +75,8 @@ namespace Managers
                     var tile = placedTile.GetComponent<Tile>();
                     tile.Initialise(x, y, _multiplier);
                     _level[x, y] = tile;
-                    
+
                 }
-                yield return null;
             }
 
             GameplayManager.UpdateLevelGenerated(true);
@@ -110,6 +110,25 @@ namespace Managers
                     _level[x,y].SetSelectable(true);
 
             });
+        }
+
+        public Vector2 GetCurrentSize()
+        {
+            return new Vector2(_currentXSize,_currentYSize);
+        }
+
+        public bool TrySetInitialSpawn(int x, int y)
+        {
+            if (_level[x, y].HasBeenSelected())
+                return false;
+
+            _level[x,y].InitiallySelectTile();
+            return true;
+        }
+
+        public Tile GetTileAtLocation(int x, int y)
+        {
+            return _level[x, y];
         }
 
         // TODO: Move this to the helper namespace in a static state.
