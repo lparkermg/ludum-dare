@@ -39,7 +39,6 @@ namespace Managers
             {
                 var firstName = _firstNames[Random.Range(0, _firstNames.Count - 1)];
                 var lastName = _lastNames[Random.Range(0, _lastNames.Count - 1)];
-                var gender = (Gender) Random.Range(0, Enum.GetValues(typeof(Gender)).Length);
 
                 players.Add(new Player(firstName, lastName, gender));
             }

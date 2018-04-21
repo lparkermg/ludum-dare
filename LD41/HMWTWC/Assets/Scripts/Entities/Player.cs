@@ -8,18 +8,16 @@ namespace Entities
     {
         public string FirstName;
         public string LastName;
-        public Gender Gender;
         public Player CurrentTarget;
         public bool BeenHugged;
         public Tile CurrentTile;
         public Tile SelectedTileForNextTurn;
         public GameObject PlayerObject;
 
-        public Player(string firstName, string lastName, Gender gender)
+        public Player(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
-            Gender = gender;
             CurrentTarget = null;
             BeenHugged = false;
             CurrentTile = null;
@@ -38,14 +36,5 @@ namespace Entities
             CurrentTile = SelectedTileForNextTurn;
             // TODO: Move the player to current tile and run checks.
         }
-    }
-
-    public enum Gender
-    {
-        Male,
-        Female,
-        MtF,
-        FtM,
-        Other
     }
 }
