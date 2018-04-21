@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Entities\Player.cs" />
     <Compile Include="Assets\Scripts\Managers\GameplayManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TurnbasedManager.cs" />
     <Reference Include="com.unity.render-pipelines.core.Editor">
