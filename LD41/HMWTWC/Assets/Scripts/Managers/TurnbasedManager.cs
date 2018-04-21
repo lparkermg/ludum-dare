@@ -125,40 +125,43 @@ namespace Managers
         private IEnumerator SetupNextTurn()
         {
             Debug.Log("Setting up next turn...");
+            for (var p = 0; p < _playersInMatch.Count - 1; p++)
+            {
+
+
+                if (_playersInMatch[p].CurrentTarget == null || _playersInMatch[p].CurrentTarget.PlayerObject == null)
+                {
+                    var index = Random.Range(0, _playersInMatch.Count - 1);
+
+                    if (index == p)
+                    {
+                        p--;
+                        continue;
+                    }
+
+                    _playersInMatch[p].CurrentTarget = _playersInMatch[index];
+                }
+            }
+
             foreach (var player in _playersInMatch)
             {
-                player.PlayerDebugCheck();
+                
                 if (!player.IsPlayerControlled)
                 {
                     // Get current target position.
-                    
-                    for (var p = 0; p < _playersInMatch.Count - 1; p++)
+                    if (player.CurrentTarget != null)
                     {
-                        
-
-                        if (_playersInMatch[p].CurrentTarget == null || _playersInMatch[p].CurrentTarget.PlayerObject == null)
-                        {
-                            var index = Random.Range(0, _playersInMatch.Count - 1);
-
-                            if (index == p)
-                            {
-                                p--;
-                                continue;
-                            }
-
-                            _playersInMatch[p].CurrentTarget = _playersInMatch[index];
-                        }
+                        var targetLocation = player.CurrentTarget.CurrentTile.TileLocationInGame();
+                        var playerLocation = player.CurrentTile.TileLocationInGame();
+                        // Select a tile + or - 1 around the current position
+                        var tile = _levelManager.SelectNextTile((int) playerLocation.x, (int) playerLocation.y,
+                            (int) targetLocation.x,
+                            (int) targetLocation.y);
+                        // Set as next selected tile.
+                        player.SelectedTileForNextTurn = tile;
                     }
-
-                    var targetLocation = player.CurrentTarget.CurrentTile.TileLocationInGame();
-                    var playerLocation = player.CurrentTile.TileLocationInGame();
-                    // Select a tile + or - 1 around the current position
-                    var tile = _levelManager.SelectNextTile((int) playerLocation.x, (int) playerLocation.y,
-                        (int) targetLocation.x,
-                        (int) targetLocation.y);
-                    // Set as next selected tile.
-                    player.SelectedTileForNextTurn = tile;
                 }
+                player.PlayerDebugCheck();
 
                 yield return null;
             }

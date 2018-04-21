@@ -107,7 +107,7 @@ namespace Managers
             var tileY = (int)currentTile.YLocationInGame();
             Action2DArray(tileX - 1, tileY - 1, tileX + 1, tileY + 1, (x,y) =>
             {
-                if((x >= 0 || y >= 0 || y <= _currentYSize || x <= _currentXSize || (x != tileX && y != tileY)) && !_level[x,y].IsTileSunk())
+                if((x >= 0 || y >= 0 || y <= _currentYSize || x <= _currentXSize || (x != tileX || y != tileY)) && !_level[x,y].IsTileSunk())
                     _level[x,y].SetSelectable(true);
 
             });
@@ -125,7 +125,7 @@ namespace Managers
             {
                 //Debug.Log("X: " + x + ", Y: " + y + ", currentYSize: " + _currentYSize + ", currentXSize: " + _currentXSize + ", currentX: " + currentX + ", currentY: " + currentY);
                 if ((x >= 0 && y >= 0 && y <= _currentYSize - 1 && x <= _currentXSize - 1 &&
-                     (x != currentX && y != currentY)) && !_level[x, y].IsTileSunk())
+                     (x != currentX || y != currentY)) && !_level[x, y].IsTileSunk())
                 {
                     tileScoreX.Add(_level[x,y], x - targetX);
                     tileScoreY.Add(_level[x,y], y - targetY);
@@ -135,15 +135,16 @@ namespace Managers
             var tileX = tileScoreX.OrderBy(s => s.Value).FirstOrDefault();
 
             var tileY = tileScoreY.OrderBy(s => s.Value).FirstOrDefault();
-            /*if (tileX.Key == null)
+            if (tileX.Key == null)
             {
-                Debug.Break();
+                Debug.Log("TileX is null (" + currentX + ", " + currentY + ", " + targetX + ", " + targetY + ")");
             }
 
             if (tileY.Key == null)
             {
-                Debug.Break();
-            }*/
+                Debug.Log("TileY is null (" + currentX + ", " + currentY + ", " + targetX + ", " + targetY + ")");
+            }
+            
             return tileX.Value <= tileY.Value ? tileX.Key : tileY.Key;
         }
 
