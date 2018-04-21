@@ -1,0 +1,11 @@
+{
+    "name": "Managers",
+    "references": [
+        "Entities",
+        "SO"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

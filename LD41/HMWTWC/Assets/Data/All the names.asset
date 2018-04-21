@@ -11,5 +11,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d90f2dcaa0b4e4984b8c54518a8547, type: 3}
   m_Name: All the names
   m_EditorClassIdentifier: 
-  FirstNames: []
-  LastNames: []
+  FirstNames:
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
+  LastNames:
+  - A
+  - B
+  - C
+  - D
+  - E
+  - F
+  - G
+  - H
+  - I
+  - J
