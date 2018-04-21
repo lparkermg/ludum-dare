@@ -69,7 +69,7 @@ namespace Managers
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
             var players = GeneratePlayers(50);
-            managers.GetComponent<LevelManager>().InitialiseLevel(25,25,2.0f);
+            managers.GetComponent<LevelManager>().InitialiseLevel(10,10,2.0f);
             managers.GetComponent<TurnbasedManager>().StartGame(players);
         }
 

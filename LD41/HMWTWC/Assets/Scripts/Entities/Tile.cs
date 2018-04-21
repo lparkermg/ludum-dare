@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 { 
+    [SerializeField]
     private Vector2 _tileLocationInGame;
     [SerializeField]
     private Transform _playerStandOne;
@@ -61,10 +62,30 @@ public class Tile : MonoBehaviour
         _tileLocationInGame = new Vector2(x,y);
     }
 
+    public bool TryRemovePlayer(Player player)
+    {
+        if (_playerOnStandOne != null && player.PlayerId == _playerOnStandOne.PlayerId)
+        {
+            _playerOnStandOne = null;
+            return true;
+        }
+
+        if (_playerOnStandTwo != null && player.PlayerId == _playerOnStandTwo.PlayerId)
+        {
+            _playerOnStandTwo = null;
+            return true;
+        }
+
+        return false;
+    }
+
     public bool PlacePlayer(Player player)
     {
         if (_playerOnStandOne != null && _playerOnStandTwo != null)
+        {
+            Debug.Log("Two players on this tile (" + _tileLocationInGame.x + ", " + _tileLocationInGame.y + ")");
             return false;
+        }
 
         if (_playerOnStandOne != null)
         {

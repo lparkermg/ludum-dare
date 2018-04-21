@@ -107,6 +107,8 @@ namespace Managers
         private void FinishGame()
         {
             GameplayManager.UpdateInGame(false);
+            GameplayManager.UpdateInPlacementSelection(false);
+            Debug.Log("Victory");
 
             // TODO: Show final two remaining players and display victory UI.
         }
@@ -127,15 +129,12 @@ namespace Managers
             Debug.Log("Setting up next turn...");
             for (var p = 0; p < _playersInMatch.Count - 1; p++)
             {
-
-
                 if (_playersInMatch[p].CurrentTarget == null || _playersInMatch[p].CurrentTarget.PlayerObject == null)
                 {
                     var index = Random.Range(0, _playersInMatch.Count - 1);
 
                     if (index == p)
                     {
-                        p--;
                         continue;
                     }
 
@@ -175,6 +174,7 @@ namespace Managers
                 player.PlayerDebugCheck();
                 if (player.SelectedTileForNextTurn != null && !player.BeenHugged)
                 {
+                    Debug.Log("Moving Player.");
                     player.Move();
                    
                 }
@@ -188,7 +188,7 @@ namespace Managers
 
             var playersOutOfGame = _playersInMatch.Where(p => p.BeenHugged).ToList();
 
-            if (playersOutOfGame.Count == 2 && _playersInMatch.Count == 2)
+            if (_playersInMatch.Count <= 2)
             {
                 _finishedGame = true;
                 FinishGame();
@@ -200,6 +200,7 @@ namespace Managers
             foreach (var player in playersOutOfGame)
             {
                 // TODO: Maybe spawn particles etc?
+                player.CurrentTile.TryRemovePlayer(player);
                 Destroy(player.PlayerObject);
             }
 

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Entities
@@ -7,6 +9,7 @@ namespace Entities
     [System.Serializable]
     public class Player
     {
+        public Guid PlayerId;
         public bool IsPlayerControlled;
         public string FirstName;
         public string LastName;
@@ -18,6 +21,7 @@ namespace Entities
 
         public Player(string firstName, string lastName, bool isPlayerControlled)
         {
+            PlayerId = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             CurrentTarget = null;
@@ -55,6 +59,8 @@ namespace Entities
 
             if (!CurrentTile.PlacePlayer(this))
                 CurrentTile = oldTile;
+            else
+                oldTile.TryRemovePlayer(this);
         }
 
         public void SpawnPlayerObject()
