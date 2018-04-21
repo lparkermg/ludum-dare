@@ -17,6 +17,11 @@ public class Tile : MonoBehaviour
 
     private int _amountTillSunk = 5;
 
+    public bool IsTileSunk()
+    {
+        return _amountTillSunk <= 0;
+    } 
+
     public void Initialise(int x, int y, float multiplier)
     {
         _tileLocation = new Vector2(x * multiplier,y * multiplier);
