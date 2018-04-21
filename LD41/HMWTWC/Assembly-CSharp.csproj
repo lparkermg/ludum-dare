@@ -60,8 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Entities\Player.cs" />
+    <Compile Include="Assets\Scripts\Entities\Tile.cs" />
     <Compile Include="Assets\Scripts\Managers\GameplayManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TurnbasedManager.cs" />
+    <Compile Include="Assets\Scripts\SO\Names.cs" />
     <Reference Include="com.unity.render-pipelines.core.Editor">
       <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/com.unity.render-pipelines.core.Editor.dll</HintPath>
     </Reference>

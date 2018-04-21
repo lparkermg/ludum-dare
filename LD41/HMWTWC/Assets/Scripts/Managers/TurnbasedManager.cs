@@ -19,6 +19,8 @@ namespace Managers
 
         private bool _inPlacementSelection = false;
 
+        private bool _finishedGame = false;
+
 
         // Update is called once per frame
         void Update()
@@ -56,6 +58,13 @@ namespace Managers
             }
         }
 
+        private void FinishGame()
+        {
+            GameplayManager.UpdateInGame(false);
+
+            // TODO: Show final two remaining players and display victory UI.
+        }
+
         private IEnumerator TakeTurn()
         {
             foreach (var player in _playersInMatch)
@@ -68,6 +77,14 @@ namespace Managers
             }
 
             var playersOutOfGame = _playersInMatch.Where(p => p.BeenHugged).ToList();
+
+            if (playersOutOfGame.Count == 2 && _playersInMatch.Count == 2)
+            {
+                _finishedGame = true;
+                FinishGame();
+                yield break;
+            }
+
             _playersInMatch = _playersInMatch.Except(playersOutOfGame).ToList();
 
             foreach (var player in playersOutOfGame)

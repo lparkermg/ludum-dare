@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
+using SO;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using Random = UnityEngine.Random;
 
 namespace Managers
@@ -26,9 +28,12 @@ namespace Managers
             _inGame = inGame;
         }
 
-        // TODO: Change these to a single SO data file later.
-        private static List<string> _firstNames = new List<string>() {"Test"};
-        private static List<string> _lastNames = new List<string>() {"McTester"};
+        private static Names _names;
+
+        public static void Initialise(Names names)
+        {
+            _names = names;
+        }
 
         // TODO: Add more gameplay related parts here.
         public static List<Player> GeneratePlayers(int amount)
@@ -37,10 +42,10 @@ namespace Managers
 
             for (var i = 0; i < amount; i++)
             {
-                var firstName = _firstNames[Random.Range(0, _firstNames.Count - 1)];
-                var lastName = _lastNames[Random.Range(0, _lastNames.Count - 1)];
+                var firstName = _names.FirstNames[Random.Range(0, _names.FirstNames.Count - 1)];
+                var lastName = _names.LastNames[Random.Range(0, _names.LastNames.Count - 1)];
 
-                players.Add(new Player(firstName, lastName, gender));
+                players.Add(new Player(firstName, lastName));
             }
 
             for (var p = 0; p < players.Count - 1; p++)
