@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 { 
-    private Vector2 _tileLocation;
+    private Vector2 _tileLocationInGame;
     [SerializeField]
     private Transform _playerStandOne;
     [SerializeField]
@@ -26,14 +26,19 @@ public class Tile : MonoBehaviour
         return _amountTillSunk <= 0;
     }
 
-    public float XLocation()
+    public float XLocationInGame()
     {
-        return _tileLocation.x;
+        return _tileLocationInGame.x;
     }
 
-    public float YLocation()
+    public float YLocationInGame()
     {
-        return _tileLocation.y;
+        return _tileLocationInGame.y;
+    }
+
+    public Vector2 TileLocationInGame()
+    {
+        return _tileLocationInGame;
     }
 
     public bool HasBeenSelected()
@@ -53,7 +58,7 @@ public class Tile : MonoBehaviour
 
     public void Initialise(int x, int y, float multiplier)
     {
-        _tileLocation = new Vector2(x * multiplier,y * multiplier);
+        _tileLocationInGame = new Vector2(x,y);
     }
 
     public bool PlacePlayer(Player player)
@@ -77,6 +82,7 @@ public class Tile : MonoBehaviour
 
         if (_playerOnStandOne != null && _playerOnStandTwo != null)
         {
+            Debug.Log(_playerOnStandOne.FirstName + " " + _playerOnStandOne.LastName + " just got hugged by " + _playerOnStandTwo.FirstName + " " + _playerOnStandTwo.LastName);
             _playerOnStandOne.BeenHugged = true;
         }
 
@@ -90,7 +96,7 @@ public class Tile : MonoBehaviour
         if (_amountTillSunk <= 0)
             return true;
 
-        transform.position = new Vector3(_tileLocation.x, _amountTillSunk / 10f,_tileLocation.y);
+        transform.position = new Vector3(transform.position.x, _amountTillSunk / 10f,transform.position.z);
 
         return false;
     }

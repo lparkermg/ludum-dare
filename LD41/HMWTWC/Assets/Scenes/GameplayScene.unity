@@ -156,7 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e4d5e31f7fd0d4cbb69bf2a7c172ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxTime: 5
+  _playersInMatch: []
+  _maxTime: 0.5
+  _currentTime: 0
   _selectorObject: {fileID: 0}
 --- !u!4 &278562796
 Transform:

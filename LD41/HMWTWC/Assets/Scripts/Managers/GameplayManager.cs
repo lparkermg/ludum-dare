@@ -69,7 +69,7 @@ namespace Managers
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
             var players = GeneratePlayers(50);
-            managers.GetComponent<LevelManager>().InitialiseLevel(50,50,2.0f);
+            managers.GetComponent<LevelManager>().InitialiseLevel(25,25,2.0f);
             managers.GetComponent<TurnbasedManager>().StartGame(players);
         }
 
@@ -82,7 +82,7 @@ namespace Managers
             {
                 var firstName = _names.FirstNames[Random.Range(0, _names.FirstNames.Count - 1)];
                 var lastName = _names.LastNames[Random.Range(0, _names.LastNames.Count - 1)];
-                var player = new Player(firstName, lastName, i == 0);
+                var player = new Player(firstName, lastName, false);
 
                 player.PlayerObject = _playerTemplates;
                 players.Add(player);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Entities;
 using ProBuilder.Core;
 using UnityEngine;
@@ -102,14 +103,48 @@ namespace Managers
         private void ShowSelectableArea(Player player)
         {
             var currentTile = player.CurrentTile;
-            var tileX = (int)currentTile.XLocation();
-            var tileY = (int)currentTile.YLocation();
+            var tileX = (int)currentTile.XLocationInGame();
+            var tileY = (int)currentTile.YLocationInGame();
             Action2DArray(tileX - 1, tileY - 1, tileX + 1, tileY + 1, (x,y) =>
             {
                 if((x >= 0 || y >= 0 || y <= _currentYSize || x <= _currentXSize || (x != tileX && y != tileY)) && !_level[x,y].IsTileSunk())
                     _level[x,y].SetSelectable(true);
 
             });
+        }
+
+        public Tile SelectNextTile(int currentX, int currentY, int targetX, int targetY,
+            bool divideByMultiplier = true)
+        {
+            Dictionary<Tile, int> tileScoreX = new Dictionary<Tile, int>();
+            Dictionary<Tile, int> tileScoreY = new Dictionary<Tile, int>();
+
+            var divideBy = divideByMultiplier ? _multiplier : 1.0f;
+
+            Action2DArray(currentX - 1, currentY - 1, currentX + 1, currentY + 1, (x, y) =>
+            {
+                //Debug.Log("X: " + x + ", Y: " + y + ", currentYSize: " + _currentYSize + ", currentXSize: " + _currentXSize + ", currentX: " + currentX + ", currentY: " + currentY);
+                if ((x >= 0 && y >= 0 && y <= _currentYSize - 1 && x <= _currentXSize - 1 &&
+                     (x != currentX && y != currentY)) && !_level[x, y].IsTileSunk())
+                {
+                    tileScoreX.Add(_level[x,y], x - targetX);
+                    tileScoreY.Add(_level[x,y], y - targetY);
+                }
+            });
+
+            var tileX = tileScoreX.OrderBy(s => s.Value).FirstOrDefault();
+
+            var tileY = tileScoreY.OrderBy(s => s.Value).FirstOrDefault();
+            /*if (tileX.Key == null)
+            {
+                Debug.Break();
+            }
+
+            if (tileY.Key == null)
+            {
+                Debug.Break();
+            }*/
+            return tileX.Value <= tileY.Value ? tileX.Key : tileY.Key;
         }
 
         public Vector2 GetCurrentSize()

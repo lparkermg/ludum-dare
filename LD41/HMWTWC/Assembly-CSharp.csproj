@@ -60,6 +60,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Testing\GameStarter.cs" />
+    <Reference Include="Cinemachine">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ProBuilder.AddOns.Editor">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="com.unity.render-pipelines.core.Editor">
       <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/com.unity.render-pipelines.core.Editor.dll</HintPath>
     </Reference>
@@ -84,20 +90,14 @@
     <Reference Include="com.unity.postprocessing.Runtime">
       <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/com.unity.postprocessing.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine.Editor">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Cinemachine.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.render-pipelines.core.IncludePaths">
       <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/com.unity.render-pipelines.core.IncludePaths.dll</HintPath>
-    </Reference>
-    <Reference Include="Cinemachine">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
-    </Reference>
-    <Reference Include="Cinemachine.Editor">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Cinemachine.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.ProBuilder.AddOns.Editor">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>E:/Programs/Unity/Unity-2018.1.0b13/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -303,26 +303,26 @@
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Purchasing">
-      <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.1/UnityEngine.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="KdTreeLib">
-      <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.6/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
-    </Reference>
     <Reference Include="ProBuilderCore">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.6/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderMeshOps">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.6/ProBuilder/Classes/ProBuilderMeshOps.dll</HintPath>
     </Reference>
+    <Reference Include="KdTreeLib">
+      <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.6/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+    </Reference>
     <Reference Include="pb_Stl">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.6/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
     </Reference>
     <Reference Include="Poly2Tri">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.6/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Purchasing">
+      <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.1/UnityEngine.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StandardEvents">
+      <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Programs/Unity/Unity-2018.1.0b13/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
@@ -357,13 +357,13 @@
       <Project>{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}</Project>
       <Name>Managers</Name>
     </ProjectReference>
-    <ProjectReference Include="Entities.csproj">
-      <Project>{04D45F00-5130-F89C-F572-2F112128111B}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="SO.csproj">
       <Project>{806B430A-622F-5D36-A626-AE4D0D59A3A5}</Project>
       <Name>SO</Name>
+    </ProjectReference>
+    <ProjectReference Include="Entities.csproj">
+      <Project>{04D45F00-5130-F89C-F572-2F112128111B}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

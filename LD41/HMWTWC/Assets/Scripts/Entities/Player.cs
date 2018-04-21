@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Entities
 {
+    [System.Serializable]
     public class Player
     {
         public bool IsPlayerControlled;
@@ -25,10 +26,23 @@ namespace Entities
             SelectedTileForNextTurn = null;
             PlayerObject = null;
             IsPlayerControlled = isPlayerControlled;
+           
+        }
+
+        public void PlayerDebugCheck()
+        {
+            var targetString = "Nope";
+            if (CurrentTarget != null)
+            {
+                targetString = CurrentTarget.PlayerObject != null ? "Yep, with a GO..." : "Yep, but with no GO";
+            }
+
+            Debug.Log("Name: " + FirstName + " " + LastName + ", Has Target: " + targetString + ", Has CurrentTile: " + (CurrentTile != null) + ", Selected A Tile? " + (SelectedTileForNextTurn != null));
         }
 
         public void Move()
         {
+            
             if (PlayerObject == null)
             {
                 Debug.LogError("GameObject hasn't been attached to the player yet.");
@@ -48,5 +62,16 @@ namespace Entities
             PlayerObject = GameObject.Instantiate(PlayerObject, Vector3.zero, PlayerObject.transform.rotation) as GameObject;
             CurrentTile.PlacePlayer(this);
         }
+
+        public Vector2 GetCurrentPosition()
+        {
+            return CurrentTile.TileLocationInGame();
+        }
+
+        public void SelectNextTile(Tile tile)
+        {
+            SelectedTileForNextTurn = tile;
+        }
+
     }
 }
