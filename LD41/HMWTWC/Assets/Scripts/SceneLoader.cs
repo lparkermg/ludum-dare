@@ -23,6 +23,9 @@ public class SceneLoader : MonoBehaviour
     private void InputCheck()
     {
         var select = _player.GetButtonDown("Select");
+        var exit = _player.GetButtonDown("Exit");
+        if (exit)
+            Application.Quit();
 
         if (select)
             SceneManager.LoadScene(1);

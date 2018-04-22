@@ -60,6 +60,10 @@ namespace Managers
                 GameplayManager.UpdateInGame(true);
                 GameplayManager.UpdateInPlacementSelection(true);
             }
+
+            var exit = _player.GetButtonDown("Exit");
+            if(exit)
+                Application.Quit();
         }
 
         public bool CanSelectTile()
@@ -308,7 +312,7 @@ namespace Managers
             foreach (var player in playersOutOfGame)
             {
                 // TODO: Maybe spawn particles etc?
-                player.CurrentTile.TryRemovePlayer(player);
+                player.CurrentTile.RemovePlayer(player);
                 Destroy(player.PlayerObject);
             }
 

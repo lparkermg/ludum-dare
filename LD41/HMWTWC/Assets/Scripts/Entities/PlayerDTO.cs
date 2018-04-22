@@ -61,7 +61,7 @@ namespace Entities
             if (!CurrentTile.PlacePlayer(this))
                 CurrentTile = oldTile;
             else
-                oldTile.TryRemovePlayer(this);
+                oldTile.RemovePlayer(this);
         }
 
         public void SpawnPlayerObject()

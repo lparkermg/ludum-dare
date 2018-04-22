@@ -62,21 +62,17 @@ public class Tile : MonoBehaviour
         _tileLocationInGame = new Vector2(x,y);
     }
 
-    public bool TryRemovePlayer(PlayerDTO playerDto)
+    public void RemovePlayer(PlayerDTO playerDto)
     {
         if (_playerDtoOnStandOne != null && playerDto.PlayerId == _playerDtoOnStandOne.PlayerId)
         {
             _playerDtoOnStandOne = null;
-            return true;
         }
 
         if (_playerDtoOnStandTwo != null && playerDto.PlayerId == _playerDtoOnStandTwo.PlayerId)
         {
             _playerDtoOnStandTwo = null;
-            return true;
         }
-
-        return false;
     }
 
     public bool PlacePlayer(PlayerDTO playerDto)
@@ -89,21 +85,17 @@ public class Tile : MonoBehaviour
 
         if (_playerDtoOnStandOne != null)
         {
-            // TODO: Logic on if the hug is instant or if you wait a turn
             _playerDtoOnStandTwo = playerDto;
             playerDto.PlayerObject.transform.position = _playerStandTwo.position;
-            // TODO: Update player game object.
         }
         else
         {
             _playerDtoOnStandOne = playerDto;
             playerDto.PlayerObject.transform.position = _playerStandOne.position;
-            // TODO: Update player game object.
         }
 
         if (_playerDtoOnStandOne != null && _playerDtoOnStandTwo != null)
         {
-            Debug.Log(_playerDtoOnStandOne.FirstName + " " + _playerDtoOnStandOne.LastName + " just got hugged by " + _playerDtoOnStandTwo.FirstName + " " + _playerDtoOnStandTwo.LastName);
             _playerDtoOnStandOne.BeenHugged = true;
         }
 
