@@ -312,6 +312,15 @@
     <Reference Include="UnityEditor.Facebook.Extensions">
       <HintPath>E:/Programs/Unity/Unity-2018.1.0b13/Editor/Data/PlaybackEngines/Facebook/UnityEditor.Facebook.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Rewired_Editor">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Core">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows_Lib">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Windows_Lib.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/ProgramData/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.4/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -359,15 +368,6 @@
     </Reference>
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
-    </Reference>
-    <Reference Include="Rewired_Core">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Rewired_Windows_Lib">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Windows_Lib.dll</HintPath>
-    </Reference>
-    <Reference Include="Rewired_Editor">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD41/HMWTWC/Assets/Rewired/Internal/Libraries/Editor/Rewired_Editor.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Programs/Unity/Unity-2018.1.0b13/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

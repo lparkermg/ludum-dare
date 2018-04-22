@@ -143,7 +143,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _availableTiles:
-  - {fileID: 1471102289498902, guid: e32ea2043d88a774d9c96010ab4a2845, type: 2}
+  - {fileID: 1023544984542170, guid: 14cd40de2480eeb489d68f0f2b4373e1, type: 2}
+  - {fileID: 1310995089645490, guid: a5979b36457079a4789da80145ecc3d2, type: 2}
+  - {fileID: 1211924373406732, guid: a23f5b9d4a6c4f448b86448a8ff96ee1, type: 2}
+  - {fileID: 1083523624750342, guid: 5a55940d1bf1d3b4c9e0e585893b9486, type: 2}
+  - {fileID: 1160694561119320, guid: 654c3bae8ffac164cb488452b67a5a34, type: 2}
+  - {fileID: 1532135010836160, guid: 51c9f9d23a1e84f46bafdad6e7180547, type: 2}
+  - {fileID: 1502928710392396, guid: 85a99abc73ed0e949b19e75cb3c10826, type: 2}
+  - {fileID: 1545087861331610, guid: 979c4a445f9f8b94d87cb164fe83815a, type: 2}
+  - {fileID: 1107314510799282, guid: 1e5f19925be940b43acd45bbfa5183ec, type: 2}
+  - {fileID: 1755770570094538, guid: 4c580b3f440835846b0f7ed7180d7573, type: 2}
+  - {fileID: 1943375658380410, guid: c3732ea5dc0cf024e823d5642e56ea56, type: 2}
+  - {fileID: 1439129920676874, guid: 6887773321f6681469e8b37cbc6957fd, type: 2}
   _selectableTileObject: {fileID: 1769013760741726, guid: 7205350b7ccad6f47a72de298aefa011,
     type: 2}
 --- !u!114 &278562795
@@ -188,7 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NamesList: {fileID: 11400000, guid: dab7ba659f7ea9c4789d58d7dba20507, type: 2}
   PlayerTemplates:
-  - {fileID: 1238158355270764, guid: bb493e161e1a3374d8bfc175da28a7b7, type: 2}
+  - {fileID: 1321233892517888, guid: e530b6439d0fcf8478b138bd39dd44b1, type: 2}
+  - {fileID: 1226006514759706, guid: 0e599d2bee39da4498ec403b5e3dc3d6, type: 2}
 --- !u!1 &699253131
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "Managers.csproj", "{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "Assembly-CSharp.csproj", "{075503E2-0230-A8CC-B62E-460A7EB54E07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "Managers.csproj", "{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMWTWC", "Entities.csproj", "{04D45F00-5130-F89C-F572-2F112128111B}"
 EndProject
@@ -17,14 +17,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{075503E2-0230-A8CC-B62E-460A7EB54E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{04D45F00-5130-F89C-F572-2F112128111B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04D45F00-5130-F89C-F572-2F112128111B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04D45F00-5130-F89C-F572-2F112128111B}.Release|Any CPU.ActiveCfg = Release|Any CPU
