@@ -12,8 +12,8 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private Transform _playerStandTwo;
     private bool _isPlayerOnTile;
-    private Player _playerOnStandOne;
-    private Player _playerOnStandTwo;
+    private PlayerDTO _playerDtoOnStandOne;
+    private PlayerDTO _playerDtoOnStandTwo;
 
     [SerializeField]
     private GameObject _selectableArea;
@@ -62,49 +62,49 @@ public class Tile : MonoBehaviour
         _tileLocationInGame = new Vector2(x,y);
     }
 
-    public bool TryRemovePlayer(Player player)
+    public bool TryRemovePlayer(PlayerDTO playerDto)
     {
-        if (_playerOnStandOne != null && player.PlayerId == _playerOnStandOne.PlayerId)
+        if (_playerDtoOnStandOne != null && playerDto.PlayerId == _playerDtoOnStandOne.PlayerId)
         {
-            _playerOnStandOne = null;
+            _playerDtoOnStandOne = null;
             return true;
         }
 
-        if (_playerOnStandTwo != null && player.PlayerId == _playerOnStandTwo.PlayerId)
+        if (_playerDtoOnStandTwo != null && playerDto.PlayerId == _playerDtoOnStandTwo.PlayerId)
         {
-            _playerOnStandTwo = null;
+            _playerDtoOnStandTwo = null;
             return true;
         }
 
         return false;
     }
 
-    public bool PlacePlayer(Player player)
+    public bool PlacePlayer(PlayerDTO playerDto)
     {
-        if (_playerOnStandOne != null && _playerOnStandTwo != null)
+        if (_playerDtoOnStandOne != null && _playerDtoOnStandTwo != null)
         {
             Debug.Log("Two players on this tile (" + _tileLocationInGame.x + ", " + _tileLocationInGame.y + ")");
             return false;
         }
 
-        if (_playerOnStandOne != null)
+        if (_playerDtoOnStandOne != null)
         {
             // TODO: Logic on if the hug is instant or if you wait a turn
-            _playerOnStandTwo = player;
-            player.PlayerObject.transform.position = _playerStandTwo.position;
+            _playerDtoOnStandTwo = playerDto;
+            playerDto.PlayerObject.transform.position = _playerStandTwo.position;
             // TODO: Update player game object.
         }
         else
         {
-            _playerOnStandOne = player;
-            player.PlayerObject.transform.position = _playerStandOne.position;
+            _playerDtoOnStandOne = playerDto;
+            playerDto.PlayerObject.transform.position = _playerStandOne.position;
             // TODO: Update player game object.
         }
 
-        if (_playerOnStandOne != null && _playerOnStandTwo != null)
+        if (_playerDtoOnStandOne != null && _playerDtoOnStandTwo != null)
         {
-            Debug.Log(_playerOnStandOne.FirstName + " " + _playerOnStandOne.LastName + " just got hugged by " + _playerOnStandTwo.FirstName + " " + _playerOnStandTwo.LastName);
-            _playerOnStandOne.BeenHugged = true;
+            Debug.Log(_playerDtoOnStandOne.FirstName + " " + _playerDtoOnStandOne.LastName + " just got hugged by " + _playerDtoOnStandTwo.FirstName + " " + _playerDtoOnStandTwo.LastName);
+            _playerDtoOnStandOne.BeenHugged = true;
         }
 
         return true;

@@ -7,19 +7,19 @@ using UnityEngine;
 namespace Entities
 {
     [System.Serializable]
-    public class Player
+    public class PlayerDTO
     {
         public Guid PlayerId;
         public bool IsPlayerControlled;
         public string FirstName;
         public string LastName;
-        public Player CurrentTarget;
+        public PlayerDTO CurrentTarget;
         public bool BeenHugged;
         public Tile CurrentTile;
         public Tile SelectedTileForNextTurn;
         public GameObject PlayerObject;
 
-        public Player(string firstName, string lastName, bool isPlayerControlled)
+        public PlayerDTO(string firstName, string lastName, bool isPlayerControlled)
         {
             PlayerId = Guid.NewGuid();
             FirstName = firstName;
@@ -41,7 +41,8 @@ namespace Entities
                 targetString = CurrentTarget.PlayerObject != null ? "Yep, with a GO..." : "Yep, but with no GO";
             }
 
-            Debug.Log("Name: " + FirstName + " " + LastName + ", Has Target: " + targetString + ", Has CurrentTile: " + (CurrentTile != null) + ", Selected A Tile? " + (SelectedTileForNextTurn != null));
+            if(IsPlayerControlled)
+                Debug.Log("Name: " + FirstName + " " + LastName + ", Has Target: " + targetString + ", Has CurrentTile: " + (CurrentTile != null) + ", Selected A Tile? " + (SelectedTileForNextTurn != null));
         }
 
         public void Move()

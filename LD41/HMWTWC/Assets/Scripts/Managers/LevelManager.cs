@@ -64,6 +64,11 @@ namespace Managers
             StartCoroutine(BuildLevel());
         }
 
+        public float GetMultiplier()
+        {
+            return _multiplier;
+        }
+
         private IEnumerator BuildLevel()
         {
             for (var x = 0; x < _currentXSize; x++)
@@ -100,17 +105,24 @@ namespace Managers
             yield return null;
         }
 
-        private void ShowSelectableArea(Player player)
+        public List<Vector2> ShowSelectableArea(PlayerDTO playerDto, bool showParticles = false)
         {
-            var currentTile = player.CurrentTile;
+            var selectableArea = new List<Vector2>();
+            var currentTile = playerDto.CurrentTile;
             var tileX = (int)currentTile.XLocationInGame();
             var tileY = (int)currentTile.YLocationInGame();
             Action2DArray(tileX - 1, tileY - 1, tileX + 1, tileY + 1, (x,y) =>
             {
-                if((x >= 0 || y >= 0 || y <= _currentYSize || x <= _currentXSize || (x != tileX || y != tileY)) && !_level[x,y].IsTileSunk())
-                    _level[x,y].SetSelectable(true);
-
+                if ((x >= 0 || y >= 0 || y <= _currentYSize || x <= _currentXSize || (x != tileX || y != tileY)) &&
+                    !_level[x, y].IsTileSunk())
+                {
+                    selectableArea.Add(new Vector2((x - tileX)/2.0f,(y - tileY)/2.0f));
+                    if(showParticles)
+                        _level[x, y].SetSelectable(true);
+                }
             });
+
+            return selectableArea;
         }
 
         public Tile SelectNextTile(int currentX, int currentY, int targetX, int targetY,
@@ -165,6 +177,14 @@ namespace Managers
         public Tile GetTileAtLocation(int x, int y)
         {
             return _level[x, y];
+        }
+
+        public void ResetSelectionVisuals()
+        {
+            Action2DArray(0,0,_currentXSize,_currentYSize, (x, y) =>
+            {
+                _level[x,y].SetSelectable(false);
+            });
         }
 
         // TODO: Move this to the helper namespace in a static state.

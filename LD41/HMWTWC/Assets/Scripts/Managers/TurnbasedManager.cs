@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Entities;
 using Managers;
+using Rewired;
 using UnityEngine;
 
 namespace Managers
@@ -11,7 +12,7 @@ namespace Managers
     {
         // Players
         [SerializeField]
-        private List<Player> _playersInMatch;
+        private List<PlayerDTO> _playersInMatch;
 
         // Turn countdown.
         [SerializeField] private float _maxTime = 5.0f;
@@ -30,15 +31,21 @@ namespace Managers
         //Other Managers
         private LevelManager _levelManager;
 
+        private Player _player;
+
         void Start()
         {
+            _player = ReInput.players.GetPlayer(0);
             
         }
         // Update is called once per frame
         void Update()
         {
             if (GameplayManager.InGame && GameplayManager.InPlacementSelection)
+            {
                 TimeCheck();
+                InputCheck();
+            }
 
             if (_readyToStart && GameplayManager.LevelGenerated && !GameplayManager.InGame)
             {
@@ -54,13 +61,91 @@ namespace Managers
 
         private void InputCheck()
         {
-            var horiz = 0.0f;
-            var vert = 0.0f;
+            var multiplier = _levelManager.GetMultiplier();
+            if (!GameplayManager.InPlacementSelection)
+                return;
 
+            var playerControlled = _playersInMatch.SingleOrDefault(p => p.IsPlayerControlled);
+
+            if (playerControlled == null)
+                return;
+
+            var selectableList = _levelManager.ShowSelectableArea(playerControlled,true);
+
+            var selectionLocation = _player.GetAxis2D("Horizontal", "Vertical");
+            var select = _player.GetButtonDown("Select");
+            var back = _player.GetButtonDown("Back");
+
+            if (selectionLocation.x != 0.0f && selectionLocation.y != 0.0f)
+                _selectorObject.SetActive(true);
+
+            var selectedX = 0;
+            var selectedY = 0;
+            var canSelect = false;
+
+            if (selectionLocation.x >= 0.25f)
+            {
+                _selectorObject.transform.position = new Vector3(_selectorObject.transform.position.x + multiplier,
+                    _selectorObject.transform.position.y, _selectorObject.transform.position.z);
+                selectedX = 1;
+                canSelect = true;
+            }
+
+            if (selectionLocation.x <= -0.25f)
+            {
+                _selectorObject.transform.position = new Vector3(_selectorObject.transform.position.x - multiplier,
+                    _selectorObject.transform.position.y, _selectorObject.transform.position.z);
+                selectedX = -1;
+                canSelect = true;
+            }
+
+
+            if (selectionLocation.y >= 0.25f)
+            {
+                _selectorObject.transform.position = new Vector3(_selectorObject.transform.position.x,
+                    _selectorObject.transform.position.y, _selectorObject.transform.position.z + multiplier);
+                selectedY = 1;
+                canSelect = true;
+            }
+
+
+            if (selectionLocation.y <= -0.25f)
+            {
+                _selectorObject.transform.position = new Vector3(_selectorObject.transform.position.x,
+                    _selectorObject.transform.position.y, _selectorObject.transform.position.z - multiplier);
+                selectedY = -1;
+                canSelect = true;
+            }
+
+            if (selectionLocation.x == 0.0f)
+            {
+                selectedX = 0;
+                if (selectedY == 0)
+                {
+                    _selectorObject.transform.position = playerControlled.CurrentTile.gameObject.transform.position;
+                    canSelect = false;
+                }
+            }
+
+            if (selectionLocation.y == 0.0f)
+            {
+                selectedY = 0;
+                if (selectedX == 0)
+                {
+                    _selectorObject.transform.position = playerControlled.CurrentTile.gameObject.transform.position;
+                    canSelect = false;
+                }
+            }
+
+            if (select && canSelect)
+            {
+                 var tilePos = playerControlled.CurrentTile.TileLocationInGame();
+                playerControlled.SelectNextTile(_levelManager.GetTileAtLocation((int)tilePos.x + selectedX,(int)tilePos.y + selectedY));
+            }
 
         }
 
-        public void StartGame(List<Player> players)
+        public void StartGame(List<PlayerDTO> players)
         {
             _readyToStart = true;
             _playersInMatch = players;
@@ -168,13 +253,15 @@ namespace Managers
 
         private IEnumerator TakeTurn()
         {
+            _levelManager.ResetSelectionVisuals();
             Debug.Log("Taking Turn...");
             foreach (var player in _playersInMatch) 
             {
                 player.PlayerDebugCheck();
-                if (player.SelectedTileForNextTurn != null && !player.BeenHugged)
+                if (player.SelectedTileForNextTurn != null && !player.BeenHugged && !player.CurrentTile != player.SelectedTileForNextTurn)
                 {
-                    Debug.Log("Moving Player.");
+                    if(player.IsPlayerControlled)
+                        Debug.Log("Moving Player.");
                     player.Move();
                    
                 }

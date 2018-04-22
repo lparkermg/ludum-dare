@@ -69,20 +69,24 @@ namespace Managers
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
             var players = GeneratePlayers(50);
-            managers.GetComponent<LevelManager>().InitialiseLevel(10,10,2.0f);
+            managers.GetComponent<LevelManager>().InitialiseLevel(50,50,2.0f);
             managers.GetComponent<TurnbasedManager>().StartGame(players);
         }
 
         // TODO: Add more gameplay related parts here.
-        public static List<Player> GeneratePlayers(int amount)
+        public static List<PlayerDTO> GeneratePlayers(int amount)
         {
-            var players = new List<Player>();
+            var players = new List<PlayerDTO>();
 
             for (var i = 0; i < amount; i++)
             {
+                
                 var firstName = _names.FirstNames[Random.Range(0, _names.FirstNames.Count - 1)];
                 var lastName = _names.LastNames[Random.Range(0, _names.LastNames.Count - 1)];
-                var player = new Player(firstName, lastName, false);
+                var player = new PlayerDTO(firstName, lastName, false);
+
+                if (i == 0)
+                    player.IsPlayerControlled = true;
 
                 player.PlayerObject = _playerTemplates;
                 players.Add(player);
