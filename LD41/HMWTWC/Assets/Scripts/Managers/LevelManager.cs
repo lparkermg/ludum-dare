@@ -28,6 +28,8 @@ namespace Managers
         private float _levelSinkTimerMax = 10f;
         private float _levelSinkTimerCurrent = 0.0f;
 
+        private bool _sinkInProgress = false;
+
         // Use this for initialization
         void Start()
         {
@@ -43,14 +45,13 @@ namespace Managers
 
         private void TimeCheck()
         {
-            if (_levelSinkTimerCurrent >= _levelSinkTimerMax)
+            if (_levelSinkTimerCurrent <= 0.0f && !_sinkInProgress)
             {
                 StartCoroutine(UpdateLevel());
-                _levelSinkTimerCurrent = 0.0f;
             }
             else
             {
-                _levelSinkTimerCurrent = _levelSinkTimerCurrent + GameplayManager.DeltaTime;
+                _levelSinkTimerCurrent = _levelSinkTimerCurrent - GameplayManager.DeltaTime;
             }
         }
 
@@ -67,6 +68,11 @@ namespace Managers
         public float GetMultiplier()
         {
             return _multiplier;
+        }
+
+        public float GetCurrentSinkTime()
+        {
+            return _levelSinkTimerCurrent;
         }
 
         private IEnumerator BuildLevel()
@@ -91,6 +97,7 @@ namespace Managers
 
         private IEnumerator UpdateLevel()
         {
+            _sinkInProgress = true;
             Action2DArray(0,0,_currentXSize, _currentYSize, (x, y) =>
             {
                 var shouldSink = Random.Range(0, 1000) % 10 == 1;
@@ -104,8 +111,12 @@ namespace Managers
             });
 
             if (_levelSinkTimerMax > 0.5f)
+            {
                 _levelSinkTimerMax = _levelSinkTimerMax / 1.1f;
+                _levelSinkTimerCurrent = _levelSinkTimerMax;
+            }
 
+            _sinkInProgress = false;
             yield return null;
         }
 

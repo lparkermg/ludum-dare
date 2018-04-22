@@ -5,6 +5,7 @@ using Entities;
 using Managers;
 using Rewired;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -31,23 +32,30 @@ namespace Managers
         //Other Managers
         private LevelManager _levelManager;
 
+        private UIManager _uiManager;
+
         private Player _player;
 
         void Start()
         {
             _player = ReInput.players.GetPlayer(0);
-            
+            _uiManager = GetComponent<UIManager>();
+
         }
         // Update is called once per frame
         void Update()
         {
-            if (GameplayManager.InGame && GameplayManager.InPlacementSelection)
+            if (GameplayManager.InGame && GameplayManager.InPlacementSelection && !_finishedGame)
             {
                 TimeCheck();
                 InputCheck();
             }
+            else if (_finishedGame && !GameplayManager.InGame)
+            {
+                FinishInputCheck();
+            }
 
-            if (_readyToStart && GameplayManager.LevelGenerated && !GameplayManager.InGame)
+            if (_readyToStart && GameplayManager.LevelGenerated && !GameplayManager.InGame && !_finishedGame)
             {
                 GameplayManager.UpdateInGame(true);
                 GameplayManager.UpdateInPlacementSelection(true);
@@ -154,8 +162,8 @@ namespace Managers
             var maxSizes = _levelManager.GetCurrentSize();
             for (var p = 0; p < _playersInMatch.Count; p++)
             {
-                var randomX = Random.Range(0, (int) maxSizes.x);
-                var randomY = Random.Range(0, (int) maxSizes.y);
+                var randomX = Random.Range(1, (int) maxSizes.x - 1);
+                var randomY = Random.Range(1, (int) maxSizes.y - 1);
 
                 if (!_levelManager.TrySetInitialSpawn(randomX, randomY))
                 {
@@ -172,25 +180,37 @@ namespace Managers
 
         private void TimeCheck()
         {
-            if (_currentTime >= _maxTime)
+            if (_currentTime <= 0.0f)
             {
                 GameplayManager.UpdateInPlacementSelection(false);
                 StartCoroutine(TakeTurn());
-                _currentTime = 0.0f;
+                _currentTime = _maxTime;
             }
             else
             {
-                _currentTime = _currentTime + GameplayManager.DeltaTime;
+                _currentTime = _currentTime - GameplayManager.DeltaTime;
             }
+
+            _uiManager.UpdateGameHud(_currentTime, _levelManager.GetCurrentSinkTime());
         }
 
-        private void FinishGame()
+        private void FinishGame(bool victory, string message)
         {
+            _finishedGame = true;
             GameplayManager.UpdateInGame(false);
             GameplayManager.UpdateInPlacementSelection(false);
-            Debug.Log("Victory");
+
+            _uiManager.ShowFinishCanvas(message);
 
             // TODO: Show final two remaining players and display victory UI.
+        }
+
+        private void FinishInputCheck()
+        {
+            var select = _player.GetButtonDown("Select");
+
+            if (select)
+                SceneManager.LoadScene(0);
         }
 
         /*void OnDrawGizmos()
@@ -264,6 +284,11 @@ namespace Managers
                 if (player.CurrentTile != null && player.CurrentTile.IsTileSunk())
                 {
                     Debug.Log(player.FirstName + " " + player.LastName + " Hugged the water.");
+                    if (player.IsPlayerControlled)
+                    {
+                        _finishedGame = true;
+                        FinishGame(false, "It's a watery end for you " + player.FirstName + " " + player.LastName + ".");
+                    }
                     player.BeenHugged = true;
                 }
             }
@@ -272,8 +297,9 @@ namespace Managers
 
             if (_playersInMatch.Count <= 2)
             {
+                var player = _playersInMatch.SingleOrDefault(p => p.IsPlayerControlled);
                 _finishedGame = true;
-                FinishGame();
+                FinishGame(true, "Congratulations!\n " + player.FirstName + " " + player.LastName + " You and one other are managed to be the last two remaining and hugged it out until the world collapsed around you.");
                 yield break;
             }
 
@@ -286,8 +312,11 @@ namespace Managers
                 Destroy(player.PlayerObject);
             }
 
-            // TODO: Duplicate code... Merge into one area later on.
-           
+            var controlledPlayer = _playersInMatch.SingleOrDefault(p => p.IsPlayerControlled);
+            
+            if(controlledPlayer == null)
+                FinishGame(false, "You got hugged!\nBut don't fret, there could be worse ways to go.");
+
 
             GameplayManager.UpdateInPlacementSelection(true);
             StartCoroutine(SetupNextTurn());

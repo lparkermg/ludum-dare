@@ -65,11 +65,11 @@ namespace Managers
             _playerTemplates = playerTemplates;
         }
 
-        public static void StartGame()
+        public static void StartGame(int numOfPlayers)
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
-            var players = GeneratePlayers(50);
-            managers.GetComponent<LevelManager>().InitialiseLevel(10,10,2.0f);
+            var players = GeneratePlayers(numOfPlayers);
+            managers.GetComponent<LevelManager>().InitialiseLevel(25,25,2.0f);
             managers.GetComponent<TurnbasedManager>().StartGame(players);
         }
 

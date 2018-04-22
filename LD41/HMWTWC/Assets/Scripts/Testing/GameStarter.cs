@@ -12,7 +12,7 @@ public class GameStarter : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 		GameplayManager.Initialise(NamesList,PlayerTemplates);
-        GameplayManager.StartGame();
+        GameplayManager.StartGame(25);
 	}
 	
 	// Update is called once per frame
