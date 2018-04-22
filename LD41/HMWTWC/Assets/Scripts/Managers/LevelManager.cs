@@ -25,7 +25,7 @@ namespace Managers
         private GameObject _selectableTileObject;
 
         // TODO: Change this to exponetially get to 0.1f or something.
-        private float _levelSinkTimerMax = 5f;
+        private float _levelSinkTimerMax = 10f;
         private float _levelSinkTimerCurrent = 0.0f;
 
         // Use this for initialization
@@ -102,6 +102,10 @@ namespace Managers
                         _level[x, y].gameObject.SetActive(false);
                 }
             });
+
+            if (_levelSinkTimerMax > 0.5f)
+                _levelSinkTimerMax = _levelSinkTimerMax / 1.1f;
+
             yield return null;
         }
 

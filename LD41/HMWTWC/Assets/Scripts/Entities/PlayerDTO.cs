@@ -67,6 +67,8 @@ namespace Entities
         public void SpawnPlayerObject()
         {
             PlayerObject = GameObject.Instantiate(PlayerObject, Vector3.zero, PlayerObject.transform.rotation) as GameObject;
+            if (IsPlayerControlled)
+                PlayerObject.GetComponent<PlayerHolder>().SetAsViewingCamera();
             CurrentTile.PlacePlayer(this);
         }
 

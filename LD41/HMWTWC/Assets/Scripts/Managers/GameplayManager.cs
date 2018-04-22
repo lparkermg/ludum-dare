@@ -40,7 +40,7 @@ namespace Managers
         private static Names _names;
 
         // TODO: Change to a list once more have been made.
-        private static GameObject _playerTemplates;
+        private static List<GameObject> _playerTemplates;
 
         public static void UpdateInGame(bool inGame)
         {
@@ -62,14 +62,14 @@ namespace Managers
         public static void Initialise(Names names, List<GameObject> playerTemplates)
         {
             _names = names;
-            _playerTemplates = playerTemplates[0];
+            _playerTemplates = playerTemplates;
         }
 
         public static void StartGame()
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
             var players = GeneratePlayers(50);
-            managers.GetComponent<LevelManager>().InitialiseLevel(50,50,2.0f);
+            managers.GetComponent<LevelManager>().InitialiseLevel(10,10,2.0f);
             managers.GetComponent<TurnbasedManager>().StartGame(players);
         }
 
@@ -88,7 +88,7 @@ namespace Managers
                 if (i == 0)
                     player.IsPlayerControlled = true;
 
-                player.PlayerObject = _playerTemplates;
+                player.PlayerObject = _playerTemplates[Random.Range(0,_playerTemplates.Count - 1)];
                 players.Add(player);
             }
 

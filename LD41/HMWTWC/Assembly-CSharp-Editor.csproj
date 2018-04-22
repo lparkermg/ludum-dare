@@ -459,18 +459,6 @@
       <Project>{075503E2-0230-A8CC-B62E-460A7EB54E07}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="Managers.csproj">
-      <Project>{A9AD1EBB-9EBD-3B78-008B-713352F9DFEE}</Project>
-      <Name>Managers</Name>
-    </ProjectReference>
-    <ProjectReference Include="SO.csproj">
-      <Project>{806B430A-622F-5D36-A626-AE4D0D59A3A5}</Project>
-      <Name>SO</Name>
-    </ProjectReference>
-    <ProjectReference Include="Entities.csproj">
-      <Project>{04D45F00-5130-F89C-F572-2F112128111B}</Project>
-      <Name>Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

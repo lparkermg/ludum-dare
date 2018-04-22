@@ -170,11 +170,6 @@ namespace Managers
             StartCoroutine(SetupNextTurn());
         }
 
-        private void EndGame()
-        {
-            GameplayManager.UpdateInGame(false);
-        }
-
         private void TimeCheck()
         {
             if (_currentTime >= _maxTime)
