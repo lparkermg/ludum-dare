@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ChargePoint
+  - Managers
+  - Level
+  - StartPoint
+  - StartSection
+  - MainSection
+  - FinishSection
   layers:
   - Default
   - TransparentFX
