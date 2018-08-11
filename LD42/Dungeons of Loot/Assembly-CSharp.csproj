@@ -67,6 +67,7 @@
     <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
     <Compile Include="Assets\Scripts\Entities\DungeonTile.cs" />
+    <Compile Include="Assets\Scripts\Entities\FinishScreen.cs" />
     <Compile Include="Assets\Scripts\Entities\ManagedObjectBehaviour.cs" />
     <Compile Include="Assets\Scripts\Entities\PlayerObject.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\DungeonRoomData.cs" />

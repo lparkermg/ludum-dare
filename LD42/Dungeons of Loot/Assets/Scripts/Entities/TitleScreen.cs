@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreen : ManagedObjectBehaviour
 {
+    [SerializeField] private int _sceneNumber = 1;
     private bool _sceneLoading = false;
     private AsyncOperation _scene;
     private Player _player;
@@ -29,7 +30,7 @@ public class TitleScreen : ManagedObjectBehaviour
 
     IEnumerator LoadGame()
     {
-        _scene = SceneManager.LoadSceneAsync(1);
+        _scene = SceneManager.LoadSceneAsync(_sceneNumber);
 
         while (!_scene.isDone)
         {

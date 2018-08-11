@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Rewired;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerObject : ManagedObjectBehaviour
 {
@@ -33,6 +35,12 @@ public class PlayerObject : ManagedObjectBehaviour
         if (_canPickupLoot && _player.GetButtonDown("Select") && _currentTile != null)
         {
             PickupLoot(_currentTile.PickupLoot());
+        }
+
+        if (_player.GetButtonDown("Quit"))
+        {
+            PlayerPrefs.SetInt("GoldFromRun", _inventory.Select(i => i.Value).Sum());
+            SceneManager.LoadScene(2);
         }
 
         if (move.x == 0.0f && move.y == 0.0f)

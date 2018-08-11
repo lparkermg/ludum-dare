@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33203450872ca394485c32106cfa7544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneNumber: 1
 --- !u!114 &868408585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,7 +586,7 @@ MonoBehaviour:
 
 
     Work your way through the dungeon using WASD or the Left thumbstick on the controller
-    and pick up loot using Space or A on trhe controller.
+    and pick up loot using Space or A on the controller.
 
 
     Press ESC or Y on the controller any time to leave with your haul.

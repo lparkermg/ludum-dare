@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DungeonTile : ManagedObjectBehaviour
 {
@@ -80,14 +81,11 @@ public class DungeonTile : ManagedObjectBehaviour
             _alreadyCollided = true;
             if (_isEmptySpace)
             {
-                //TODO: Death is here.
-                Debug.Log("DEATH!!");
-                return;
+                SceneManager.LoadScene(3);
             }
 
             if (_isDoor)
             {
-                Debug.Log("Collided...");
                 other.GetComponent<PlayerObject>().PlayerEnteredDoor(_playerSpawn);
                 _gameplayManager.UpdateRoom(_dungeonManager.GetDungeonRoom());
 
@@ -95,14 +93,9 @@ public class DungeonTile : ManagedObjectBehaviour
 
             if (_hasLoot)
             {
-                Debug.Log("Can pick up loot.");
                 _canPickupLoot = true;
                 other.GetComponent<PlayerObject>().UpdatePickupState(_canPickupLoot,this);
             }
-
-            _canPickupLoot = true;
-            //TODO: Loot UI here.
-            //TODO: 
         }
     }
 
