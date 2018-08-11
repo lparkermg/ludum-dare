@@ -60,8 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Rewired\Integration\UnityUI\RewiredStandaloneInputModule.cs" />
+    <Compile Include="Assets\Rewired\Internal\Scripts\ControllerTemplates\ControllerTemplates.cs" />
+    <Compile Include="Assets\Rewired\Internal\Scripts\DataStorage\UserDataStore_PlayerPrefs.cs" />
+    <Compile Include="Assets\Rewired\Internal\Scripts\InputManager.cs" />
+    <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
+    <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
     <Compile Include="Assets\Scripts\Entities\DungeonTile.cs" />
     <Compile Include="Assets\Scripts\Entities\ManagedObjectBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Entities\PlayerObject.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\DungeonRoomData.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\DungeonTheme.cs" />
     <Compile Include="Assets\Scripts\Enums\TileType.cs" />
@@ -284,6 +291,12 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/lpark/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows_Lib">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD42/Dungeons of Loot/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Windows_Lib.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Core">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD42/Dungeons of Loot/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Programs/Unity/2018.2.3f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

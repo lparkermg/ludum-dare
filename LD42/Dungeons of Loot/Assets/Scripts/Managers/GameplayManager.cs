@@ -52,7 +52,7 @@ public class GameplayManager : ManagedObjectBehaviour
                     _dungeonTiles.Add(tile);
                 }
 
-                _dungeonTiles.First(t => t.TileX == x && t.TileY == y).SetupTile(GetBase(tiles[x,y]),tiles[x,y] == TileType.Wall,false,false);
+                _dungeonTiles.First(t => t.TileX == x && t.TileY == y).SetupTile(GetBase(tiles[x,y]),tiles[x,y] == TileType.Wall,false,false,tiles[x,y] == TileType.Door);
             }
         }
     }
@@ -65,6 +65,8 @@ public class GameplayManager : ManagedObjectBehaviour
                 return _currentTheme.Wall;
             case (TileType.Floor):
                 return _currentTheme.Floor;
+            case (TileType.Door):
+                return _currentTheme.Door;
             default:
                 return _currentTheme.Wall;
         }

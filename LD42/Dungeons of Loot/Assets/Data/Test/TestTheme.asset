@@ -17,3 +17,4 @@ MonoBehaviour:
   LootClosed: {fileID: 0}
   LootOpen: {fileID: 0}
   Wall: {fileID: 21300000, guid: b4857a9bc91aa9547b70335cbaa160cd, type: 3}
+  Door: {fileID: 21300000, guid: 124612698d496ec4cad87f5ec0254ef0, type: 3}

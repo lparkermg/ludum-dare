@@ -15,19 +15,34 @@ public class DungeonTile : ManagedObjectBehaviour
 
     private bool _isEmptySpace;
     private bool _canPickupLoot;
+    private bool _isDoor;
 
-    public void SetupTile(Sprite tileBase, bool colliderEnabled, bool hasLoot, bool isEmptySpace, Sprite lootBox = null)
+    private GameplayManager _gameplayManager;
+
+    public void SetupTile(Sprite tileBase, bool colliderEnabled, bool hasLoot, bool isEmptySpace, bool isDoor, Sprite lootBox = null)
     {
         _tileBase.sprite = tileBase;
         _isEmptySpace = false;
+        _canPickupLoot = false;
+        _isDoor = false;
         if (isEmptySpace)
         {
             _collider.enabled = true;
             _collider.isTrigger = true;
             _isEmptySpace = true;
         }
+        else if (isDoor)
+        {
+            _collider.enabled = true;
+            _collider.isTrigger = true;
+            _isDoor = true;
+        }
+        else
+        {
+            _collider.enabled = colliderEnabled;
+        }
 
-        _collider.enabled = colliderEnabled;
+
         if (hasLoot)
         {
             _lootVisuals.sprite = lootBox;
@@ -37,7 +52,7 @@ public class DungeonTile : ManagedObjectBehaviour
 
     public override void StartMe(GameObject managers)
     {
-
+        _gameplayManager = managers.GetComponent<GameplayManager>();
     }
 
     public override void UpdateMe()
