@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -34,6 +35,21 @@ public class GameManager : MonoBehaviour
         }
 
         _loadingObjects = false;
+    }
+
+    public void AddObjects(List<ManagedObjectBehaviour> obj, bool runStart = false)
+    {
+        var behaviours = _currentBehaviours.ToList();
+        if (runStart)
+        {
+            for (var i = 0; i < obj.Count; i++)
+            {
+                obj[i].StartMe(gameObject);
+            }
+        }
+
+        behaviours.AddRange(obj);
+        _currentBehaviours = behaviours.ToArray();
     }
 
     private void RunUpdate()

@@ -17,10 +17,12 @@ public class DungeonTile : ManagedObjectBehaviour
     private bool _canPickupLoot;
     private bool _hasLoot;
     private bool _isDoor;
+    private Vector2 _playerSpawn;
 
     private GameplayManager _gameplayManager;
+    private DungeonManager _dungeonManager;
 
-    public void SetupTile(Sprite tileBase, bool colliderEnabled, bool hasLoot, bool isEmptySpace, bool isDoor, Sprite lootBox = null)
+    public void SetupTile(Sprite tileBase, bool colliderEnabled, bool hasLoot, bool isEmptySpace, bool isDoor, Vector2 spawnLocation, Sprite lootBox = null)
     {
         _tileBase.sprite = tileBase;
         _isEmptySpace = false;
@@ -38,6 +40,7 @@ public class DungeonTile : ManagedObjectBehaviour
             _collider.enabled = true;
             _collider.isTrigger = true;
             _isDoor = true;
+            _playerSpawn = spawnLocation;
         }
         else
         {
@@ -55,6 +58,7 @@ public class DungeonTile : ManagedObjectBehaviour
     public override void StartMe(GameObject managers)
     {
         _gameplayManager = managers.GetComponent<GameplayManager>();
+        _dungeonManager = managers.GetComponent<DungeonManager>();
     }
 
     public override void UpdateMe()
@@ -64,16 +68,25 @@ public class DungeonTile : ManagedObjectBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (_isEmptySpace)
+        if (other.CompareTag("Player"))
         {
-            //TODO: Death is here.
-            return;
+            if (_isEmptySpace)
+            {
+                //TODO: Death is here.
+                return;
+            }
+
+            if (_isDoor)
+            {
+                other.GetComponent<PlayerObject>().PlayerEnteredDoor(_playerSpawn);
+                _gameplayManager.UpdateRoom(_dungeonManager.GetDungeonRoom());
+
+            }
+
+            _canPickupLoot = true;
+            //TODO: Loot UI here.
+            //TODO: 
         }
-
-        _canPickupLoot = true;
-        //TODO: Loot UI here.
-        //TODO: 
-
     }
 
     void OnTriggerExit2D(Collider2D other)
