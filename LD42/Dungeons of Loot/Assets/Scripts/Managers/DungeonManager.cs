@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DungeonManager : ManagedObjectBehaviour
 {
-    private DungeonRoomData[] _dungeonRooms;
+    [SerializeField] private DungeonRoomData[] _dungeonRooms;
 
     public override void StartMe(GameObject managers){}
 
