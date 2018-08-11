@@ -11,22 +11,21 @@ public class GameplayManager : ManagedObjectBehaviour
     private VisualManager _visualManager;
 
     private DungeonTheme _currentTheme;
-    //TODO: Change to DungeonTile once implemented
+
     [SerializeField] private List<DungeonTile> _dungeonTiles;
     
     public override void StartMe(GameObject managers)
     {
         _dungeonManager = managers.GetComponent<DungeonManager>();
         _visualManager = managers.GetComponent<VisualManager>();
-        //TODO: Get all dungeon tiles into the _dungeonTiles list.
+
         _currentTheme = _visualManager.SelectDungeonTheme();
-        //TODO: Setup starting intial dungeon based on randomly selected room from the manager.
         UpdateRoom(_dungeonManager.GetDungeonRoom(),true);
     }
 
     public override void UpdateMe()
     {
-        //TODO: Player input checking here.
+        
     }
 
     private void UpdateRoom(DungeonRoomData data, bool isInitialSpawn = false)

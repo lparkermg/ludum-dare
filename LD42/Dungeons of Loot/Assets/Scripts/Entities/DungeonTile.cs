@@ -15,6 +15,7 @@ public class DungeonTile : ManagedObjectBehaviour
 
     private bool _isEmptySpace;
     private bool _canPickupLoot;
+    private bool _hasLoot;
     private bool _isDoor;
 
     private GameplayManager _gameplayManager;
@@ -25,6 +26,7 @@ public class DungeonTile : ManagedObjectBehaviour
         _isEmptySpace = false;
         _canPickupLoot = false;
         _isDoor = false;
+        _hasLoot = hasLoot;
         if (isEmptySpace)
         {
             _collider.enabled = true;
@@ -70,6 +72,7 @@ public class DungeonTile : ManagedObjectBehaviour
 
         _canPickupLoot = true;
         //TODO: Loot UI here.
+        //TODO: 
 
     }
 
