@@ -7,8 +7,8 @@ public class DungeonRoomData : ScriptableObject
 {
     public Texture2D Layout;
     public int MaxLoot;
-    public int XSize => 12;
-    public int YSize => 8;
+    public int XSize => 30;
+    public int YSize => 17;
 
     public TileType[,] LayoutToTileTypes()
     {
@@ -30,6 +30,11 @@ public class DungeonRoomData : ScriptableObject
         if (c.Equals(Color.white))
         {
             return TileType.Floor;
+        }
+
+        if (c.Equals(Color.blue))
+        {
+            return TileType.Door;
         }
 
         return TileType.Wall;

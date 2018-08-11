@@ -2,7 +2,6 @@
 {
     Floor = 0,
     Wall = 1,
-    FloorWithLootClosed = 2,
-    FloorWithLootOpen = 3,
+    Door = 2
 
 }

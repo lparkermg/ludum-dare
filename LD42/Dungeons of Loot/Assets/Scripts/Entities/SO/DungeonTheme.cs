@@ -11,4 +11,5 @@ public class DungeonTheme : ScriptableObject
     public Sprite LootClosed;
     public Sprite LootOpen;
     public Sprite Wall;
+    public Sprite Door;
 }
