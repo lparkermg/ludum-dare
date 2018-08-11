@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Name: TestTheme
   m_EditorClassIdentifier: 
   Name: Test Theme
-  Floor: {fileID: 21300000, guid: f5fc3642e4024394ca14f9de11f54441, type: 3}
-  EmptySpace: {fileID: 0}
-  LootClosed: {fileID: 0}
-  LootOpen: {fileID: 0}
-  Wall: {fileID: 21300000, guid: b4857a9bc91aa9547b70335cbaa160cd, type: 3}
+  Floor:
+  - {fileID: 21300000, guid: f5fc3642e4024394ca14f9de11f54441, type: 3}
+  EmptySpace: {fileID: 21300000, guid: ece674605bc5a2f47802e0f86dadfa33, type: 3}
+  LootClosed: {fileID: 21300000, guid: 9a5a1ec9bde073c44bc0abe31d8946e2, type: 3}
+  LootOpen: {fileID: 21300000, guid: 2e475dbc59e75ec4f92c7af9dd6ce44d, type: 3}
+  Wall:
+  - {fileID: 21300000, guid: b4857a9bc91aa9547b70335cbaa160cd, type: 3}
   Door: {fileID: 21300000, guid: 124612698d496ec4cad87f5ec0254ef0, type: 3}

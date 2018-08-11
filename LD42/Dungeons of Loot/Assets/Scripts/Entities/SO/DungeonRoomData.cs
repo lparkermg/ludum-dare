@@ -37,6 +37,11 @@ public class DungeonRoomData : ScriptableObject
             return TileType.Door;
         }
 
+        if (c.Equals(Color.green))
+        {
+            return TileType.FloorWithLoot;
+        }
+
         return TileType.Wall;
     }
 }

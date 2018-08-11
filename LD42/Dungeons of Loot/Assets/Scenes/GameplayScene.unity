@@ -411,6 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45883799574695b4586002d99efd7c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tilesRemoved: 0
   _dungeonTiles: []
 --- !u!114 &1917045345
 MonoBehaviour:
@@ -425,6 +426,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dungeonRooms:
   - {fileID: 11400000, guid: 56e39b21965a7d7429237fde4e578e1b, type: 2}
+  _availableLoot:
+  - {fileID: 11400000, guid: 3b9c34f61dd14e949acdf463b38ccca1, type: 2}
   _tilePrefab: {fileID: 1896432555987182, guid: 6ccc0a69821b68f4fb2b336b5e33a0bc,
     type: 2}
 --- !u!114 &1917045346

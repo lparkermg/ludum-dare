@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Entities\PlayerObject.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\DungeonRoomData.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\DungeonTheme.cs" />
+    <Compile Include="Assets\Scripts\Entities\SO\Loot.cs" />
     <Compile Include="Assets\Scripts\Enums\TileType.cs" />
     <Compile Include="Assets\Scripts\Managers\DungeonManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />

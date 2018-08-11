@@ -6,10 +6,10 @@ using UnityEngine;
 public class DungeonTheme : ScriptableObject
 {
     public string Name;
-    public Sprite Floor;
+    public Sprite[] Floor;
     public Sprite EmptySpace;
     public Sprite LootClosed;
     public Sprite LootOpen;
-    public Sprite Wall;
+    public Sprite[] Wall;
     public Sprite Door;
 }

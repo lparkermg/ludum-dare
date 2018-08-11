@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameplayManager : ManagedObjectBehaviour
 {
-    private int _tilesRemoved = 0;
+    [SerializeField]private int _tilesRemoved;
 
     private DungeonManager _dungeonManager;
     private VisualManager _visualManager;
@@ -32,10 +32,29 @@ public class GameplayManager : ManagedObjectBehaviour
     public void UpdateRoom(DungeonRoomData data, bool isInitialSpawn = false)
     {
         var tiles = data.LayoutToTileTypes();
-        //TODO: Add Loot generation.
+
         if (isInitialSpawn)
         {
             _dungeonTiles = new List<DungeonTile>();
+        }
+        else
+        {
+            _tilesRemoved = _tilesRemoved + 1;
+        }
+
+        for (var i = 0; i < _tilesRemoved; i++)
+        {
+            var x = Random.Range(0, data.XSize);
+            var y = Random.Range(0, data.YSize);
+
+            if (tiles[x, y] != TileType.Empty)
+            {
+                tiles[x, y] = TileType.Empty;
+            }
+            else
+            {
+                i--;
+            }
         }
 
         bool isDoor;
@@ -45,6 +64,7 @@ public class GameplayManager : ManagedObjectBehaviour
         {
             for (var y = 0; y < data.YSize; y++)
             {
+                Sprite lootSprite = tiles[x, y] == TileType.FloorWithLoot ? _currentTheme.LootClosed : null;
                 if (isInitialSpawn)
                 {
                     GameObject go = GameObject.Instantiate(_dungeonManager.GetTilePrefab(), new Vector3(x, y),
@@ -78,7 +98,7 @@ public class GameplayManager : ManagedObjectBehaviour
                         playerSpawn = new Vector2(x, 1);
                     }
                 }
-                _dungeonTiles.First(t => t.TileX == x && t.TileY == y).SetupTile(GetBase(tiles[x,y]),tiles[x,y] == TileType.Wall,false,false,isDoor,playerSpawn);
+                _dungeonTiles.First(t => t.TileX == x && t.TileY == y).SetupTile(GetBase(tiles[x,y]),tiles[x,y] == TileType.Wall,tiles[x, y] == TileType.FloorWithLoot, tiles[x, y] == TileType.Empty, isDoor,playerSpawn, lootSprite);
             }
         }
         _gameManager.AddObjects(newBehaviours);
@@ -89,13 +109,21 @@ public class GameplayManager : ManagedObjectBehaviour
         switch (tileType)
         {
             case (TileType.Wall):
-                return _currentTheme.Wall;
+                return _currentTheme.Wall[Random.Range(0, _currentTheme.Wall.Length - 1)];
             case (TileType.Floor):
-                return _currentTheme.Floor;
+            case (TileType.FloorWithLoot):
+                return _currentTheme.Floor[Random.Range(0, _currentTheme.Floor.Length - 1)];
             case (TileType.Door):
                 return _currentTheme.Door;
+            case (TileType.Empty):
+                return _currentTheme.EmptySpace;
             default:
-                return _currentTheme.Wall;
+                return _currentTheme.Wall[Random.Range(0, _currentTheme.Wall.Length - 1)];
         }
+    }
+
+    public Sprite GetLootBox(bool isOpen)
+    {
+        return isOpen ? _currentTheme.LootOpen : _currentTheme.LootClosed;
     }
 }

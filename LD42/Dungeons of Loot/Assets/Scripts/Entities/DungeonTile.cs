@@ -17,6 +17,7 @@ public class DungeonTile : ManagedObjectBehaviour
     private bool _canPickupLoot;
     private bool _hasLoot;
     private bool _isDoor;
+    private bool _alreadyCollided;
     private Vector2 _playerSpawn;
 
     private GameplayManager _gameplayManager;
@@ -28,7 +29,11 @@ public class DungeonTile : ManagedObjectBehaviour
         _isEmptySpace = false;
         _canPickupLoot = false;
         _isDoor = false;
-        _hasLoot = hasLoot;
+        _hasLoot = false;
+        _collider.enabled = false;
+        _collider.isTrigger = false;
+        _lootVisuals.sprite = null;
+
         if (isEmptySpace)
         {
             _collider.enabled = true;
@@ -51,7 +56,9 @@ public class DungeonTile : ManagedObjectBehaviour
         if (hasLoot)
         {
             _lootVisuals.sprite = lootBox;
+            _collider.enabled = true;
             _collider.isTrigger = true;
+            _hasLoot = true;
         }
     }
 
@@ -68,19 +75,29 @@ public class DungeonTile : ManagedObjectBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !_alreadyCollided)
         {
+            _alreadyCollided = true;
             if (_isEmptySpace)
             {
                 //TODO: Death is here.
+                Debug.Log("DEATH!!");
                 return;
             }
 
             if (_isDoor)
             {
+                Debug.Log("Collided...");
                 other.GetComponent<PlayerObject>().PlayerEnteredDoor(_playerSpawn);
                 _gameplayManager.UpdateRoom(_dungeonManager.GetDungeonRoom());
 
+            }
+
+            if (_hasLoot)
+            {
+                Debug.Log("Can pick up loot.");
+                _canPickupLoot = true;
+                other.GetComponent<PlayerObject>().UpdatePickupState(_canPickupLoot,this);
             }
 
             _canPickupLoot = true;
@@ -91,6 +108,20 @@ public class DungeonTile : ManagedObjectBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        if (other.CompareTag("Player"))
+        {
+            if (_hasLoot)
+            {
+                other.GetComponent<PlayerObject>().UpdatePickupState(false);
+            }
+        }
         _canPickupLoot = false;
+        _alreadyCollided = false;
+    }
+
+    public Loot PickupLoot()
+    {
+        _lootVisuals.sprite = _gameplayManager.GetLootBox(true);
+        return _dungeonManager.GetLoot();
     }
 }
