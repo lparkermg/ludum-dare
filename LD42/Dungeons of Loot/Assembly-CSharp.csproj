@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Entities\SO\DungeonRoomData.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\DungeonTheme.cs" />
     <Compile Include="Assets\Scripts\Entities\SO\Loot.cs" />
+    <Compile Include="Assets\Scripts\Entities\TitleScreen.cs" />
     <Compile Include="Assets\Scripts\Enums\TileType.cs" />
     <Compile Include="Assets\Scripts\Managers\DungeonManager.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
@@ -287,17 +288,17 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>E:/Programs/Unity/2018.2.3f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Rewired_Core">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD42/Dungeons of Loot/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows_Lib">
+      <HintPath>E:/Projects/GameDev/ludum-dare/LD42/Dungeons of Loot/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Windows_Lib.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/lpark/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/lpark/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Rewired_Windows_Lib">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD42/Dungeons of Loot/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Windows_Lib.dll</HintPath>
-    </Reference>
-    <Reference Include="Rewired_Core">
-      <HintPath>E:/Projects/GameDev/ludum-dare/LD42/Dungeons of Loot/Assets/Rewired/Internal/Libraries/Runtime/Rewired_Core.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>E:/Programs/Unity/2018.2.3f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
