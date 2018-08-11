@@ -1,7 +1,6 @@
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using Rewired.Platforms.PS4;
 using UnityEditor;
 
 public static class BuildHelper{
