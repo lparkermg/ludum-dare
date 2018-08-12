@@ -22,7 +22,7 @@ public class TitleScreen : ManagedObjectBehaviour
         {
             StartCoroutine(LoadGame());
         }
-        else if (_player.GetButtonDown("Back"))
+        else if (_player.GetButtonDown("Quit"))
         {
             Application.Quit();
         }

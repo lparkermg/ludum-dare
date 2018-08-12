@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
 public class GameplayManager : ManagedObjectBehaviour
@@ -13,6 +14,9 @@ public class GameplayManager : ManagedObjectBehaviour
     private DungeonTheme _currentTheme;
 
     [SerializeField] private List<DungeonTile> _dungeonTiles;
+
+    [SerializeField] private AudioClip _pickupSound;
+    [SerializeField] private AudioClip _footStepSound;
     
     public override void StartMe(GameObject managers)
     {
@@ -125,5 +129,15 @@ public class GameplayManager : ManagedObjectBehaviour
     public Sprite GetLootBox(bool isOpen)
     {
         return isOpen ? _currentTheme.LootOpen : _currentTheme.LootClosed;
+    }
+
+    public AudioClip GetPickupClip()
+    {
+        return _pickupSound;
+    }
+
+    public AudioClip GetFootStepClip()
+    {
+        return _footStepSound;
     }
 }

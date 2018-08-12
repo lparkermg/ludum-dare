@@ -4,6 +4,7 @@ using System.Linq;
 using Rewired;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerObject : ManagedObjectBehaviour
 {
@@ -13,12 +14,21 @@ public class PlayerObject : ManagedObjectBehaviour
     private bool _canPickupLoot;
     private DungeonTile _currentTile = null;
     private List<Loot> _inventory;
+    private float _currentPitch = 1.0f;
+
+    [SerializeField] private AudioClip _footstepClip;
+    private AudioSource _playerAudio;
 
     [SerializeField] private float _speedMultiplier = 5;
+    private ParticleSystem _movementParticles;
+
+    [SerializeField] private Text _inventoryText;
 
     public override void StartMe(GameObject managers)
     {
         _rb = GetComponent<Rigidbody2D>();
+        _movementParticles = GetComponent<ParticleSystem>();
+        _playerAudio = GetComponent<AudioSource>();
         _player = ReInput.players.GetPlayer(0);
         _inventory = new List<Loot>();
     }
@@ -26,6 +36,14 @@ public class PlayerObject : ManagedObjectBehaviour
     public override void UpdateMe()
     {
         CheckInput();
+    }
+
+    private void PlaySound()
+    {
+        if (!_playerAudio.isPlaying)
+        {
+            _playerAudio.PlayOneShot(_footstepClip);
+        }
     }
 
     private void CheckInput()
@@ -46,10 +64,18 @@ public class PlayerObject : ManagedObjectBehaviour
         if (move.x == 0.0f && move.y == 0.0f)
         {
             _rb.velocity = Vector2.zero;
+            if (_movementParticles.isPlaying)
+            {
+                _movementParticles.Clear();
+                _movementParticles.Stop();
+            }
         }
         else
         {
+            PlaySound();
             _rb.AddForce(move * _speedMultiplier,ForceMode2D.Impulse);
+            if(!_movementParticles.isPlaying)
+                _movementParticles.Play();
         }
     }
 
@@ -73,6 +99,8 @@ public class PlayerObject : ManagedObjectBehaviour
         {
             _inventory.RemoveAt(0);
         }
-        Debug.Log(_inventory.Count);
+
+        UpdatePickupState(false);
+        _inventoryText.text = $"Inventory Value: {_inventory.Select(i => i.Value).Sum()} Gold Coins";
     }
 }

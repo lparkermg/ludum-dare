@@ -13,6 +13,7 @@ public class DungeonTile : ManagedObjectBehaviour
     [SerializeField] private SpriteRenderer _lootVisuals;
 
     [SerializeField] private BoxCollider2D _collider;
+    [SerializeField] private AudioSource _pickSound;
 
     private bool _isEmptySpace;
     private bool _canPickupLoot;
@@ -115,6 +116,10 @@ public class DungeonTile : ManagedObjectBehaviour
     public Loot PickupLoot()
     {
         _lootVisuals.sprite = _gameplayManager.GetLootBox(true);
+        _pickSound.pitch += Random.Range(-0.1f, 0.1f);
+        _pickSound.PlayOneShot(_gameplayManager.GetPickupClip());
+        _canPickupLoot = false;
+        _hasLoot = false;
         return _dungeonManager.GetLoot();
     }
 }
