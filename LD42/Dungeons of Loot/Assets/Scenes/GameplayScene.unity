@@ -425,7 +425,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonRooms:
-  - {fileID: 11400000, guid: 56e39b21965a7d7429237fde4e578e1b, type: 2}
+  - {fileID: 11400000, guid: 2809af71cfbf6c746961df5aadb59590, type: 2}
+  - {fileID: 11400000, guid: dcc61fbc2a1a7e34e84231e7b5a1b7b7, type: 2}
+  - {fileID: 11400000, guid: 2a5543ce4d50cfd47a1fb05bd76c6344, type: 2}
+  - {fileID: 11400000, guid: fe0d8f4175e042d4093d1b3860bfa70a, type: 2}
+  - {fileID: 11400000, guid: c3ca3f62bf2ecd74391db6a71ed6df8e, type: 2}
+  - {fileID: 11400000, guid: 88247489caed1a147b05bd802ab321ca, type: 2}
+  - {fileID: 11400000, guid: 83220fa5c25b9ef4da49c8f4387336a3, type: 2}
+  - {fileID: 11400000, guid: a1ccf4b980d8e9549a70d965cdc5458b, type: 2}
+  - {fileID: 11400000, guid: cb0d068d2588f964eab1527fe6323fd0, type: 2}
+  - {fileID: 11400000, guid: 2788168bd3ce4774189415bcc4bbe6d4, type: 2}
+  - {fileID: 11400000, guid: 57e2818f3d360d741959ee344a3d4cf0, type: 2}
+  - {fileID: 11400000, guid: fd40e40364121c6448a190d412634aeb, type: 2}
+  - {fileID: 11400000, guid: 6c0dbbb8b0dcf10469c7478eb0467a51, type: 2}
+  - {fileID: 11400000, guid: 0def7c9710e86ac419a65f17caa70a0f, type: 2}
+  - {fileID: 11400000, guid: b2f39f2f376b3cf49a2b8ad1048079fe, type: 2}
+  - {fileID: 11400000, guid: 610b544eee77fce4581ffe123189b66c, type: 2}
+  - {fileID: 11400000, guid: 7706b3f76ad62e64983f76eb5266be7d, type: 2}
+  - {fileID: 11400000, guid: abd84062cb8638c42b5c1738955d4403, type: 2}
+  - {fileID: 11400000, guid: 73139e57abc43ec46923ae3466cde395, type: 2}
+  - {fileID: 11400000, guid: e04d14256365f4647b48e66b2637ff67, type: 2}
+  - {fileID: 11400000, guid: 8317b7ce26f764e498b2b754f3658d76, type: 2}
+  - {fileID: 11400000, guid: 2d245c18ed9a1c44484dcc6a6b112197, type: 2}
+  - {fileID: 11400000, guid: 086199b4c55725b44bfa43436aff43c9, type: 2}
+  - {fileID: 11400000, guid: 37aaf8fbf6901824a88f13e494609c27, type: 2}
+  - {fileID: 11400000, guid: 371fdf3d5f90a0040bdea476246e718b, type: 2}
   _availableLoot:
   - {fileID: 11400000, guid: 3b9c34f61dd14e949acdf463b38ccca1, type: 2}
   _tilePrefab: {fileID: 1896432555987182, guid: 6ccc0a69821b68f4fb2b336b5e33a0bc,
