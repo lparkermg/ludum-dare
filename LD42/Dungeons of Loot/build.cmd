@@ -1,8 +1,8 @@
-@echo off
+@echo on
 
 SET /p BUILDNUM=< buildNum.txt
 
-SET UNITYVERSION=2018.2.2f1
+SET UNITYVERSION=2018.2.3f1
 IF NOT [%1]==[] (set UNITYVERSION=%1)
 
 SET PRODUCTNAME="Product Name"
