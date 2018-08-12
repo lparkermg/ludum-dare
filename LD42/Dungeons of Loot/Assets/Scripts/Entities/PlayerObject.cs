@@ -23,6 +23,7 @@ public class PlayerObject : ManagedObjectBehaviour
     private ParticleSystem _movementParticles;
 
     [SerializeField] private Text _inventoryText;
+    [SerializeField] private Text _lastPickedUp;
 
     public override void StartMe(GameObject managers)
     {
@@ -94,7 +95,7 @@ public class PlayerObject : ManagedObjectBehaviour
     private void PickupLoot(Loot loot)
     {
         _inventory.Add(loot);
-
+        _lastPickedUp.text = $"Last picked up a {loot.Name}.";
         if (_inventory.Count >= 11)
         {
             _inventory.RemoveAt(0);
