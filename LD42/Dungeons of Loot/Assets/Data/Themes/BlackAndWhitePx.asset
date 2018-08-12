@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c70bf061e621934eaa00c0520dbc6df, type: 3}
+  m_Name: BlackAndWhitePx
+  m_EditorClassIdentifier: 
+  Name: Black and White Px
+  Floor:
+  - {fileID: 21300000, guid: b3a3444defefc3645b433a1de70308a2, type: 3}
+  - {fileID: 21300000, guid: 7f3462e9866c3d144b7e1bdc9daa982b, type: 3}
+  - {fileID: 21300000, guid: 7e326789eb88732458c829a667afe5e7, type: 3}
+  - {fileID: 21300000, guid: a7aa27c9087053e439d4bc296dbeff96, type: 3}
+  - {fileID: 21300000, guid: 1fcfda2bc456bb54ebcd9aa899a8ec8b, type: 3}
+  - {fileID: 21300000, guid: 22bc938577ac88f4983c2a4ebca30f1d, type: 3}
+  - {fileID: 21300000, guid: 2feb17a317949374ca38e4aef49ee445, type: 3}
+  - {fileID: 21300000, guid: 6de9af023553009459811234656c5e67, type: 3}
+  EmptySpace: {fileID: 21300000, guid: b509b2242d3344f45b4f647499fbf46d, type: 3}
+  LootClosed: {fileID: 21300000, guid: 6649dcddb9ac50047904cb422b4f791d, type: 3}
+  LootOpen: {fileID: 21300000, guid: 80fe35c04752c444e9d5a28b2e65e514, type: 3}
+  Wall:
+  - {fileID: 21300000, guid: df05e3a0cc30b7f43a8ee7972bc330db, type: 3}
+  - {fileID: 21300000, guid: f41545876d818d04f868f77a1c8fafc6, type: 3}
+  - {fileID: 21300000, guid: db70420015390f9448ffe6d8e024ec7e, type: 3}
+  - {fileID: 21300000, guid: bca6d9bf24a29b24391a01fd5d4eaba1, type: 3}
+  - {fileID: 21300000, guid: 958b24b76d75f69468dd8decf2802bea, type: 3}
+  - {fileID: 21300000, guid: e648a4472bc913645a8c507d8988467a, type: 3}
+  Door: {fileID: 21300000, guid: c2957d023dec62e44bac4ce65f4c733c, type: 3}
