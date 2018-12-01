@@ -1,8 +1,8 @@
 $version="0.0.0"
 $buildTarget="Windows"
 $deployTag=""
-$projectName="Dungeons of Loot"
-$itchioProjectName="dungeons-of-loot"
+$projectName="Dreamberry Island"
+$itchioProjectName="dreamberry-island"
 $companyName="Luke Parker"
 
 if($args[0]) {$version=$args[0]}
