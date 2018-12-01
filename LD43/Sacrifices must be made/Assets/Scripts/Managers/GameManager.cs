@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class GameManager : MonoBehaviour
+    public sealed class GameManager : MonoBehaviour
     {
         private ManagedObjectBehaviour[] _currentBehaviours;
         private bool _loadingObjects = true;

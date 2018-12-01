@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class GameplayManagers : ManagedObjectBehaviour
+    public sealed class GameplayManagers : ManagedObjectBehaviour
     {
         // input
         private Player _player;
@@ -29,6 +29,7 @@ namespace Managers
             UpdateWorld();
         }
 
+        #region Input Checks and updates.
         private void CheckInput()
         {
             _currentTilt = _player.GetAxis2D("TiltHorizontal", "TiltVertical");
@@ -42,5 +43,21 @@ namespace Managers
                 _tiltTime * Time.deltaTime);
 
         }
+        #endregion
+
+        #region Public APIs
+
+        public void CompleteLevel()
+        {
+            // TODO: Either finish the game or load the next level here.
+        }
+
+        public void ItemCollected()
+        {
+            // TODO: Increment an item collection variable for the level
+            // TODO: Maybe update UI if there is one implemented.
+        }
+
+        #endregion
     }
 }
