@@ -1,47 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
+using Entities;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Managers
 {
-    private ManagedObjectBehaviour[] _currentBehaviours;
-    private bool _loadingObjects = true;
-
-	// Use this for initialization
-	void Start ()
-	{
-	    LoadObjects();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    if (!_loadingObjects)
-	    {
-	        RunUpdate();
-	    }
-	}
-
-    #region Central Start/Updates
-    public void LoadObjects()
+    public class GameManager : MonoBehaviour
     {
-        _loadingObjects = true;
+        private ManagedObjectBehaviour[] _currentBehaviours;
+        private bool _loadingObjects = true;
 
-        _currentBehaviours = FindObjectsOfType<ManagedObjectBehaviour>();
-
-        for (var i = 0; i < _currentBehaviours.Length; i++)
+        // Use this for initialization
+        void Start()
         {
-            _currentBehaviours[i].StartMe(gameObject);
+            LoadObjects();
         }
 
-        _loadingObjects = false;
-    }
-
-    private void RunUpdate()
-    {
-        for (var i = 0; i < _currentBehaviours.Length; i++)
+        // Update is called once per frame
+        void Update()
         {
-            _currentBehaviours[i].UpdateMe();
+            if (!_loadingObjects)
+            {
+                RunUpdate();
+            }
         }
+
+        #region Central Start/Updates
+
+        public void LoadObjects()
+        {
+            _loadingObjects = true;
+
+            _currentBehaviours = FindObjectsOfType<ManagedObjectBehaviour>();
+
+            for (var i = 0; i < _currentBehaviours.Length; i++)
+            {
+                _currentBehaviours[i].StartMe(gameObject);
+            }
+
+            _loadingObjects = false;
+        }
+
+        private void RunUpdate()
+        {
+            for (var i = 0; i < _currentBehaviours.Length; i++)
+            {
+                _currentBehaviours[i].UpdateMe();
+            }
+        }
+
+        #endregion
     }
-    #endregion
 }
