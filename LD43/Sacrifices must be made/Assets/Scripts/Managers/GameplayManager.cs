@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Managers
 {
-    public sealed class GameplayManagers : ManagedObjectBehaviour
+    public sealed class GameplayManager : ManagedObjectBehaviour
     {
         // input
         private Player _player;
@@ -39,7 +39,7 @@ namespace Managers
         private void UpdateWorld()
         {
             _container.rotation = Quaternion.Lerp(_container.rotation,
-                Quaternion.Euler(new Vector3(_currentTilt.x * _tiltMultiplier, 0.0f, _currentTilt.y * _tiltMultiplier)),
+                Quaternion.Euler(new Vector3(_currentTilt.y * _tiltMultiplier, 0.0f, -_currentTilt.x * _tiltMultiplier)),
                 _tiltTime * Time.deltaTime);
 
         }
@@ -47,7 +47,7 @@ namespace Managers
 
         #region Public APIs
 
-        public void CompleteLevel()
+        public void CompleteLevel(bool success)
         {
             // TODO: Either finish the game or load the next level here.
         }

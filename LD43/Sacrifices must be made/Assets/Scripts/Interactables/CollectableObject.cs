@@ -8,11 +8,11 @@ namespace Interactables
 {
     public class CollectableObject : ManagedObjectBehaviour
     {
-        private GameplayManagers _gameplayManager;
+        private GameplayManager _gameplayManager;
 
         public override void StartMe(GameObject managers)
         {
-            _gameplayManager = managers.GetComponent<GameplayManagers>();
+            _gameplayManager = managers.GetComponent<GameplayManager>();
         }
 
         public override void UpdateMe(){}

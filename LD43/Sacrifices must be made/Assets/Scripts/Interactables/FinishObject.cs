@@ -8,11 +8,11 @@ namespace Interactables
 {
     public class FinishObject : ManagedObjectBehaviour
     {
-        private GameplayManagers _gameplayManager;
+        private GameplayManager _gameplayManager;
 
         public override void StartMe(GameObject managers)
         {
-            _gameplayManager = managers.GetComponent<GameplayManagers>();
+            _gameplayManager = managers.GetComponent<GameplayManager>();
         }
 
         public override void UpdateMe(){}
@@ -21,7 +21,7 @@ namespace Interactables
         {
             if (other.CompareTag("Player"))
             {
-                _gameplayManager.CompleteLevel();
+                _gameplayManager.CompleteLevel(true);
             }
         }
     }
