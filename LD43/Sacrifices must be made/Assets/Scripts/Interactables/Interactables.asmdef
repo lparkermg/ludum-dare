@@ -1,0 +1,11 @@
+{
+    "name": "Interactables",
+    "references": [
+        "Managers",
+        "Entities"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
