@@ -1,5 +1,7 @@
 ﻿using LPSoft.LD46.Entities;
 using LPSoft.LD46.Enums;
+using LPSoft.LD46.Extensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,10 +16,8 @@ namespace LPSoft.LD46.Management
 
         public Vector2 MousePosition { get; private set; }
 
-        public delegate void OnClickEventHandler(object source, OnClickEventArgs args);
-        public event OnClickEventHandler OnClick;
-
-        // Start is called before the first frame update
+        public delegate void ToggleBarrierEventHandler(object source, EventArgs args);
+        public event ToggleBarrierEventHandler OnToggleBarrier;
         void Start()
         {
 
@@ -36,21 +36,23 @@ namespace LPSoft.LD46.Management
             newDir.x = Input.GetAxis("Horizontal");
             newDir.y = Input.GetAxis("Vertical");
             Direction = newDir;
+
+            if (Input.GetButtonDown("Barrier Slot 1"))
+            {
+                Debug.Log("Toggling barrier slot 1.");
+                OnToggleBarrier?.Invoke(null, null);
+            }
+
+            if (Input.GetButtonDown("Barrier Slot 2"))
+            {
+                Debug.Log("Toggling barrier slot 2.");
+                OnToggleBarrier?.Invoke(null, null);
+            }
         }
 
         private void MouseInput()
         {
             MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                OnClick?.Invoke(null, new OnClickEventArgs { Button = MouseButton.Left });
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                OnClick?.Invoke(null, new OnClickEventArgs { Button = MouseButton.Right });
-            }
         }
     }
 }
