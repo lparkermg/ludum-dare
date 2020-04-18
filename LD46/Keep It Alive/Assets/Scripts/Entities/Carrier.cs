@@ -21,6 +21,9 @@ namespace LPSoft.LD46.Entities
 
         private Rigidbody2D _rb;
 
+        [SerializeField]
+        private float _health = 100.0f;
+
         public bool BarrierActive { get; private set; }
 
         [SerializeField]
@@ -47,6 +50,11 @@ namespace LPSoft.LD46.Entities
         void Update()
         {
             Move();
+        }
+
+        public void Damage(float amount)
+        {
+            _health -= amount;
         }
 
         public void ActivateBarrier(Element element)

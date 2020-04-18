@@ -38,6 +38,11 @@ namespace LPSoft.LD46.Entities
             _energyRemaining = maxEnergy;
         }
 
+        public void Damage(float baseAmount, Element element)
+        {
+            _energyRemaining -= baseAmount;
+        }
+
         public void Activate(Element element)
         {
             if (_energyRemaining <= 0.0f)

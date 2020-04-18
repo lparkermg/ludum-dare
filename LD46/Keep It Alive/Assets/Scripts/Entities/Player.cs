@@ -23,6 +23,8 @@ namespace LPSoft.LD46.Entities
 
         private bool _barrierActive = false;
 
+        private float _health = 100.0f;
+
         private void Awake()
         {
             var manager = GameObject.FindGameObjectWithTag("Managers");
@@ -46,6 +48,11 @@ namespace LPSoft.LD46.Entities
         void Update()
         {
             MovePlayer();
+        }
+
+        public void Damage(float amount)
+        {
+            _health -= amount;
         }
 
         private void MovePlayer()

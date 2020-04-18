@@ -5,26 +5,26 @@ using UnityEngine;
 
 namespace LPSoft.LD46.Entities
 {
-    public sealed class Enemy : MonoBehaviour
+    public sealed partial class Enemy : MonoBehaviour
     {
         [SerializeField]
         private Element[] _attackElements;
 
-        private float _entryExitSpeed = 0.01f;
-        private Vector2 _exitLocation = new Vector2(16f, 13f);
+        private float _entryExitSpeed = 0.005f;
+        private Vector2 _exitLocation;
 
         private Vector2[] _attackPath;
         private int _pathIndex = 1;
-        private float _waitAtNodesForSeconds = 2.0f;
+        private float _waitAtNodesForSeconds = 10.0f;
         private float _moveSpeed = 0.005f;
 
         private float _moveCurrentTime = 0.0f;
         private float _waitCurrentTime = 0.0f;
 
-        private bool _attacking = true;
+        private bool _attacking = false;
         private bool _exiting = false;
 
-        private float _attackRate = 0.1f;
+        private float _attackRate = 0.075f;
         private float _currentAttackTime = 0.25f;
 
         [SerializeField]
@@ -36,37 +36,22 @@ namespace LPSoft.LD46.Entities
         [SerializeField]
         private Transform _spawnerHolder;
 
-        // TODO: Move this to a management class.
-        [SerializeField]
         private GameObject _bulletPrefab;
 
         void Start()
         {
-            Initialize(1, new List<Element>
-            {
-                Element.General,
-                Element.Fire,
-                Element.Earth,
-                Element.Lightning,
-                Element.Water
-            }, new List<Vector2>
-            {
-                new Vector2(-7f, 6f),
-                new Vector2(-7f, -3f),
-                new Vector2(7f, -3f),
-                new Vector2(7f, 6f)
-            });
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            //Move();
+            Move();
             SpawnRotate();
             Attack();
         }
 
-        public void Initialize(int maxElements, List<Element> availableElements, List<Vector2> attackPath)
+        public void Initialize(int maxElements, List<Element> availableElements, List<Vector2> attackPath, Vector2 offScreenLocation, GameObject bulletPrefab)
         {
             var elements = new List<Element>();
             for(var i = 0; i < maxElements; i++)
@@ -79,6 +64,8 @@ namespace LPSoft.LD46.Entities
             _attackElements = elements.ToArray();
             _attackPath = attackPath.ToArray();
             transform.position = attackPath[0];
+            _exitLocation = offScreenLocation;
+            _bulletPrefab = bulletPrefab;
         }
 
         private void SpawnRotate()

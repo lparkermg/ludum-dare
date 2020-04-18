@@ -18,6 +18,8 @@ namespace LPSoft.LD46.Entities
 
         private bool _initialized = false;
 
+        private float _bulletTimeout = 10f;
+
         void Awake()
         {
             TryGetComponent(out _renderer);
@@ -44,6 +46,35 @@ namespace LPSoft.LD46.Entities
             {
                 Move();
             }
+
+            if (_bulletTimeout <= 0.0f)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _bulletTimeout -= Time.deltaTime;
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Carrier"))
+            {
+                collision.gameObject.GetComponent<Carrier>().Damage(0.5f);
+            }
+
+            if (collision.gameObject.CompareTag("Barrier"))
+            {
+                collision.gameObject.GetComponent<Barrier>().Damage(0.5f, Element);
+            }
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                collision.gameObject.GetComponent<Player>().Damage(0.5f);
+            }
+
+            Destroy(gameObject);
         }
 
         private void Move()
