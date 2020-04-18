@@ -132,6 +132,11 @@ namespace LPSoft.LD46.Entities
                     _moveCurrentTime += _entryExitSpeed;
                     transform.position = Vector2.Lerp(_attackPath[_pathIndex], _exitLocation, _moveCurrentTime);
                 }
+
+                if(_exiting && _moveCurrentTime >= 1.0f)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

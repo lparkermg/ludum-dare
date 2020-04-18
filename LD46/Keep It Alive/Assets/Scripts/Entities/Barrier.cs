@@ -1,5 +1,6 @@
 ﻿using LPSoft.LD46.Enums;
 using LPSoft.LD46.Extensions;
+using LPSoft.LD46.Management;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,7 +41,13 @@ namespace LPSoft.LD46.Entities
 
         public void Damage(float baseAmount, Element element)
         {
+            var damage = Element.Compare(element, baseAmount, GameManager.DamageMultiplier);
             _energyRemaining -= baseAmount;
+
+            if (_energyRemaining > _maxEnergy)
+            {
+                _energyRemaining = _maxEnergy;
+            }
         }
 
         public void Activate(Element element)

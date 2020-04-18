@@ -12,6 +12,7 @@ namespace LPSoft.LD46.Entities
     public sealed class Player : MonoBehaviour
     {
         private InputWrapper _input;
+        private Gameplay _gameplay;
         private Rigidbody2D _rb;
 
         private Element[] Slots = new Element[2] { Element.General, Element.Fire };
@@ -29,6 +30,7 @@ namespace LPSoft.LD46.Entities
         {
             var manager = GameObject.FindGameObjectWithTag("Managers");
             manager.TryGetComponent(out _input);
+            manager.TryGetComponent(out _gameplay);
 
             _input.OnToggleBarrier += ToggleSelectedCarrierBarrier;
 
@@ -53,6 +55,11 @@ namespace LPSoft.LD46.Entities
         public void Damage(float amount)
         {
             _health -= amount;
+
+            if(_health <= 0.0f)
+            {
+                _gameplay.Gameover();
+            }
         }
 
         private void MovePlayer()

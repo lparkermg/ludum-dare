@@ -31,9 +31,12 @@ namespace LPSoft.LD46.Entities
 
         [SerializeField]
         private float _barrierMaxEnergy = 25f;
+
+        private Gameplay _gameplay;
         private void Awake()
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
+            managers.TryGetComponent(out _gameplay);
             TryGetComponent(out _rb);
             _centralPoint = transform.position;
 
@@ -55,6 +58,11 @@ namespace LPSoft.LD46.Entities
         public void Damage(float amount)
         {
             _health -= amount;
+
+            if(_health <= 0.0f)
+            {
+                _gameplay.Gameover();
+            }
         }
 
         public void ActivateBarrier(Element element)

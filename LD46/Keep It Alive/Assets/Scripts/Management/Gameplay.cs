@@ -22,12 +22,16 @@ namespace LPSoft.LD46.Management
 
         [SerializeField]
         private float _spawnEnemiesEvery = 30.0f;
+        private int _timesSpawned = 0;
 
         private float _currentSpawnTimer;
+
+        private int _currentWave = 1;
 
         private void Awake()
         {
             _currentSpawnTimer = 20.0f;
+            GameManager.Initialize(4.0f, 5);
         }
 
         // Start is called before the first frame update
@@ -39,15 +43,42 @@ namespace LPSoft.LD46.Management
         // Update is called once per frame
         void Update()
         {
+            if (_currentWave > GameManager.MaxWaves)
+            {
+                Success();
+                return;
+            }
+
             if (_currentSpawnTimer >= _spawnEnemiesEvery)
             {
-                SpawnEnemies(1);
                 _currentSpawnTimer = 0.0f;
+                _timesSpawned++;
+                _spawnEnemiesEvery -= 1.0f;
+
+                if (_timesSpawned > 5)
+                {
+                    _currentWave++;
+                    _timesSpawned = 0;
+                }
+
+                SpawnEnemies(_timesSpawned);
             }
             else
             {
                 _currentSpawnTimer += Time.deltaTime;
             }
+        }
+
+        public void Gameover()
+        {
+            // TODO: Replace with scene detailing gameover.
+            Debug.Log("GAMEOVER!");
+        }
+
+        private void Success()
+        {
+            // TODO: Replace with going to scene detailing info.
+            Debug.Log("SUCCESS!");
         }
 
         private void SpawnEnemies(int numberOfEnemies)
