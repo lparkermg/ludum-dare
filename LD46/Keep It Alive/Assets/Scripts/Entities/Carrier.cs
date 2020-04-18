@@ -1,4 +1,5 @@
-﻿using LPSoft.LD46.Management;
+﻿using LPSoft.LD46.Enums;
+using LPSoft.LD46.Management;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace LPSoft.LD46.Entities
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Carrier : MonoBehaviour
+    public sealed class Carrier : MonoBehaviour
     {
         [SerializeField]
         private float _movementArea = 1.0f;
@@ -20,13 +21,20 @@ namespace LPSoft.LD46.Entities
 
         private Rigidbody2D _rb;
 
-        public bool BarrierActive { get; set; }
+        public bool BarrierActive { get; private set; }
 
+        [SerializeField]
+        private Barrier _barrier;
+
+        [SerializeField]
+        private float _barrierMaxEnergy = 25f;
         private void Awake()
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
             TryGetComponent(out _rb);
             _centralPoint = transform.position;
+
+            _barrier.Initialize(_barrierMaxEnergy);
         }
 
         // Start is called before the first frame update
@@ -39,6 +47,18 @@ namespace LPSoft.LD46.Entities
         void Update()
         {
             Move();
+        }
+
+        public void ActivateBarrier(Element element)
+        {
+            BarrierActive = true;
+            _barrier.Activate(element);
+        }
+
+        public void DeactivateBarrier()
+        {
+            BarrierActive = false;
+            _barrier.Deactivate();
         }
 
         private void Move() 

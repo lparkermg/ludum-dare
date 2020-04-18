@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace LPSoft.LD46.Management
 {
-    public class InputWrapper : MonoBehaviour
+    public sealed class InputWrapper : MonoBehaviour
     {
         public Vector2 Direction { get; private set; }
 
@@ -16,7 +16,7 @@ namespace LPSoft.LD46.Management
 
         public Vector2 MousePosition { get; private set; }
 
-        public delegate void ToggleBarrierEventHandler(object source, EventArgs args);
+        public delegate void ToggleBarrierEventHandler(object source, BarrierToggleEventArgs args);
         public event ToggleBarrierEventHandler OnToggleBarrier;
         void Start()
         {
@@ -40,13 +40,13 @@ namespace LPSoft.LD46.Management
             if (Input.GetButtonDown("Barrier Slot 1"))
             {
                 Debug.Log("Toggling barrier slot 1.");
-                OnToggleBarrier?.Invoke(null, null);
+                OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 1 });
             }
 
             if (Input.GetButtonDown("Barrier Slot 2"))
             {
                 Debug.Log("Toggling barrier slot 2.");
-                OnToggleBarrier?.Invoke(null, null);
+                OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 2 });
             }
         }
 

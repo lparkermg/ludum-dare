@@ -1,4 +1,5 @@
-﻿using LPSoft.LD46.Extensions;
+﻿using LPSoft.LD46.Enums;
+using LPSoft.LD46.Extensions;
 using LPSoft.LD46.Management;
 using System;
 using System.Collections;
@@ -13,6 +14,8 @@ namespace LPSoft.LD46.Entities
         private InputWrapper _input;
         private Rigidbody2D _rb;
 
+        private Element[] Slots = new Element[2] { Element.General, Element.Fire };
+
         [SerializeField]
         private float _speed = 0.0f;
 
@@ -24,6 +27,9 @@ namespace LPSoft.LD46.Entities
         {
             var manager = GameObject.FindGameObjectWithTag("Managers");
             manager.TryGetComponent(out _input);
+
+            _input.OnToggleBarrier += ToggleSelectedCarrierBarrier;
+
             TryGetComponent(out _rb);
 
             var carrier = GameObject.FindGameObjectWithTag("Carrier");
@@ -50,11 +56,18 @@ namespace LPSoft.LD46.Entities
             }
         }
 
-        private void ToggleSelectedCarrierBarrier(object source, EventArgs args)
+        private void ToggleSelectedCarrierBarrier(object source, BarrierToggleEventArgs args)
         {
             _barrierActive = !_barrierActive;
-            Debug.Log($"Barrier Active: {_barrierActive}");
-            _selectedCarrier.BarrierActive = _barrierActive;
+            
+            if (_barrierActive)
+            {
+                _selectedCarrier.ActivateBarrier(Slots[args.Slot - 1]);
+            }
+            else
+            {
+                _selectedCarrier.DeactivateBarrier();
+            }
         }
     }
 }

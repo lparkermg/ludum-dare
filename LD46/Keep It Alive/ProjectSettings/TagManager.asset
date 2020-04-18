@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Managers
   - Carrier
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ships
+    uniqueID: 983809893
+    locked: 0
+  - name: Barriers
+    uniqueID: 2645966871
+    locked: 0
+  - name: Enemies
+    uniqueID: 270824535
     locked: 0
