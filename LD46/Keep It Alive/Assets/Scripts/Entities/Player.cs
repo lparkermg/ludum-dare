@@ -64,6 +64,8 @@ namespace LPSoft.LD46.Entities
             }
 
             _slots = slots.ToArray();
+
+            manager.GetComponent<Management.UI>().InitializeSlots(_slots);
         }
 
         // Start is called before the first frame update
