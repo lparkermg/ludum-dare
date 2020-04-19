@@ -22,7 +22,9 @@ namespace LPSoft.LD46.Entities
         [SerializeField]
         private float _passiveReductionRate = 0.5f;
 
-        private float _timeout = 10.0f;
+        private float _timeout = 5.0f;
+        private bool _canActivate = true;
+        private float _timeToActivatable = 0.0f;
 
         private float _barrierRechageAmount = 0.25f;
         private float _barrierRechargeEvery = 1.0f;
@@ -111,6 +113,22 @@ namespace LPSoft.LD46.Entities
                 else
                 {
                     _barrierCurrentRechargeTime += Time.deltaTime;
+                }
+            }
+        }
+
+        private void Timeout()
+        {
+            if (!_canActivate)
+            {
+                if (_timeToActivatable >= _timeout)
+                {
+                    _canActivate = true;
+                    _timeToActivatable = 0.0f;
+                }
+                else
+                {
+                    _timeToActivatable += Time.deltaTime;
                 }
             }
         }
