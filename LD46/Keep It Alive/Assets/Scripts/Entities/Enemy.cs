@@ -10,13 +10,13 @@ namespace LPSoft.LD46.Entities
         [SerializeField]
         private Element[] _attackElements;
 
-        private float _entryExitSpeed = 0.005f;
+        private float _entryExitSpeed = 0.01f;
         private Vector2 _exitLocation;
 
         private Vector2[] _attackPath;
         private int _pathIndex = 1;
-        private float _waitAtNodesForSeconds = 10.0f;
-        private float _moveSpeed = 0.005f;
+        private float _waitAtNodesForSeconds = 5.0f;
+        private float _moveSpeed = 0.01f;
 
         private float _moveCurrentTime = 0.0f;
         private float _waitCurrentTime = 0.0f;

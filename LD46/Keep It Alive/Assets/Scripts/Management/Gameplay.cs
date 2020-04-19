@@ -23,7 +23,7 @@ namespace LPSoft.LD46.Management
         private Element[] _availableElements;
 
         [SerializeField]
-        private float _spawnEnemiesEvery = 30.0f;
+        private float _spawnEnemiesEvery = 20.0f;
         private int _timesSpawned = 0;
 
         private float _currentSpawnTimer;
@@ -60,7 +60,7 @@ namespace LPSoft.LD46.Management
                 _timesSpawned++;
                 _spawnEnemiesEvery -= 1.0f;
 
-                if (_timesSpawned > 5)
+                if (_timesSpawned > 3)
                 {
                     _currentWave++;
                     _timesSpawned = 0;
