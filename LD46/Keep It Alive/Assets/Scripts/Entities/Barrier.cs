@@ -43,6 +43,7 @@ namespace LPSoft.LD46.Entities
         {
             PassiveReduction();
             PassiveRechage();
+            Timeout();
         }
 
         public void Initialize(float maxEnergy)
@@ -64,6 +65,11 @@ namespace LPSoft.LD46.Entities
 
         public void Activate(Element element)
         {
+            if (!_canActivate)
+            {
+                return;
+            }
+
             if (_energyRemaining <= 0.0f)
             {
                 _energyRemaining = _maxEnergy;
@@ -92,6 +98,7 @@ namespace LPSoft.LD46.Entities
 
                 if (_energyRemaining <= 0.0f)
                 {
+                    _canActivate = false;
                     Deactivate();
                 }
             }
