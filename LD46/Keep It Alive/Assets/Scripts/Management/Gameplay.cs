@@ -28,16 +28,19 @@ namespace LPSoft.LD46.Management
 
         private int _currentWave = 1;
 
+        private UI _ui;
+
         private void Awake()
         {
             _currentSpawnTimer = 20.0f;
             _availableElements = GameManager.EnemyElements;
+            TryGetComponent(out _ui);
         }
 
         // Start is called before the first frame update
         void Start()
         {
-
+            _ui.UpdateWave(_currentWave);
         }
 
         // Update is called once per frame
@@ -59,6 +62,7 @@ namespace LPSoft.LD46.Management
                 {
                     _currentWave++;
                     _timesSpawned = 0;
+                    _ui.UpdateWave(_currentWave);
                 }
 
                 SpawnEnemies(_timesSpawned);

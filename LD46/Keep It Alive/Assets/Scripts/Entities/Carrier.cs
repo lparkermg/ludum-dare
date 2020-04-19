@@ -33,10 +33,13 @@ namespace LPSoft.LD46.Entities
         private float _barrierMaxEnergy = 25f;
 
         private Gameplay _gameplay;
+        private Management.UI _ui;
         private void Awake()
         {
             var managers = GameObject.FindGameObjectWithTag("Managers");
             managers.TryGetComponent(out _gameplay);
+            managers.TryGetComponent(out _ui);
+
             TryGetComponent(out _rb);
             _centralPoint = transform.position;
 
@@ -55,13 +58,21 @@ namespace LPSoft.LD46.Entities
             Move();
         }
 
-        public void Damage(float amount)
+        public void Damage(float amount,Element element)
         {
-            _health -= amount;
-
-            if(_health <= 0.0f)
+            if (!BarrierActive)
             {
-                _gameplay.Gameover();
+
+                _health -= amount;
+                _ui.UpdateCarrierHealth(_health);
+                if (_health <= 0.0f)
+                {
+                    _gameplay.Gameover();
+                }
+            }
+            else
+            {
+                _barrier.Damage(amount, element);
             }
         }
 

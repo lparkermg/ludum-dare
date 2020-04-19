@@ -13,6 +13,7 @@ namespace LPSoft.LD46.Entities
     {
         private InputWrapper _input;
         private Gameplay _gameplay;
+        private Management.UI _ui;
         private Rigidbody2D _rb;
 
         private Element[] _slots = new Element[2] { Element.General, Element.Fire };
@@ -36,6 +37,7 @@ namespace LPSoft.LD46.Entities
             var manager = GameObject.FindGameObjectWithTag("Managers");
             manager.TryGetComponent(out _input);
             manager.TryGetComponent(out _gameplay);
+            manager.TryGetComponent(out _ui);
 
             _input.OnToggleBarrier += ToggleSelectedCarrierBarrier;
             _input.OnToggleReflector += ToggleReflector;
@@ -65,7 +67,7 @@ namespace LPSoft.LD46.Entities
 
             _slots = slots.ToArray();
 
-            manager.GetComponent<Management.UI>().InitializeSlots(_slots);
+            _ui.InitializeSlots(_slots);
         }
 
         // Start is called before the first frame update
@@ -88,7 +90,7 @@ namespace LPSoft.LD46.Entities
         public void Damage(float amount)
         {
             _health -= amount;
-
+            _ui.UpdateShipHealth(_health);
             if(_health <= 0.0f)
             {
                 _gameplay.Gameover();

@@ -61,13 +61,7 @@ namespace LPSoft.LD46.Entities
         {
             if (collision.gameObject.CompareTag("Carrier"))
             {
-                collision.gameObject.GetComponent<Carrier>().Damage(0.5f);
-                Destroy(gameObject);
-            }
-
-            if (collision.gameObject.CompareTag("Barrier"))
-            {
-                collision.gameObject.GetComponent<Barrier>().Damage(0.5f, Element);
+                collision.gameObject.GetComponent<Carrier>().Damage(0.5f, Element);
                 Destroy(gameObject);
             }
 

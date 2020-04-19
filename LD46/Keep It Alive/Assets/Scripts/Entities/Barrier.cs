@@ -15,6 +15,8 @@ namespace LPSoft.LD46.Entities
 
         public Element Element { get; private set; }
         private float _maxEnergy;
+
+        [SerializeField]
         private float _energyRemaining;
 
         [SerializeField]
