@@ -62,19 +62,25 @@ namespace LPSoft.LD46.Entities
             if (collision.gameObject.CompareTag("Carrier"))
             {
                 collision.gameObject.GetComponent<Carrier>().Damage(0.5f);
+                Destroy(gameObject);
             }
 
             if (collision.gameObject.CompareTag("Barrier"))
             {
                 collision.gameObject.GetComponent<Barrier>().Damage(0.5f, Element);
+                Destroy(gameObject);
             }
 
             if (collision.gameObject.CompareTag("Player"))
             {
                 collision.gameObject.GetComponent<Player>().Damage(0.5f);
+                Destroy(gameObject);
             }
-
-            Destroy(gameObject);
+            
+            if (collision.gameObject.CompareTag("Reflector"))
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void Move()

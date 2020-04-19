@@ -18,6 +18,9 @@ namespace LPSoft.LD46.Management
 
         public delegate void ToggleBarrierEventHandler(object source, BarrierToggleEventArgs args);
         public event ToggleBarrierEventHandler OnToggleBarrier;
+
+        public delegate void ToggleReflectorEventHandler(object sender, EventArgs args);
+        public event ToggleReflectorEventHandler OnToggleReflector;
         void Start()
         {
 
@@ -39,14 +42,32 @@ namespace LPSoft.LD46.Management
 
             if (Input.GetButtonDown("Barrier Slot 1"))
             {
-                Debug.Log("Toggling barrier slot 1.");
                 OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 1 });
             }
 
             if (Input.GetButtonDown("Barrier Slot 2"))
             {
-                Debug.Log("Toggling barrier slot 2.");
                 OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 2 });
+            }
+
+            if (Input.GetButtonDown("Barrier Slot 3"))
+            {
+                OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 3 });
+            }
+
+            if (Input.GetButtonDown("Barrier Slot 4"))
+            {
+                OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 4 });
+            }
+
+            if (Input.GetButtonDown("Barrier Slot 5"))
+            {
+                OnToggleBarrier?.Invoke(null, new BarrierToggleEventArgs { Slot = 5 });
+            }
+
+            if (Input.GetButtonDown("Toggle Reflector"))
+            {
+                OnToggleReflector?.Invoke(null, null);
             }
         }
 

@@ -26,6 +26,11 @@ namespace LPSoft.LD46.Entities
 
         private float _health = 100.0f;
 
+        [SerializeField]
+        private Transform _reflector;
+
+        private bool _reflectorActive = false;
+
         private void Awake()
         {
             var manager = GameObject.FindGameObjectWithTag("Managers");
@@ -33,6 +38,7 @@ namespace LPSoft.LD46.Entities
             manager.TryGetComponent(out _gameplay);
 
             _input.OnToggleBarrier += ToggleSelectedCarrierBarrier;
+            _input.OnToggleReflector += ToggleReflector;
 
             TryGetComponent(out _rb);
 
@@ -50,6 +56,11 @@ namespace LPSoft.LD46.Entities
         void Update()
         {
             MovePlayer();
+
+            if (_reflectorActive)
+            {
+                MoveReflector();
+            }
         }
 
         public void Damage(float amount)
@@ -70,6 +81,15 @@ namespace LPSoft.LD46.Entities
             }
         }
 
+        private void MoveReflector()
+        {
+            float angle = 0.0f;
+
+            Vector3 relative = _reflector.InverseTransformPoint(_input.MousePosition.ToVector3());
+            angle = Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
+            _reflector.Rotate(0f, 0f, -angle);
+        }
+
         private void ToggleSelectedCarrierBarrier(object source, BarrierToggleEventArgs args)
         {
             _barrierActive = !_barrierActive;
@@ -81,6 +101,20 @@ namespace LPSoft.LD46.Entities
             else
             {
                 _selectedCarrier.DeactivateBarrier();
+            }
+        }
+
+        private void ToggleReflector(object source, EventArgs args)
+        {
+            _reflectorActive = !_reflectorActive;
+            
+            if (_reflectorActive)
+            {
+                _reflector.gameObject.SetActive(true);
+            }
+            else
+            {
+                _reflector.gameObject.SetActive(false);
             }
         }
     }
