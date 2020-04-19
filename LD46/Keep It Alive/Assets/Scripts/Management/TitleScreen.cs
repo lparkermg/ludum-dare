@@ -113,7 +113,9 @@ namespace LPSoft.LD46.Management
         // Update is called once per frame
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.Escape)){
+                Application.Quit();
+            }
         }
 
         private void HideLockedSlots()
