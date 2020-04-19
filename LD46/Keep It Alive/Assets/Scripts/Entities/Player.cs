@@ -15,7 +15,7 @@ namespace LPSoft.LD46.Entities
         private Gameplay _gameplay;
         private Rigidbody2D _rb;
 
-        private Element[] Slots = new Element[2] { Element.General, Element.Fire };
+        private Element[] _slots = new Element[2] { Element.General, Element.Fire };
 
         [SerializeField]
         private float _speed = 0.0f;
@@ -44,6 +44,26 @@ namespace LPSoft.LD46.Entities
 
             var carrier = GameObject.FindGameObjectWithTag("Carrier");
             carrier.TryGetComponent(out _selectedCarrier);
+
+            var slotElements = new List<Element?>
+            {
+                GameManager.Slot1Element,
+                GameManager.Slot2Element,
+                GameManager.Slot3Element,
+                GameManager.Slot4Element,
+                GameManager.Slot5Element
+            };
+
+            var slots = new List<Element>();
+            foreach(var element in slotElements) 
+            {
+                if (element.HasValue)
+                {
+                    slots.Add(element.Value);
+                }
+            }
+
+            _slots = slots.ToArray();
         }
 
         // Start is called before the first frame update
@@ -96,7 +116,7 @@ namespace LPSoft.LD46.Entities
             
             if (_barrierActive)
             {
-                _selectedCarrier.ActivateBarrier(Slots[args.Slot - 1]);
+                _selectedCarrier.ActivateBarrier(_slots[args.Slot - 1]);
             }
             else
             {

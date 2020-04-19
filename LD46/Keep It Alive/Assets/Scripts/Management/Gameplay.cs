@@ -31,7 +31,7 @@ namespace LPSoft.LD46.Management
         private void Awake()
         {
             _currentSpawnTimer = 20.0f;
-            GameManager.Initialize(4.0f, 5);
+            _availableElements = GameManager.EnemyElements;
         }
 
         // Start is called before the first frame update
