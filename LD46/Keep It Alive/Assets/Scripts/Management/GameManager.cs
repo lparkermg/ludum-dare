@@ -17,11 +17,21 @@ namespace LPSoft.LD46.Management
 
         public static Element? Slot3Element { get; private set; }
 
+        public static bool Slot3Unlocked { get; private set; }
+
         public static Element? Slot4Element { get; private set; }
+
+        public static bool Slot4Unlocked { get; private set; }
 
         public static Element? Slot5Element { get; private set; }
 
+        public static bool Slot5Unlocked { get; private set; }
+
         public static Element[] EnemyElements { get; private set; }
+
+        public static string EndMessage { get; private set; }
+
+        public static string SubMessage { get; private set; }
 
         public static void Initialize(float multiplier)
         {
@@ -37,6 +47,49 @@ namespace LPSoft.LD46.Management
             Slot4Element = slot4;
             Slot5Element = slot5;
             EnemyElements = enemyElements;
+        }
+
+        public static void UpdateEndMessage(string endMessage, string subMessage)
+        {
+            EndMessage = endMessage;
+            SubMessage = subMessage;
+        }
+
+        public static void UnlockSlot(int slot)
+        {
+            switch(slot)
+            {
+                case 3:
+                    Slot3Unlocked = true;
+                    break;
+                case 4:
+                    Slot4Unlocked = true;
+                    break;
+                case 5:
+                    Slot5Unlocked = true;
+                    break;
+                default:
+                    break;
+            }
+
+            var newLockedSlots = "";
+
+            if (!Slot3Unlocked)
+            {
+                newLockedSlots += "3,";
+            }
+
+            if (!Slot4Unlocked)
+            {
+                newLockedSlots += "4,";
+            }
+
+            if (!Slot5Unlocked)
+            {
+                newLockedSlots += "5";
+            }
+
+            PlayerPrefs.SetString("LockedSlots", newLockedSlots);
         }
     }
 }

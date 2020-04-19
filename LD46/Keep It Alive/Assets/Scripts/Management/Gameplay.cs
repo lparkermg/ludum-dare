@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 namespace LPSoft.LD46.Management
 {
     public class Gameplay : MonoBehaviour
@@ -75,14 +77,33 @@ namespace LPSoft.LD46.Management
 
         public void Gameover()
         {
-            // TODO: Replace with scene detailing gameover.
-            Debug.Log("GAMEOVER!");
+            GameManager.UpdateEndMessage("Failure", "The carriers cargo and your ship are lost forever more.");
+            SceneManager.LoadScene(2);
         }
 
         private void Success()
         {
-            // TODO: Replace with going to scene detailing info.
-            Debug.Log("SUCCESS!");
+            if(!GameManager.Slot3Unlocked)
+            {
+                GameManager.UpdateEndMessage("SUCCESS!", "3rd Barrier element slot unlocked.");
+                GameManager.UnlockSlot(3);
+            }
+            else if (!GameManager.Slot4Unlocked)
+            {
+                GameManager.UpdateEndMessage("SUCCESS!", "4th Barrier element slot unlocked.");
+                GameManager.UnlockSlot(4);
+            }
+            else if (!GameManager.Slot5Unlocked)
+            {
+                GameManager.UpdateEndMessage("SUCCESS!", "Final Barrier element slot unlocked.");
+                GameManager.UnlockSlot(5);
+            }
+            else
+            {
+                GameManager.UpdateEndMessage("SUCCESS!", "The carriers cargo was successfully delivered.");
+            }
+
+            SceneManager.LoadScene(2);
         }
 
         private void SpawnEnemies(int numberOfEnemies)

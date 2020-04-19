@@ -87,11 +87,25 @@ namespace LPSoft.LD46.Management
         // Start is called before the first frame update
         void Start()
         {
-            // TODO: Change this to load form player prefs?
-            _lockedSlots = new int[]
+            if (PlayerPrefs.GetInt("LoadedBefore") == 1)
             {
+                var lockedSlotsStr = PlayerPrefs.GetString("LockedSlots");
+                var lockedSlotsSplit = lockedSlotsStr.Split(',');
+                var lockedSlots = new List<int>();
+                foreach (var slot in lockedSlotsSplit)
+                {
+                    lockedSlots.Add(int.Parse(slot));
+                }
+                _lockedSlots = lockedSlots.ToArray();
+            }
+            else
+            {
+                _lockedSlots = new int[]
+                {
                 3,4,5
-            };
+                };
+                PlayerPrefs.SetString("LockedSlots", "3,4,5");
+            }
             GenerateEnemyElements();
             HideLockedSlots();
         }

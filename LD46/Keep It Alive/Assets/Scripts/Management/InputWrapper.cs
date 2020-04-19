@@ -69,6 +69,11 @@ namespace LPSoft.LD46.Management
             {
                 OnToggleReflector?.Invoke(null, null);
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
         }
 
         private void MouseInput()

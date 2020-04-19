@@ -116,6 +116,11 @@ namespace LPSoft.LD46.Entities
 
         private void ToggleSelectedCarrierBarrier(object source, BarrierToggleEventArgs args)
         {
+            if(args.Slot - 1 > _slots.Length)
+            {
+                return;
+            }
+
             _barrierActive = !_barrierActive;
             
             if (_barrierActive)

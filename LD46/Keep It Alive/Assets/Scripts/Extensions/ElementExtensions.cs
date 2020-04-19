@@ -14,7 +14,7 @@ namespace LPSoft.LD46.Extensions
                 case Element.Fire:
                     return Color.red;
                 case Element.Earth:
-                    return Color.green;
+                    return new Color(0.4622f, 0.1527f, 0.0f, 1.0f);
                 case Element.Lightning:
                     return Color.yellow;
                 case Element.Water:
