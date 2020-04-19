@@ -22,6 +22,13 @@ namespace LPSoft.LD46.Entities
         [SerializeField]
         private float _passiveReductionRate = 0.5f;
 
+        private float _timeout = 10.0f;
+
+        private float _barrierRechageAmount = 0.25f;
+        private float _barrierRechargeEvery = 1.0f;
+        private float _barrierCurrentRechargeTime = 0.0f;
+
+        private bool _active = false;
 
         // Start is called before the first frame update
         void Start()
@@ -33,6 +40,7 @@ namespace LPSoft.LD46.Entities
         void Update()
         {
             PassiveReduction();
+            PassiveRechage();
         }
 
         public void Initialize(float maxEnergy)
@@ -63,22 +71,47 @@ namespace LPSoft.LD46.Entities
             var color = Element.ToColor();
             color.a = 0.7f;
             _renderer.color = color;
-            gameObject.SetActive(true);
-            
+            _active = true;
         }
 
         public void Deactivate()
         {
-            gameObject.SetActive(false);
+            var color = _renderer.color;
+            color.a = 0.0f;
+            _renderer.color = color;
+            _active = false;
         }
 
         private void PassiveReduction()
         {
-            _energyRemaining -= Time.deltaTime * _passiveReductionRate;
-
-            if (_energyRemaining <= 0.0f)
+            if (_active)
             {
-                Deactivate();
+                _energyRemaining -= Time.deltaTime * _passiveReductionRate;
+
+                if (_energyRemaining <= 0.0f)
+                {
+                    Deactivate();
+                }
+            }
+        }
+
+        private void PassiveRechage()
+        {
+            if (!_active)
+            {
+                if(_barrierCurrentRechargeTime >= _barrierRechargeEvery)
+                {
+                    _energyRemaining += _barrierRechageAmount;
+                    if(_energyRemaining >= _maxEnergy)
+                    {
+                        _energyRemaining = _maxEnergy;
+                    }
+                    _barrierCurrentRechargeTime = 0.0f;
+                }
+                else
+                {
+                    _barrierCurrentRechargeTime += Time.deltaTime;
+                }
             }
         }
     }
