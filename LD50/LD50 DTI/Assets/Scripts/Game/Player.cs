@@ -69,18 +69,18 @@ public class Player : MonoBehaviour
 
     public void OnAction(InputAction.CallbackContext context)
     {
-        Debug.Log("Clicked Action!");
-        Debug.Log($"Activating Node? {_canActivateNode && !_usingNode && context.ReadValueAsButton()}");
         if (_canActivateNode && !_usingNode && context.ReadValueAsButton())
         {
             // Activate Node Usage
-            Debug.Log("Activated node!");
             _usingNode = true;
         }
-        else if(_canActivateNode && _usingNode && context.ReadValueAsButton())
+    }
+
+    public void OnCancel(InputAction.CallbackContext context)
+    {
+        if (_canActivateNode && _usingNode && context.ReadValueAsButton())
         {
             // TODO: We need to have a cancel action.
-            Debug.Log("Deactivated node!");
             _usingNode = false;
         }
     }
