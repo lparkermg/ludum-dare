@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public Core Core;
+
+
     private CharacterController _controller;
 
     [SerializeField]
@@ -19,6 +21,8 @@ public class Player : MonoBehaviour
 
     private bool _usingNode = false;
     private bool _canActivateNode = false;
+
+    private Node _currentNode = null;
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -39,6 +43,19 @@ public class Player : MonoBehaviour
             _controller.Move(transform.forward * (_move.y * _moveSpeed));
             _controller.Move(transform.right * (_move.x * _moveSpeed));
         }
+        else
+        {
+            if(_move.y > 0.5f)
+            {
+                _currentNode.Up();
+            }
+            else if(_move.y < -0.5f)
+            {
+                _currentNode.Down();
+            }
+
+            _currentNode.Rotate(_move.x * _moveSpeed);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -46,6 +63,7 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Node"))
         {
             _canActivateNode = true;
+            _currentNode = other.GetComponent<Node>();
         }    
     }
 
@@ -54,6 +72,7 @@ public class Player : MonoBehaviour
         if (other.CompareTag("Node"))
         {
             _canActivateNode = false;
+            _currentNode = null;
         }   
     }
 
@@ -74,6 +93,7 @@ public class Player : MonoBehaviour
         {
             // Activate Node Usage
             _usingNode = true;
+            _currentNode.ActivatePuzzle();
         }
     }
 
@@ -82,6 +102,7 @@ public class Player : MonoBehaviour
         if (_canActivateNode && _usingNode && context.ReadValueAsButton())
         {
             // TODO: We need to have a cancel action.
+            _currentNode.DeactivatePuzzle();
             _usingNode = false;
             Core.PauseWater();
         }
