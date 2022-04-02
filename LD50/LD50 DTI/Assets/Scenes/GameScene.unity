@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &163805829
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &322942688
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &365985702
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,6 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &503394913
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &567163291
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &592808051
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &603417907
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1271649661
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1538878831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1813917484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,6 +1112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1856375235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1196,6 +1209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1878709604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1976211538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &1987130862
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &2017410116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,6 +1393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &2044569455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
 --- !u!1 &2052292987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,3 +1568,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SphereRadius: 5
+  SphereMaxSpawnAreaRadius: 15
