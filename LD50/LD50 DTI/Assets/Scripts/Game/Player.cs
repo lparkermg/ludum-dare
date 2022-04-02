@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
+    public Core Core;
     private CharacterController _controller;
 
     [SerializeField]
@@ -82,6 +83,7 @@ public class Player : MonoBehaviour
         {
             // TODO: We need to have a cancel action.
             _usingNode = false;
+            Core.PauseWater();
         }
     }
 }

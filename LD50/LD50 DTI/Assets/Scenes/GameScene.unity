@@ -950,6 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c9cc03e4d158c498df67c76818f091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Core: {fileID: 1553269165}
   _moveSpeed: 0.1
   _lookSpeed: 0.75
 --- !u!114 &994266211
@@ -1066,6 +1067,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c453354d-7721-4cd6-a1e1-4a85ed8ca3c1
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 994266210}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce8ef124-4594-4f3e-a31d-3b53a19d5c61
+    m_ActionName: Player/Cancel[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1284,6 +1301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553269164}
   - component: {fileID: 1553269163}
+  - component: {fileID: 1553269165}
   m_Layer: 0
   m_Name: GameScripts
   m_TagString: Untagged
@@ -1347,6 +1365,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553269165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553269162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef6f8fd9b94b2e4c9ffa77c609967cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Water: {fileID: 2044569456}
+  WaterRaiseTime: 2.5
+  WaterRaiseAmount: 0.1
+  WaterPauseTime: 10
 --- !u!1 &1755318997
 GameObject:
   m_ObjectHideFlags: 0
