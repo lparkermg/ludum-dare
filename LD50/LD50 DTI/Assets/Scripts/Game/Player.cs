@@ -92,8 +92,10 @@ public class Player : MonoBehaviour
         if (_canActivateNode && !_usingNode && context.ReadValueAsButton())
         {
             // Activate Node Usage
-            _usingNode = true;
-            _currentNode.ActivatePuzzle();
+            _usingNode = _currentNode.ActivatePuzzle(() => { 
+                _usingNode = false;
+                Core.PauseWater();
+            });
         }
     }
 
@@ -104,7 +106,6 @@ public class Player : MonoBehaviour
             // TODO: We need to have a cancel action.
             _currentNode.DeactivatePuzzle();
             _usingNode = false;
-            Core.PauseWater();
         }
     }
 }
