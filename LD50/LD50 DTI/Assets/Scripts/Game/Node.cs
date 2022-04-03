@@ -66,6 +66,11 @@ public class Node : MonoBehaviour
 
     public void Rotate(float amount)
     {
+        if(_currentSelection > _selectableRotators.Length)
+        {
+            return;
+        }
+
         var currentRotation = _selectableRotators[_currentSelection].rotation.eulerAngles;
         _selectableRotators[_currentSelection].SetPositionAndRotation(_selectableRotators[_currentSelection].position, Quaternion.Euler(new Vector3(currentRotation.x, currentRotation.y + amount, currentRotation.z)));
     }

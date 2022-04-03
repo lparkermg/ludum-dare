@@ -1118,8 +1118,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ce8ef124-4594-4f3e-a31d-3b53a19d5c61
     m_ActionName: Player/Cancel[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
