@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class Node : MonoBehaviour
     public Transform RotatorTwo;
     public Transform RotatorThree;
 
-    public Transform CameraHolder;
+    public CinemachineVirtualCamera Camera;
 
     private Transform[] _selectableRotators;
     private int _currentSelection = 0;
@@ -31,12 +32,12 @@ public class Node : MonoBehaviour
 
     public void ActivatePuzzle()
     {
-        // TODO: When Cinemachine is installed, set the priority of the attached virtual camera to higher than the players one.
+        Camera.Priority = 3;
     }
 
     public void DeactivatePuzzle()
     {
-        // TODO: When Cinemachine is installed, set the priority of the attached virtual camera to lower than the players one.
+        Camera.Priority = 1;
     }
 
     public void Up()
