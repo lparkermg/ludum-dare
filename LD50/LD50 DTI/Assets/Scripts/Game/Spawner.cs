@@ -30,8 +30,6 @@ public class Spawner : MonoBehaviour
             Spawn(NodePrefab, SpawnedParent, 0.0f, false);
         }
 
-
-        Debug.Log("Spawning CRTs");
         // CRT Spawn
         for(var i = 0; i < CRTsToSpawn; i++)
         {
@@ -41,7 +39,6 @@ public class Spawner : MonoBehaviour
 
     private void Spawn(GameObject baseObject, Transform parent, float height, bool randomRotation)
     {
-        Debug.Log(height);
         var spawnIndex = Random.Range(0, SpawnPoints.Count - 1);
         var spawn = SpawnPoints[spawnIndex].position;
         var newObject = GameObject.Instantiate(baseObject, parent);
