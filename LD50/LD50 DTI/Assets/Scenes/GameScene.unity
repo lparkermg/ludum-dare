@@ -585,7 +585,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.32
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1450,12 +1450,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnedParent: {fileID: 1538878832}
-  CRTPrefab: {fileID: 5559248880505701428, guid: 48e490722b27da9449ced7662bbb3ff2,
-    type: 3}
+  CRTPrefabs:
+  - {fileID: 5559248880505701428, guid: 48e490722b27da9449ced7662bbb3ff2, type: 3}
+  - {fileID: 5559248880505701428, guid: 42c18a6b05c4d72458c6fac9289abf01, type: 3}
+  - {fileID: 5559248880505701428, guid: 7b46f67ac57f2e64a8a5665b70e12f67, type: 3}
   NodePrefab: {fileID: 5283831606886673454, guid: 4adc19ccf7493654292626361cee8f56,
     type: 3}
   NodesToSpawn: 5
-  CRTsToSpawn: 10
+  CRTsToSpawn: 15
   MaxCRTHeight: 25
   SpawnPoints:
   - {fileID: 1878709605}
@@ -1507,7 +1509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Water: {fileID: 2044569456}
   UI: {fileID: 247324673}
-  WaterRaiseTime: 1
+  WaterRaiseTime: 60
   WaterRaiseAmount: 0.1
   WaterPauseTime: 10
 --- !u!1 &1617016181

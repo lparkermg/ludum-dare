@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
 {
     public Transform SpawnedParent;
 
-    public GameObject CRTPrefab;
+    public GameObject[] CRTPrefabs;
     public GameObject NodePrefab;
 
     public int NodesToSpawn = 5;
@@ -27,17 +27,17 @@ public class Spawner : MonoBehaviour
         // Node Spawn
         for(var i = 0; i < NodesToSpawn; i++)
         {
-            Spawn(NodePrefab, SpawnedParent, 0.0f, false);
+            Spawn(NodePrefab, SpawnedParent, 0.0f, false, 1f);
         }
 
         // CRT Spawn
         for(var i = 0; i < CRTsToSpawn; i++)
         {
-            Spawn(CRTPrefab, SpawnedParent, Random.Range(0.0f, MaxCRTHeight), true);
+            Spawn(CRTPrefabs[Random.Range(0, CRTPrefabs.Length)], SpawnedParent, Random.Range(0.0f, MaxCRTHeight), true, Random.Range(9f, 13f));
         }
     }
 
-    private void Spawn(GameObject baseObject, Transform parent, float height, bool randomRotation)
+    private void Spawn(GameObject baseObject, Transform parent, float height, bool randomRotation, float scale)
     {
         var spawnIndex = Random.Range(0, SpawnPoints.Count - 1);
         var spawn = SpawnPoints[spawnIndex].position;
@@ -52,7 +52,6 @@ public class Spawner : MonoBehaviour
         }
 
         newTransform.SetPositionAndRotation(new Vector3(spawn.x, height, spawn.z), rotation);
-
         SpawnPoints.RemoveAt(spawnIndex);
     }
 

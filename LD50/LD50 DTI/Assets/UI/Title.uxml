@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="TitleScreen" style="flex-shrink: 0; flex-grow: 1; flex-direction: column; align-items: center; justify-content: space-between; background-color: rgba(0, 4, 45, 255);">
+        <ui:Label text="Delay The Inevitable" display-tooltip-when-elided="true" name="TitleLabel" style="color: rgba(122, 150, 200, 255); font-size: 50%; -unity-text-align: middle-center;" />
+        <ui:VisualElement style="justify-content: center; align-items: center; flex-shrink: 0; flex-grow: 0; flex-direction: column;">
+            <ui:Label text="Move: WASD, Left Thumbstick" display-tooltip-when-elided="true" name="MoveHelpLabel" enable-rich-text="true" style="color: rgba(103, 145, 199, 255); font-size: 25%;" />
+            <ui:Label text="Look: Mouse/ Right Thumbstick" display-tooltip-when-elided="true" name="LookHelpLabel" enable-rich-text="true" style="color: rgb(103, 145, 199); font-size: 25%;" />
+            <ui:Label text="Rotate Nodes: AD, Left or Right on Left Thumbstick" display-tooltip-when-elided="true" name="RotateHelpLabel" enable-rich-text="true" style="color: rgb(103, 145, 199); font-size: 25%;" />
+            <ui:Label text="Select Node: WS, Up or Down on Left Thumbstick" display-tooltip-when-elided="true" name="SelectHelpLabel" enable-rich-text="true" style="color: rgb(103, 145, 199); font-size: 25%;" />
+            <ui:Label text="Start/Cancel Rotation: Left/Right click on mouse, A/B (South/East) buttons " display-tooltip-when-elided="true" name="SelectHelpLabel" enable-rich-text="true" style="color: rgb(103, 145, 199); font-size: 25%;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="justify-content: center; align-items: center; flex-shrink: 0; flex-grow: 0; flex-direction: column;">
+            <ui:Label text="Best Score: None" display-tooltip-when-elided="true" name="BestScoreLabel" style="color: rgb(103, 145, 199); font-size: 25%;" />
+            <ui:Label text="Press X to start" display-tooltip-when-elided="true" name="PressLabel" style="color: rgb(103, 145, 199); font-size: 25%; justify-content: space-between; align-items: center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
