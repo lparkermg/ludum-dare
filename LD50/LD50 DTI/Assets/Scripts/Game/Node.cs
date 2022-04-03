@@ -28,17 +28,19 @@ public class Node : MonoBehaviour
     private bool _nodeComplete = false;
 
     private Action _onComplete;
+
+    public bool IsActive = false;
+    private Collider _triggerArea;
+    public GameObject ActiveIndicator;
     
     // Start is called before the first frame update
     void Start()
     {
-        Guide.SetPositionAndRotation(Guide.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
-        RotatorOne.SetPositionAndRotation(RotatorOne.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
-        RotatorTwo.SetPositionAndRotation(RotatorTwo.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
-        RotatorThree.SetPositionAndRotation(RotatorThree.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
+        ResetPuzzle();
 
         _selectableRotators = new[] { RotatorOne, RotatorTwo, RotatorThree };
-        _completedRotators = new[] { false, false, false };
+        
+        _triggerArea = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
@@ -60,13 +62,24 @@ public class Node : MonoBehaviour
         if (_nodeComplete)
         {
             DeactivatePuzzle();
-            _onComplete.Invoke();
+            _onComplete?.Invoke();
+            _onComplete = null;
         }
+    }
+
+    public void ResetPuzzle()
+    {
+        Guide.SetPositionAndRotation(Guide.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
+        RotatorOne.SetPositionAndRotation(RotatorOne.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
+        RotatorTwo.SetPositionAndRotation(RotatorTwo.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
+        RotatorThree.SetPositionAndRotation(RotatorThree.position, Quaternion.Euler(0, Random.Range(0f, 359f), 0));
+
+        _completedRotators = new[] { false, false, false };
     }
 
     public bool ActivatePuzzle(Action onComplete)
     {
-        if (_nodeComplete)
+        if (_nodeComplete || !IsActive)
         {
             return false;
         }
@@ -137,5 +150,20 @@ public class Node : MonoBehaviour
 
             _nodeComplete = _completedRotators.All(r => r);
         }
+    }
+
+    public void SetActive()
+    {
+        IsActive = true;
+        _triggerArea.enabled = true;
+        ActiveIndicator.SetActive(true);
+        _nodeComplete = false;
+    }
+
+    public void SetNotActive()
+    {
+        IsActive = false;
+        _triggerArea.enabled = false;
+        ActiveIndicator.SetActive(false);
     }
 }

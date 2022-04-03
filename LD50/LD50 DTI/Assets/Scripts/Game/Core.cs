@@ -1,14 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(Spawner))]
 public class Core : MonoBehaviour
 {
     public Transform Water;
 
     public UIDocument UI;
+
+    public Spawner Spawner;
 
     public float WaterRaiseTime = 5.0f;
     private float _currentRaiseTime = 0.0f;
@@ -31,6 +36,8 @@ public class Core : MonoBehaviour
     private VisualElement _gameOverHolder;
     private Label _timeLabel;
 
+    private int _currentActiveNodes = 1;
+
     private 
 
     // Start is called before the first frame update
@@ -41,6 +48,7 @@ public class Core : MonoBehaviour
         _timeLabel = UI.rootVisualElement.Q<Label>("CurrentTime");
         _raisesPerLimit = (int)(2.0f / WaterRaiseAmount) / 3;
         _timeLabel.text = _inGameTime.ToString("G");
+        Spawner.CurrentNodes[Random.Range(0, Spawner.CurrentNodes.Count - 1)].SetActive();
     }
 
     // Update is called once per frame
@@ -84,6 +92,43 @@ public class Core : MonoBehaviour
     public void PauseWater()
     {
         _waterPaused = true;
+        CheckActiveNodes();
+    }
+
+    public void CheckActiveNodes()
+    {
+        var anyActive = Spawner.CurrentNodes.Any(n => n.IsActive);
+
+        // TODO: This seems to be happening multiple times. Need to fix this because it's causing issues...
+        Debug.Log(anyActive);
+        Debug.Log(Spawner.CurrentNodes.Where(n => n.IsActive));
+        if (!anyActive)
+        {
+            _currentActiveNodes++;
+            foreach(var node in Spawner.CurrentNodes)
+            {
+                node.ResetPuzzle();
+            }
+
+            var inactive = Spawner.CurrentNodes;
+            for(var i = 0; i < _currentActiveNodes; i++)
+            {
+                Debug.Log(_currentActiveNodes);
+                if (inactive.Count == 0)
+                {
+                    continue;
+                }
+                var toActivate = Random.Range(0, inactive.Count - 1);
+
+                if(toActivate > inactive.Count - 1)
+                {
+                    continue;
+                }
+                inactive[toActivate].SetActive();
+                inactive.RemoveAt(toActivate);
+            }
+            Debug.Log("We're going to be setting more active here...");
+        }
     }
 
     private void LimitHit()
@@ -91,7 +136,7 @@ public class Core : MonoBehaviour
         Debug.Log("Limit Hit!");
         _currentLimit++;
 
-        if (_currentLimit == 1)
+        if (_currentLimit == 4)
         {
             var displayStyle = _timeHolder.style.display;
             displayStyle.value = DisplayStyle.None;

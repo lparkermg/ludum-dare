@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
                 _currentNode.Down();
             }
 
-            _currentNode.Rotate(_move.x * _moveSpeed);
+            _currentNode.Rotate(_move.x * (_moveSpeed * 3));
         }
     }
 
@@ -94,6 +94,7 @@ public class Player : MonoBehaviour
             // Activate Node Usage
             _usingNode = _currentNode.ActivatePuzzle(() => { 
                 _usingNode = false;
+                _currentNode.SetNotActive();
                 Core.PauseWater();
             });
         }

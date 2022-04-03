@@ -16,28 +16,37 @@ public class Spawner : MonoBehaviour
     public float MaxCRTHeight = 50f;
 
     public List<Transform> SpawnPoints;
-    // Start is called before the first frame update
-    void Start()
+
+    public List<Node> CurrentNodes;
+
+    void Awake()
     {
+        CurrentNodes = new List<Node>();
         if (NodesToSpawn + CRTsToSpawn > SpawnPoints.Count)
         {
             throw new ArgumentException("Nodes and CRTs cannot be more than the amount of spawn points.");
         }
 
         // Node Spawn
-        for(var i = 0; i < NodesToSpawn; i++)
+        for (var i = 0; i < NodesToSpawn; i++)
         {
-            Spawn(NodePrefab, SpawnedParent, 0.0f, false, 1f);
+            CurrentNodes.Add(Spawn<Node>(NodePrefab, SpawnedParent, 0.0f, false, 1f));
         }
 
         // CRT Spawn
-        for(var i = 0; i < CRTsToSpawn; i++)
+        for (var i = 0; i < CRTsToSpawn; i++)
         {
-            Spawn(CRTPrefabs[Random.Range(0, CRTPrefabs.Length)], SpawnedParent, Random.Range(0.0f, MaxCRTHeight), true, Random.Range(9f, 13f));
+            Spawn<Transform>(CRTPrefabs[Random.Range(0, CRTPrefabs.Length)], SpawnedParent, Random.Range(0.0f, MaxCRTHeight), true, Random.Range(9f, 13f));
         }
     }
 
-    private void Spawn(GameObject baseObject, Transform parent, float height, bool randomRotation, float scale)
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    private T Spawn<T>(GameObject baseObject, Transform parent, float height, bool randomRotation, float scale)
     {
         var spawnIndex = Random.Range(0, SpawnPoints.Count - 1);
         var spawn = SpawnPoints[spawnIndex].position;
@@ -53,6 +62,8 @@ public class Spawner : MonoBehaviour
 
         newTransform.SetPositionAndRotation(new Vector3(spawn.x, height, spawn.z), rotation);
         SpawnPoints.RemoveAt(spawnIndex);
+
+        return newObject.GetComponent<T>();
     }
 
     // Update is called once per frame
