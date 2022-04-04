@@ -47,11 +47,11 @@ public class Player : MonoBehaviour
         {
             if(_move.y > 0.5f)
             {
-                _currentNode.Up();
+                _currentNode.Down();
             }
             else if(_move.y < -0.5f)
             {
-                _currentNode.Down();
+                _currentNode.Up();
             }
 
             _currentNode.Rotate(_move.x * (_moveSpeed * 3));

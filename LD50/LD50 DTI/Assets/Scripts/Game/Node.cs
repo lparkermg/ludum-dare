@@ -23,7 +23,7 @@ public class Node : MonoBehaviour
 
     private bool _canChangeSelected = true;
     private float _currentTime = 0.0f;
-    public float ChangeWaitTime = 0.5f;
+    public float ChangeWaitTime = 1f;
 
     private bool _nodeComplete = false;
 
@@ -109,6 +109,9 @@ public class Node : MonoBehaviour
         {
             _currentSelection++;
         }
+
+        _canChangeSelected = false;
+        Debug.Log($"Current: {_currentSelection}, Length: {_selectableRotators.Length}");
     }
 
     public void Down()
@@ -126,6 +129,8 @@ public class Node : MonoBehaviour
         {
             _currentSelection--;
         }
+        Debug.Log($"Current: {_currentSelection}, Length: {_selectableRotators.Length}");
+        _canChangeSelected = false;
     }
 
     public void Rotate(float amount)
