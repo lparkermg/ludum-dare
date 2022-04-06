@@ -38,6 +38,8 @@ public class Core : MonoBehaviour
 
     private int _currentActiveNodes = 1;
 
+    public bool GameOver = false;
+
     private 
 
     // Start is called before the first frame update
@@ -142,6 +144,7 @@ public class Core : MonoBehaviour
             displayStyle.value = DisplayStyle.None;
             _timeHolder.style.display = displayStyle;
             _gameOverHolder.style.opacity = 1f;
+            GameOver = true;
         }
         // Set music to change to next phase.
         

@@ -1167,7 +1167,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ce8ef124-4594-4f3e-a31d-3b53a19d5c61
     m_ActionName: Player/Cancel[/Mouse/rightButton]
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -1514,6 +1514,7 @@ MonoBehaviour:
   WaterRaiseTime: 2
   WaterRaiseAmount: 0.05
   WaterPauseTime: 10
+  GameOver: 0
 --- !u!1 &1617016181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,7 +2212,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7317461, y: 1}
+    m_SensorSize: {x: 2.4653466, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

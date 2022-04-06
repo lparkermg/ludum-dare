@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -37,24 +38,27 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_usingNode)
+        if (!Core.GameOver)
         {
-            transform.Rotate(0, _look.x * _lookSpeed, 0);
-            _controller.Move(transform.forward * (_move.y * _moveSpeed));
-            _controller.Move(transform.right * (_move.x * _moveSpeed));
-        }
-        else
-        {
-            if(_move.y > 0.5f)
+            if (!_usingNode)
             {
-                _currentNode.Down();
+                transform.Rotate(0, _look.x * _lookSpeed, 0);
+                _controller.Move(transform.forward * (_move.y * _moveSpeed));
+                _controller.Move(transform.right * (_move.x * _moveSpeed));
             }
-            else if(_move.y < -0.5f)
+            else
             {
-                _currentNode.Up();
-            }
+                if (_move.y > 0.5f)
+                {
+                    _currentNode.Down();
+                }
+                else if (_move.y < -0.5f)
+                {
+                    _currentNode.Up();
+                }
 
-            _currentNode.Rotate(_move.x * (_moveSpeed * 3));
+                _currentNode.Rotate(_move.x * (_moveSpeed * 3));
+            }
         }
     }
 
@@ -97,6 +101,10 @@ public class Player : MonoBehaviour
                 _currentNode.SetNotActive();
                 Core.PauseWater();
             });
+        }
+        else if(context.ReadValueAsButton() && Core.GameOver)
+        {
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
     }
 
