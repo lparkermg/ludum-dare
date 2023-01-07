@@ -761,6 +761,10 @@
       <Project>{86940DBA-7CB7-CDB0-2924-81C7862B0C87}</Project>
       <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Game.Entities.csproj">
+      <Project>{CCE8D2FB-6442-CD6D-9CD9-0D6097766709}</Project>
+      <Name>Game.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VSCode.Editor.csproj">
       <Project>{470C30D1-A5AE-3DBA-257D-5CF7F100D3EE}</Project>
       <Name>Unity.VSCode.Editor</Name>
@@ -784,6 +788,10 @@
     <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
       <Project>{BACA692B-1808-1FA1-F016-4A1A47EC159A}</Project>
       <Name>Unity.VisualStudio.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Game.Field.csproj">
+      <Project>{140E81AD-BBFF-B45A-4862-E0BCF0F14285}</Project>
+      <Name>Game.Field</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{C5B08B6E-C5F7-FC62-2976-2445259A24D4}</Project>
@@ -901,6 +909,10 @@
       <Project>{21453682-B4BB-ECC7-20F2-403DF6536401}</Project>
       <Name>Unity.Mathematics.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Game.Collector.csproj">
+      <Project>{F4613783-83FD-85DE-59A3-63E129DDAC5B}</Project>
+      <Name>Game.Collector</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Core.Editor.csproj">
       <Project>{E770127E-B725-2B79-CFFC-C94409B5ABEF}</Project>
       <Name>Unity.RenderPipelines.Core.Editor</Name>
@@ -908,18 +920,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{AD89BB3A-6884-B956-0F9B-3BB87573455F}</Project>
       <Name>Unity.VisualScripting.State</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Entities.csproj">
-      <Project>{CCE8D2FB-6442-CD6D-9CD9-0D6097766709}</Project>
-      <Name>Game.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Field.csproj">
-      <Project>{140E81AD-BBFF-B45A-4862-E0BCF0F14285}</Project>
-      <Name>Game.Field</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Collector.csproj">
-      <Project>{F4613783-83FD-85DE-59A3-63E129DDAC5B}</Project>
-      <Name>Game.Collector</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
