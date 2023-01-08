@@ -243,7 +243,31 @@ MonoBehaviour:
     m_ActionId: f6efebf3-6d2d-45f2-a449-2d48607c7d00
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 98423208}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Game.Player
+        m_MethodName: HandlePutCollect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 98423208}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Game.Player
+        m_MethodName: HandlePutInField
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 493f061a-d7da-4a85-9be8-21eb3418e60a
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -286,6 +310,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5116f3bc-05fb-47b4-8003-5f70de0d3f08
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 98423208}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Game.Player
+        m_MethodName: HandleCollectFromField
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 24cfcd5b-5779-4f2c-95d9-0901679bf312
+    m_ActionName: Player/Collect[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -324,9 +364,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449e874d9b3e15e4cab9e1b7b7638a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inventory:
+  - Type: 0
+    Amount: 0
+  - Type: 1
+    Amount: 0
+  - Type: 2
+    Amount: 0
+  - Type: 3
+    Amount: 0
   _mouseSensitivity: 0.15
   _moveSpeed: 4
-  _multiplier: 13.14
+  _multiplier: 33
+  _currentCollector: {fileID: 0}
+  _currentField: {fileID: 0}
 --- !u!136 &98423210
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -420,7 +471,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 1
+  m_SlopeLimit: 0
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

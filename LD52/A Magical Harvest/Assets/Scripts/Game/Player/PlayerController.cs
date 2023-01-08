@@ -24,10 +24,13 @@ namespace Game.Player
         private float _moveSpeed = 2.5f;
 
         [SerializeField]
-        [Range(10f, 20f)]
+        [Range(10f, 40f)]
         private float _multiplier = 10f;
 
+        [SerializeField]
         private CollectorComponent _currentCollector;
+
+        [SerializeField]
         private FieldComponent _currentField;
 
         private CharacterController _controller;
@@ -111,6 +114,7 @@ namespace Game.Player
             }
 
             _inventory.First(i => i.Type == _currentField.Type).Amount += _currentField.Collect();
+            Debug.Log($"Collected from {_currentField.Type}");
         }
 
         public void HandlePutInField(InputAction.CallbackContext ctx)
@@ -138,9 +142,10 @@ namespace Game.Player
 
             var slot = _inventory.FirstOrDefault(i => i.Type == _currentCollector.Type);
 
-            if (slot != null)
+            if (slot != null && slot.Amount > 0)
             {
                 _currentCollector.PutInCollector(slot.Amount);
+                Debug.Log($"Put {slot.Amount} in {_currentCollector.Type}");
                 slot.Amount = 0;
             }
         }
@@ -149,17 +154,29 @@ namespace Game.Player
         {
             other.TryGetComponent<CollectorComponent>(out _currentCollector);
             other.TryGetComponent<FieldComponent>(out _currentField);
+
+            if(_currentCollector != null)
+            {
+                Debug.Log($"Entered collector {_currentCollector.Type}");
+            }
+
+            if(_currentField != null)
+            {
+                Debug.Log($"Entered field {_currentField.Type}");
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if(other.TryGetComponent<CollectorComponent>(out var _))
             {
+                Debug.Log($"Exiting collector {_currentCollector.Type}");
                 _currentCollector = null;
             }
 
             if(other.TryGetComponent<FieldComponent>(out var _))
             {
+                Debug.Log($"Exiting field {_currentField.Type}");
                 _currentField = null;
             }
         }
