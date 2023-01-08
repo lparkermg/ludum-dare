@@ -56,7 +56,7 @@
     <Analyzer Include="E:\Programs\Visual Studio\2022\Community-NP\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\Game\Enums\ShardType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -853,6 +853,10 @@
       <Project>{F4613783-83FD-85DE-59A3-63E129DDAC5B}</Project>
       <Name>Game.Collector</Name>
     </ProjectReference>
+    <ProjectReference Include="Game.Managers.csproj">
+      <Project>{7ABA8C30-9617-858D-B03B-9C50F03E5E7D}</Project>
+      <Name>Game.Managers</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Core.Editor.csproj">
       <Project>{E770127E-B725-2B79-CFFC-C94409B5ABEF}</Project>
       <Name>Unity.RenderPipelines.Core.Editor</Name>
@@ -860,6 +864,14 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{AD89BB3A-6884-B956-0F9B-3BB87573455F}</Project>
       <Name>Unity.VisualScripting.State</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
+      <Project>{B40BF256-1DFC-0ACD-EC49-2B60D776C240}</Project>
+      <Name>com.unity.cinemachine.editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Cinemachine.csproj">
+      <Project>{32CF3CF9-BB83-9124-EBEB-0EC6D1CC639C}</Project>
+      <Name>Cinemachine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

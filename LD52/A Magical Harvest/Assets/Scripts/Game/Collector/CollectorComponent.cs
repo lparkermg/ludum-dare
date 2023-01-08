@@ -1,3 +1,4 @@
+using Game.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ namespace Game.Collector
 {
     public class CollectorComponent : MonoBehaviour
     {
-        public int Type;
+        public ShardType Type;
 
         public int AmountCollected { get; private set; } = 0;
 

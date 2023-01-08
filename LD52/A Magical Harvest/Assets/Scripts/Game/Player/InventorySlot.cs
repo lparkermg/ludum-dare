@@ -1,3 +1,4 @@
+using Game.Enums;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Game.Player
 {
     public class InventorySlot
     {
-        public int Type;
+        public ShardType Type;
 
         public Sprite Image { get; set; }
 

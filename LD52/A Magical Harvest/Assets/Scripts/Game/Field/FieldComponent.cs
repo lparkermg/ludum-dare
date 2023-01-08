@@ -1,11 +1,11 @@
+using Game.Enums;
 using UnityEngine;
 
 namespace Game.Field
 {
     public class FieldComponent : MonoBehaviour
     {
-        [SerializeField]
-        public int Type;
+        public ShardType Type;
 
         private int _amount = 10;
         private bool _grown = true;

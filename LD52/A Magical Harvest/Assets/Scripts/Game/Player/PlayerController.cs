@@ -8,29 +8,56 @@ using UnityEngine.InputSystem;
 
 namespace Game.Player
 {
+    [RequireComponent(typeof(CharacterController))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
         private List<InventorySlot> _inventory;
 
+        [SerializeField]
+        [Range(0.1f, 1f)]
+        private float _mouseSensitivity = 0.5f;
+
+        [SerializeField]
+        [Range(1f, 5f)]
+        private float _moveSpeed = 2.5f;
+
+        [SerializeField]
+        [Range(50f, 100f)]
+        private float _multiplier = 10f;
+
         private CollectorComponent _currentCollector;
         private FieldComponent _currentField;
+
+        private CharacterController _controller;
+        private Vector3 _velocity = Vector3.zero;
 
         // Start is called before the first frame updated
         void Start()
         {
-
+            _controller = GetComponent<CharacterController>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            
+        }
 
+        void FixedUpdate()
+        {
+            _controller.SimpleMove(_moveSpeed * Time.deltaTime * (_velocity * _multiplier));
         }
 
         public void HandleMove(InputAction.CallbackContext ctx)
         {
             // TODO: Handles moving forward/backward and straffing left/right.
+            if (ctx.phase == InputActionPhase.Canceled)
+            {
+                _velocity = Vector3.zero;
+            }
+            var move = ctx.ReadValue<Vector2>();
+            _velocity = new Vector3(move.x, 0f, move.y);
         }
 
         public void HandleLook(InputAction.CallbackContext ctx)

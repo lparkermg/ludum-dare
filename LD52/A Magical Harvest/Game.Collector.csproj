@@ -733,6 +733,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Game.Enums.csproj">
+      <Project>{C530EB67-7272-96A2-53E0-47683BA9C7B3}</Project>
+      <Name>Game.Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{24A4D725-60C8-C45F-737E-1FAED98FB074}</Project>
       <Name>UnityEditor.UI</Name>
