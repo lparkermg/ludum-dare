@@ -1,3 +1,4 @@
+using Cinemachine;
 using Game.Collector;
 using Game.Entities;
 using Game.Field;
@@ -15,22 +16,30 @@ namespace Game.Player
         private List<InventorySlot> _inventory;
 
         [SerializeField]
-        [Range(0.1f, 1f)]
-        private float _mouseSensitivity = 0.5f;
+        [Range(0.1f, 0.5f)]
+        private float _mouseSensitivity = 0.1f;
 
         [SerializeField]
         [Range(1f, 5f)]
         private float _moveSpeed = 2.5f;
 
         [SerializeField]
-        [Range(50f, 100f)]
+        [Range(10f, 20f)]
         private float _multiplier = 10f;
 
         private CollectorComponent _currentCollector;
         private FieldComponent _currentField;
 
         private CharacterController _controller;
-        private Vector3 _velocity = Vector3.zero;
+        private Vector2 _velocity = Vector2.zero;
+        private Vector2 _look = Vector2.zero;
+
+        private CinemachineVirtualCamera _camera;
+
+        void Awake()
+        {
+            _camera = GetComponentInChildren<CinemachineVirtualCamera>();
+        }
 
         // Start is called before the first frame updated
         void Start()
@@ -46,7 +55,30 @@ namespace Game.Player
 
         void FixedUpdate()
         {
-            _controller.SimpleMove(_moveSpeed * Time.deltaTime * (_velocity * _multiplier));
+            transform.Rotate(transform.up, _look.x);
+
+            // Correct for deltaTime so your behaviour is framerate independent.
+            // (You may need to increase your speed as it's now measured in degrees per second, not per frame)
+            float angularIncrement = _multiplier * _look.y * Time.deltaTime;
+
+            // Get the current rotation angles.
+            Vector3 eulerAngles = _camera.transform.localEulerAngles;
+
+            // Returned angles are in the range 0...360. Map that back to -180...180 for convenience.
+            if (eulerAngles.x > 180f)
+                eulerAngles.x -= 360f;
+
+            // Increment the pitch angle, respecting the clamped range.
+            eulerAngles.x = Mathf.Clamp(eulerAngles.x - angularIncrement, -35f, 35f);
+
+            // Orient to match the new angles.
+            _camera.transform.localEulerAngles = eulerAngles;
+
+            var move = transform.forward;
+            move *= _velocity.y;
+            move *= _moveSpeed;
+
+            _controller.Move(move * Time.deltaTime);
         }
 
         public void HandleMove(InputAction.CallbackContext ctx)
@@ -56,13 +88,19 @@ namespace Game.Player
             {
                 _velocity = Vector3.zero;
             }
-            var move = ctx.ReadValue<Vector2>();
-            _velocity = new Vector3(move.x, 0f, move.y);
+
+            _velocity = ctx.ReadValue<Vector2>();
         }
 
         public void HandleLook(InputAction.CallbackContext ctx)
         {
             // TODO: Handles looking around.
+            if (ctx.phase == InputActionPhase.Canceled)
+            {
+                _look = Vector2.zero;
+            }
+
+            _look = ctx.ReadValue<Vector2>() * _mouseSensitivity;
         }
 
         public void HandleCollectFromField(InputAction.CallbackContext ctx)
