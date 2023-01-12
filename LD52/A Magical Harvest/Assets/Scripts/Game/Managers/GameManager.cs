@@ -1,3 +1,4 @@
+using Game.Global;
 using System;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace Game.Managers
         {
             _uiManager = GetComponent<UiManager>();
             _currentTime = _startTimeDefault;
+            GameSettings.SetPause(false);
         }
         // Start is called before the first frame update
         void Start()
@@ -28,15 +30,18 @@ namespace Game.Managers
         // Update is called once per frame
         void Update()
         {
-            if (_currentTime <= 0)
+            if (!GameSettings.IsPaused && !GameSettings.IsComplete)
             {
-                // TODO: Stop the game and display the length of time played.
-                var timePlayed = DateTime.Now - _startTime;
-            }
-            else
-            {
-                _currentTime -= Time.deltaTime;
-                _uiManager.UpdateTimeDisplay(_currentTime.ToString("##"));
+                if (_currentTime <= 0)
+                {
+                    _uiManager.SetCompletedTime(DateTime.Now - _startTime);
+                    GameSettings.SetComplete(true);
+                }
+                else
+                {
+                    _currentTime -= Time.deltaTime;
+                    _uiManager.UpdateTimeDisplay(_currentTime.ToString("##"));
+                }
             }
         }
 

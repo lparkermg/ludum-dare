@@ -2,6 +2,7 @@ using Cinemachine;
 using Game.Collector;
 using Game.Entities;
 using Game.Field;
+using Game.Global;
 using Game.Managers;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,28 +110,32 @@ namespace Game.Player
         public void HandleMove(InputAction.CallbackContext ctx)
         {
             // TODO: Handles moving forward/backward and straffing left/right.
-            if (ctx.phase == InputActionPhase.Canceled)
+            if (ctx.phase == InputActionPhase.Canceled || GameSettings.IsPaused || GameSettings.IsComplete)
             {
                 _velocity = Vector3.zero;
             }
-
-            _velocity = ctx.ReadValue<Vector2>();
+            else
+            {
+                _velocity = ctx.ReadValue<Vector2>();
+            }
         }
 
         public void HandleLook(InputAction.CallbackContext ctx)
         {
             // TODO: Handles looking around.
-            if (ctx.phase == InputActionPhase.Canceled)
+            if (ctx.phase == InputActionPhase.Canceled || GameSettings.IsPaused || GameSettings.IsComplete)
             {
                 _look = Vector2.zero;
             }
-
-            _look = ctx.ReadValue<Vector2>() * _mouseSensitivity;
+            else
+            {
+                _look = ctx.ReadValue<Vector2>() * _mouseSensitivity;
+            }
         }
 
         public void HandleCollectFromField(InputAction.CallbackContext ctx)
         {
-            if (_currentField == null || ctx.phase != InputActionPhase.Canceled)
+            if (_currentField == null || ctx.phase != InputActionPhase.Canceled || GameSettings.IsPaused || GameSettings.IsComplete)
             {
                 return;
             }
@@ -142,7 +147,7 @@ namespace Game.Player
 
         public void HandlePutInField(InputAction.CallbackContext ctx)
         {
-            if (_currentField == null || ctx.phase != InputActionPhase.Canceled)
+            if (_currentField == null || ctx.phase != InputActionPhase.Canceled || GameSettings.IsPaused || GameSettings.IsComplete)
             {
                 return;
             }
@@ -159,7 +164,7 @@ namespace Game.Player
 
         public void HandlePutCollect(InputAction.CallbackContext ctx)
         {
-            if (_currentCollector == null || ctx.phase != InputActionPhase.Canceled)
+            if (_currentCollector == null || ctx.phase != InputActionPhase.Canceled || GameSettings.IsPaused || GameSettings.IsComplete)
             {
                 return;
             }
@@ -174,6 +179,16 @@ namespace Game.Player
                 slot.Amount = 0;
                 UpdateInventoryUi();
             }
+        }
+
+        public void HandlePause(InputAction.CallbackContext ctx)
+        {
+            if(ctx.phase != InputActionPhase.Canceled || GameSettings.IsPaused || GameSettings.IsComplete)
+            {
+                return;
+            }
+
+            GameSettings.SetPause(true);
         }
 
         private void OnTriggerEnter(Collider other)

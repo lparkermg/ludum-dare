@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Main" style="flex-grow: 1; flex-shrink: 0; justify-content: space-between; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px;">
+    <ui:VisualElement name="Main" style="flex-grow: 1; flex-shrink: 0; justify-content: space-between; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px; display: flex;">
         <ui:VisualElement name="Top">
             <ui:VisualElement style="align-items: center; justify-content: center;">
                 <ui:Label tabindex="-1" text="Time Left" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 16px;" />
@@ -9,5 +9,17 @@
         <ui:VisualElement name="Bottom" style="align-items: center; flex-direction: column;">
             <ui:VisualElement name="InventoryContainer" style="height: 104px; flex-grow: 1; width: 100%; align-items: center; flex-direction: row; flex-shrink: 0;" />
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Pause" style="justify-content: center; align-items: center; flex-grow: 1; flex-shrink: 0; display: none; background-color: rgba(0, 0, 0, 0.5);">
+        <ui:Label tabindex="-1" text="Game Paused" display-tooltip-when-elided="true" name="GamePaused" style="font-size: 40px; color: rgb(255, 255, 255); -unity-text-align: middle-center; margin-bottom: 10%;" />
+        <ui:VisualElement name="VisualElement" style="width: 30%;">
+            <ui:Button text="Resume" display-tooltip-when-elided="true" name="ResumeButton" />
+            <ui:Button text="Exit to Title" display-tooltip-when-elided="true" name="ExitButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Complete" style="justify-content: center; align-items: center; display: none; flex-grow: 1; background-color: rgba(0, 0, 0, 0.5);">
+        <ui:Label tabindex="-1" text="Complete!" display-tooltip-when-elided="true" name="Complete" style="font-size: 64px; margin-bottom: 5%;" />
+        <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="CompletedTimeText" style="font-size: 24px; margin-bottom: 5%;" />
+        <ui:Button text="Exit to Title" display-tooltip-when-elided="true" name="ExitButton" style="width: 30%; max-width: none; min-width: 15%;" />
     </ui:VisualElement>
 </ui:UXML>

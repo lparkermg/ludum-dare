@@ -1,3 +1,4 @@
+using Game.Global;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace Game.Managers
         {
             _startButton = _ui.rootVisualElement.Q<Button>("StartButton");
             _exitButton = _ui.rootVisualElement.Q<Button>("ExitButton");
+            GameSettings.SetComplete(false);
         }
 
         // Start is called before the first frame update

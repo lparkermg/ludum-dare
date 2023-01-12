@@ -744,6 +744,10 @@
       <Project>{CCE8D2FB-6442-CD6D-9CD9-0D6097766709}</Project>
       <Name>Game.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="Game.Global.csproj">
+      <Project>{68D86F38-18CD-A77F-1475-CA5397A19680}</Project>
+      <Name>Game.Global</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{24A4D725-60C8-C45F-737E-1FAED98FB074}</Project>
       <Name>UnityEditor.UI</Name>

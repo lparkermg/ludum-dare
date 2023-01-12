@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{DC59EDF3-3BEF-E076-80DE-4502C3403648}</ProjectGuid>
+    <ProjectGuid>{68D86F38-18CD-A77F-1475-CA5397A19680}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Game.Player</AssemblyName>
+    <AssemblyName>Game.Global</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -56,11 +56,10 @@
     <Analyzer Include="E:\Programs\Visual Studio\2022\Community-NP\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Game\Player\InventorySlot.cs" />
-    <Compile Include="Assets\Scripts\Game\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Game\Global\GameSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Scripts\Game\Player\Game.Player.asmdef" />
+    <None Include="Assets\Scripts\Game\Global\Game.Global.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -734,38 +733,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.InputSystem.csproj">
-      <Project>{D8D7F6B9-3510-BF41-AC6B-0725CDAAE6D9}</Project>
-      <Name>Unity.InputSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Entities.csproj">
-      <Project>{CCE8D2FB-6442-CD6D-9CD9-0D6097766709}</Project>
-      <Name>Game.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Field.csproj">
-      <Project>{140E81AD-BBFF-B45A-4862-E0BCF0F14285}</Project>
-      <Name>Game.Field</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Collector.csproj">
-      <Project>{F4613783-83FD-85DE-59A3-63E129DDAC5B}</Project>
-      <Name>Game.Collector</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Enums.csproj">
-      <Project>{C530EB67-7272-96A2-53E0-47683BA9C7B3}</Project>
-      <Name>Game.Enums</Name>
-    </ProjectReference>
-    <ProjectReference Include="Cinemachine.csproj">
-      <Project>{32CF3CF9-BB83-9124-EBEB-0EC6D1CC639C}</Project>
-      <Name>Cinemachine</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Managers.csproj">
-      <Project>{7ABA8C30-9617-858D-B03B-9C50F03E5E7D}</Project>
-      <Name>Game.Managers</Name>
-    </ProjectReference>
-    <ProjectReference Include="Game.Global.csproj">
-      <Project>{68D86F38-18CD-A77F-1475-CA5397A19680}</Project>
-      <Name>Game.Global</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{24A4D725-60C8-C45F-737E-1FAED98FB074}</Project>
       <Name>UnityEditor.UI</Name>

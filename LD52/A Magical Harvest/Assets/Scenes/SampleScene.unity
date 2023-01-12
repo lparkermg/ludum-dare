@@ -327,6 +327,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 24cfcd5b-5779-4f2c-95d9-0901679bf312
     m_ActionName: Player/Collect[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 98423208}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Game.Player
+        m_MethodName: HandlePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f9772643-7bc1-4444-8347-942cd43efaef
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
