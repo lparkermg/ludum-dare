@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\Managers\MarketManager.cs" />
     <Compile Include="Assets\Scripts\Game\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Managers\UiManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Managers\TitlescreenUiManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Game\Managers\Game.Managers.asmdef" />
@@ -737,6 +739,10 @@
     <ProjectReference Include="Game.Collector.csproj">
       <Project>{F4613783-83FD-85DE-59A3-63E129DDAC5B}</Project>
       <Name>Game.Collector</Name>
+    </ProjectReference>
+    <ProjectReference Include="Game.Entities.csproj">
+      <Project>{CCE8D2FB-6442-CD6D-9CD9-0D6097766709}</Project>
+      <Name>Game.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{24A4D725-60C8-C45F-737E-1FAED98FB074}</Project>

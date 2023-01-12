@@ -9,7 +9,7 @@ namespace Game.Player
     {
         public ShardType Type;
 
-        public Sprite Image { get; set; }
+        public Sprite Image;
 
         public int Amount;
     }

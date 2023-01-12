@@ -758,6 +758,10 @@
       <Project>{32CF3CF9-BB83-9124-EBEB-0EC6D1CC639C}</Project>
       <Name>Cinemachine</Name>
     </ProjectReference>
+    <ProjectReference Include="Game.Managers.csproj">
+      <Project>{7ABA8C30-9617-858D-B03B-9C50F03E5E7D}</Project>
+      <Name>Game.Managers</Name>
+    </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{24A4D725-60C8-C45F-737E-1FAED98FB074}</Project>
       <Name>UnityEditor.UI</Name>

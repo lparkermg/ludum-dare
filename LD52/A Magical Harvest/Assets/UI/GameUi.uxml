@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Main" style="flex-grow: 1; flex-shrink: 0; justify-content: space-between; padding-left: 8px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px;">
+        <ui:VisualElement name="Top">
+            <ui:VisualElement style="align-items: center; justify-content: center;">
+                <ui:Label tabindex="-1" text="Time Left" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 16px;" />
+                <ui:Label tabindex="-1" text="69" display-tooltip-when-elided="true" name="TimeLeftLabel" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 24px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom" style="align-items: center; flex-direction: column;">
+            <ui:VisualElement name="InventoryContainer" style="height: 104px; flex-grow: 1; width: 100%; align-items: center; flex-direction: row; flex-shrink: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

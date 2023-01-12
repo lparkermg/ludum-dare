@@ -2,6 +2,7 @@ using Cinemachine;
 using Game.Collector;
 using Game.Entities;
 using Game.Field;
+using Game.Managers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -39,6 +40,14 @@ namespace Game.Player
 
         private CinemachineVirtualCamera _camera;
 
+        [SerializeField]
+        private UiManager _uiManager;
+
+        [SerializeField]
+        private GameManager _gameManager;
+
+        private bool _inventorySetup = false;
+
         void Awake()
         {
             _camera = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -53,7 +62,20 @@ namespace Game.Player
         // Update is called once per frame
         void Update()
         {
-            
+            if (!_inventorySetup)
+            {
+                if(_uiManager != null)
+                {
+                    try
+                    {
+                        UpdateInventoryUi();
+                        _inventorySetup = true;
+                    }
+                    catch 
+                    {
+                    }
+                }
+            }
         }
 
         void FixedUpdate()
@@ -114,6 +136,7 @@ namespace Game.Player
             }
 
             _inventory.First(i => i.Type == _currentField.Type).Amount += _currentField.Collect();
+            UpdateInventoryUi();
             Debug.Log($"Collected from {_currentField.Type}");
         }
 
@@ -130,6 +153,7 @@ namespace Game.Player
             {
                 _currentField.Plant();
                 slot.Amount--;
+                UpdateInventoryUi();
             }
         }
 
@@ -145,8 +169,10 @@ namespace Game.Player
             if (slot != null && slot.Amount > 0)
             {
                 _currentCollector.PutInCollector(slot.Amount);
+                _gameManager.AddTime(0.5f * slot.Amount);
                 Debug.Log($"Put {slot.Amount} in {_currentCollector.Type}");
                 slot.Amount = 0;
+                UpdateInventoryUi();
             }
         }
 
@@ -179,6 +205,16 @@ namespace Game.Player
                 Debug.Log($"Exiting field {_currentField.Type}");
                 _currentField = null;
             }
+        }
+
+        private void UpdateInventoryUi()
+        {
+            InventorySlotUi[] slots = _inventory.Select(i => new InventorySlotUi
+            {
+                Image = i.Image,
+                Amount = i.Amount,
+            }).ToArray();
+            _uiManager.RenderInventory(slots);
         }
     }
 }
