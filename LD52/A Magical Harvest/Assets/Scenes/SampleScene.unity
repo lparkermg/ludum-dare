@@ -134,15 +134,15 @@ GameObject:
   - component: {fileID: 59243930}
   - component: {fileID: 59243932}
   - component: {fileID: 59243929}
+  - component: {fileID: 59243933}
   - component: {fileID: 59243928}
   - component: {fileID: 59243931}
-  - component: {fileID: 59243933}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &59243928
 MonoBehaviour:
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9f362856ff4d44e8736e014e462836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collectors: []
+  _collectorsParent: {fileID: 1991938895}
   _updateFrequency: 15
 --- !u!114 &59243929
 MonoBehaviour:
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startTimeDefault: 60
+  _fieldParent: {fileID: 1676790107}
 --- !u!4 &59243930
 Transform:
   m_ObjectHideFlags: 0
