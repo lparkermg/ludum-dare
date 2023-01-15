@@ -8,6 +8,8 @@ namespace Game.Managers
     public class MarketManager : MonoBehaviour
     {
         [SerializeField]
+        private Transform _collectorsParent;
+
         private CollectorComponent[] _collectors;
 
         [SerializeField]
@@ -17,6 +19,7 @@ namespace Game.Managers
         // Start is called before the first frame update
         void Start()
         {
+            _collectors = _collectorsParent.GetComponentsInChildren<CollectorComponent>();
             UpdateMarket();
 
         }

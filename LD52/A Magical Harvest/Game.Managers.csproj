@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Game\Managers\MarketManager.cs" />
     <Compile Include="Assets\Scripts\Game\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Game\Managers\UiManager.cs" />
+    <Compile Include="Assets\Scripts\Game\Managers\GraphicsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Game\Managers\Game.Managers.asmdef" />
@@ -747,6 +748,14 @@
     <ProjectReference Include="Game.Global.csproj">
       <Project>{68D86F38-18CD-A77F-1475-CA5397A19680}</Project>
       <Name>Game.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="Game.Enums.csproj">
+      <Project>{C530EB67-7272-96A2-53E0-47683BA9C7B3}</Project>
+      <Name>Game.Enums</Name>
+    </ProjectReference>
+    <ProjectReference Include="Game.Field.csproj">
+      <Project>{140E81AD-BBFF-B45A-4862-E0BCF0F14285}</Project>
+      <Name>Game.Field</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{24A4D725-60C8-C45F-737E-1FAED98FB074}</Project>

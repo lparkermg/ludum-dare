@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\Field\FieldComponent.cs" />
+    <Compile Include="Assets\Scripts\Game\Field\PlantComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Game\Field\Game.Field.asmdef" />

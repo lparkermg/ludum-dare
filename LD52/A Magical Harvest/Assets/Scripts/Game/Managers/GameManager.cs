@@ -1,3 +1,4 @@
+using Game.Field;
 using Game.Global;
 using System;
 using UnityEngine;
@@ -15,16 +16,31 @@ namespace Game.Managers
 
         private UiManager _uiManager;
 
+        private GraphicsManager _graphics;
+
+        [SerializeField]
+        private Transform _fieldParent;
+
+        private FieldComponent[] _fields;
+
         void Awake()
         {
             _uiManager = GetComponent<UiManager>();
+            _graphics = GetComponent<GraphicsManager>();
             _currentTime = _startTimeDefault;
             GameSettings.SetPause(false);
         }
+
         // Start is called before the first frame update
         void Start()
         {
             _startTime = DateTime.Now;
+            _fields = _fieldParent.GetComponentsInChildren<FieldComponent>();
+
+            foreach(var field in _fields)
+            {
+                field.InitialiseField(_graphics.GetMaterial(field.Type));
+            }
         }
 
         // Update is called once per frame
