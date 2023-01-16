@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\Enums\ShardType.cs" />
+    <Compile Include="Assets\Scripts\Game\Enums\CollectorType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Game\Enums\Game.Enums.asmdef" />

@@ -39,7 +39,7 @@ namespace Game.Managers
 
             foreach(var field in _fields)
             {
-                field.InitialiseField(_graphics.GetMaterial(field.Type));
+                field.InitialiseField(_graphics.GetMaterial(field.Type), _graphics.GrowthStages(), _graphics.GetSprite(field.Type));
             }
         }
 

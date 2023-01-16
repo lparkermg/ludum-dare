@@ -11,6 +11,12 @@ namespace Game.Managers
         [SerializeField]
         private List<ShardTypeToMaterial> _availableMaterials;
 
+        [SerializeField]
+        private Sprite[] _growthStages;
+
+        [SerializeField]
+        private List<ShardTypeToSprite> _availableSprites;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -27,6 +33,13 @@ namespace Game.Managers
         {
             return _availableMaterials.First(m => m.Type == type).Material;
         }
+
+        public Sprite GetSprite(ShardType type)
+        {
+            return _availableSprites.First(s => s.Type == type).Sprite;
+        }
+
+        public Sprite[] GrowthStages() => _growthStages;
     }
 
     [System.Serializable]
@@ -35,5 +48,13 @@ namespace Game.Managers
         public ShardType Type;
 
         public Material Material;
+    }
+
+    [System.Serializable]
+    public class ShardTypeToSprite
+    {
+        public ShardType Type;
+
+        public Sprite Sprite;
     }
 }

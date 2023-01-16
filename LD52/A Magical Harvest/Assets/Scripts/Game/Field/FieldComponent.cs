@@ -1,5 +1,7 @@
 using Game.Enums;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Field
 {
@@ -9,7 +11,7 @@ namespace Game.Field
 
         private int _amount = 10;
         private bool _grown = true;
-
+        [Header("Growth Properties")]
         [SerializeField]
         private float _growTime = 10.0f;
 
@@ -24,6 +26,19 @@ namespace Game.Field
         private Transform _plantParent;
 
         private PlantComponent[] _plants;
+
+        [Header("World Space UI")]
+        [SerializeField]
+        private Image _typeImage;
+
+        [SerializeField]
+        private Image _growthImage;
+
+        [SerializeField]
+        private TextMeshProUGUI _growthText;
+
+        // World Space UI Images.
+        private Sprite[] _growthStageSprites;
 
         void Awake()
         {
@@ -57,12 +72,16 @@ namespace Game.Field
             UpdateGrowth();
         }
 
-        public void InitialiseField(Material typeMaterial)
+        public void InitialiseField(Material typeMaterial, Sprite[] growthStageSprites, Sprite fieldType)
         {
             foreach(var plant in _plants)
             {
                 plant.SetupPlant(typeMaterial, _currentGrowthStage);
             }
+
+            _typeImage.sprite = fieldType;
+            _growthStageSprites = growthStageSprites;
+            UpdateGrowthUi(_currentGrowthStage);
         }
 
         private void UpdateGrowth()
@@ -95,6 +114,7 @@ namespace Game.Field
                 {
                     plant.UpdatePlant(_currentGrowthStage);
                 }
+                UpdateGrowthUi(_currentGrowthStage);
             }
         }
 
@@ -110,12 +130,20 @@ namespace Game.Field
                 plant.UpdatePlant(_currentGrowthStage);
             }
 
+            UpdateGrowthUi(_currentGrowthStage);
+
             return amount;
         }
 
         public void Plant()
         {
             _growthMultiplier += 0.25f;
+        }
+
+        private void UpdateGrowthUi(int stage)
+        {
+            _growthImage.sprite = _growthStageSprites[stage];
+            _growthText.text = stage == 3 ? "Ready!" : "Growing!";
         }
     }
 }
