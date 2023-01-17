@@ -1,3 +1,4 @@
+using Game.Collector;
 using Game.Field;
 using Game.Global;
 using System;
@@ -23,6 +24,11 @@ namespace Game.Managers
 
         private FieldComponent[] _fields;
 
+        [SerializeField]
+        private Transform _collectorParent;
+
+        private CollectorComponent[] _collectors;
+
         void Awake()
         {
             _uiManager = GetComponent<UiManager>();
@@ -36,10 +42,15 @@ namespace Game.Managers
         {
             _startTime = DateTime.Now;
             _fields = _fieldParent.GetComponentsInChildren<FieldComponent>();
-
             foreach(var field in _fields)
             {
                 field.InitialiseField(_graphics.GetMaterial(field.Type), _graphics.GrowthStages(), _graphics.GetSprite(field.Type));
+            }
+
+            _collectors = _collectorParent.GetComponentsInChildren<CollectorComponent>();
+            foreach(var collector in _collectors)
+            {
+                collector.InitialiseCollector(_graphics.GetSprite(collector.Type));
             }
         }
 

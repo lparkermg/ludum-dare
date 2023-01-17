@@ -2,6 +2,7 @@ using Game.Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Collector
 {
@@ -13,6 +14,9 @@ namespace Game.Collector
 
         public float TimePerShard { get; private set; } = 0.25f;
 
+        [SerializeField]
+        private Image _collectorDisplay;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -23,6 +27,13 @@ namespace Game.Collector
         void Update()
         {
 
+        }
+
+        public void InitialiseCollector(Sprite typeSprite)
+        {
+            _collectorDisplay.sprite = typeSprite;
+            AmountCollected = 0;
+            TimePerShard = 0.25f;
         }
 
         public void PutInCollector(int amount)

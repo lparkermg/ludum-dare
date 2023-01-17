@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startTimeDefault: 60
   _fieldParent: {fileID: 1676790107}
+  _collectorParent: {fileID: 1991938895}
 --- !u!4 &59243930
 Transform:
   m_ObjectHideFlags: 0
