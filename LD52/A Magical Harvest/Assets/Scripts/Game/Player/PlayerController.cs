@@ -198,11 +198,13 @@ namespace Game.Player
 
             if(_currentCollector != null)
             {
+                _uiManager.ShowActionUi("RMB to put...");
                 Debug.Log($"Entered collector {_currentCollector.Type}");
             }
 
             if(_currentField != null)
             {
+                _uiManager.ShowActionUi("LMB to take and RMB to plant...");
                 Debug.Log($"Entered field {_currentField.Type}");
             }
         }
@@ -213,12 +215,14 @@ namespace Game.Player
             {
                 Debug.Log($"Exiting collector {_currentCollector.Type}");
                 _currentCollector = null;
+                _uiManager.HideActionUi();
             }
 
             if(other.TryGetComponent<FieldComponent>(out var _))
             {
                 Debug.Log($"Exiting field {_currentField.Type}");
                 _currentField = null;
+                _uiManager.HideActionUi();
             }
         }
 

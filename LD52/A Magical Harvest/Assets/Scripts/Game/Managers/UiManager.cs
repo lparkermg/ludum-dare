@@ -22,6 +22,9 @@ namespace Game.Managers
         private VisualElement _inventoryHolder;
         private Label _timeLabel;
 
+        private VisualElement _helpElement;
+        private Label _helpLabel;
+
         private VisualElement _pauseMenu;
         private Button _resumeButton;
         private Button _exitButton;
@@ -36,6 +39,8 @@ namespace Game.Managers
 
             _inventoryHolder = _hudDisplay.Q("InventoryContainer");
             _timeLabel = _hudDisplay.Q<Label>("TimeLeftLabel");
+            _helpElement = _hudDisplay.Q("HelperUi");
+            _helpLabel = _helpElement.Q<Label>("ActionLabel");
 
             _pauseMenu = _ui.rootVisualElement.Q("Pause");
 
@@ -84,6 +89,7 @@ namespace Game.Managers
 
             _inventoryHolder = _hudDisplay.Q("InventoryContainer");
             _timeLabel = _hudDisplay.Q<Label>("TimeLeftLabel");
+            _helpElement = _hudDisplay.Q("HelperUi");
 
             _pauseMenu = _ui.rootVisualElement.Q("Pause");
 
@@ -135,6 +141,21 @@ namespace Game.Managers
         public void UpdateTimeDisplay(string time)
         {
             _timeLabel.text = time;
+        }
+
+        public void ShowActionUi(string actionText)
+        {
+            _helpLabel.text = actionText;
+            _helpElement.ToggleInClassList("showHelper");
+            _helpLabel.ToggleInClassList("helpText-show");
+            _helpLabel.ToggleInClassList("helpText-hide");
+        }
+
+        public void HideActionUi()
+        {
+            _helpElement.ToggleInClassList("showHelper");
+            _helpLabel.ToggleInClassList("helpText-show");
+            _helpLabel.ToggleInClassList("helpText-hide");
         }
     }
 }
