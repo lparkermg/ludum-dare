@@ -49,6 +49,22 @@ namespace Game.Player
 
         private bool _inventorySetup = false;
 
+        [SerializeField]
+        private AudioSource _stepSource;
+
+        [SerializeField]
+        private AudioClip _stepClip;
+
+        private float _currentStepTime = 0.0f;
+
+        [SerializeField]
+        private float _stepTime = 0.7f;
+
+        [SerializeField]
+        private float _panAmount = 0.25f;
+
+        private bool _isLeft = false;
+
         void Awake()
         {
             _camera = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -81,6 +97,14 @@ namespace Game.Player
 
         void FixedUpdate()
         {
+            if(_velocity != Vector2.zero)
+            {
+                UpdateStepTime();
+            }
+            else
+            {
+                _currentStepTime = _stepTime - (_stepTime / 3);
+            }
             transform.Rotate(transform.up, _look.x);
 
             // Correct for deltaTime so your behaviour is framerate independent.
@@ -234,6 +258,29 @@ namespace Game.Player
                 Amount = i.Amount,
             }).ToArray();
             _uiManager.RenderInventory(slots);
+        }
+
+        private void UpdateStepTime()
+        {
+            if(_currentStepTime >= _stepTime)
+            {
+                _isLeft = !_isLeft;
+                if (_isLeft)
+                {
+                    _stepSource.panStereo = -_panAmount;
+                }
+                else
+                {
+                    _stepSource.panStereo = _panAmount;
+                }
+
+                _stepSource.PlayOneShot(_stepClip);
+                _currentStepTime = 0f;
+            }
+            else
+            {
+                _currentStepTime += Time.deltaTime;
+            }
         }
     }
 }

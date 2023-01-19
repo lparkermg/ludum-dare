@@ -29,6 +29,17 @@ namespace Game.Managers
 
         private CollectorComponent[] _collectors;
 
+        [SerializeField]
+        private AudioSource _countdownSource;
+
+        [SerializeField]
+        private AudioClip _countdownClip;
+
+        private TimeSpan _countdownTime => TimeSpan.FromSeconds(_currentTime);
+
+        [SerializeField]
+        private int _previous = 11;
+
         void Awake()
         {
             _uiManager = GetComponent<UiManager>();
@@ -67,6 +78,13 @@ namespace Game.Managers
                 else
                 {
                     _currentTime -= Time.deltaTime;
+
+                    if((int)_countdownTime.TotalSeconds < _previous)
+                    {
+                        _countdownSource.PlayOneShot(_countdownClip);
+                        _previous = (int)_countdownTime.TotalSeconds;
+                    }
+
                     _uiManager.UpdateTimeDisplay(_currentTime.ToString("##"));
                 }
             }

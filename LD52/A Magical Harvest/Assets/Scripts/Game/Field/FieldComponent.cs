@@ -40,6 +40,23 @@ namespace Game.Field
         // World Space UI Images.
         private Sprite[] _growthStageSprites;
 
+        [Header("Audio Sources")]
+        [SerializeField]
+        private AudioSource _fieldGrowthSource;
+
+        [SerializeField]
+        private AudioSource _collectionPointSource;
+
+        [Header("Audio Clips")]
+        [SerializeField]
+        private AudioClip _harvestClip;
+
+        [SerializeField]
+        private AudioClip _plantClip;
+
+        [SerializeField]
+        private AudioClip _growthCompleteClip;
+
         void Awake()
         {
             _plants = _plantParent.GetComponentsInChildren<PlantComponent>();
@@ -66,6 +83,7 @@ namespace Game.Field
                     _currentGrowTime = 0f;
                     _growthMultiplier = 1f;
                     _amount = Random.Range(5,11);
+                    _fieldGrowthSource.PlayOneShot(_growthCompleteClip);
                 }
             }
 
@@ -131,13 +149,14 @@ namespace Game.Field
             }
 
             UpdateGrowthUi(_currentGrowthStage);
-
+            _collectionPointSource.PlayOneShot(_harvestClip);
             return amount;
         }
 
         public void Plant()
         {
             _growthMultiplier += 0.25f;
+            _collectionPointSource.PlayOneShot(_plantClip);
         }
 
         private void UpdateGrowthUi(int stage)

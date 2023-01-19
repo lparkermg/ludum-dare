@@ -17,10 +17,15 @@ namespace Game.Collector
         [SerializeField]
         private Image _collectorDisplay;
 
+        private AudioSource _audio;
+
+        [SerializeField]
+        private AudioClip _putClip;
+
         // Start is called before the first frame update
         void Start()
         {
-
+            _audio = GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -38,8 +43,13 @@ namespace Game.Collector
 
         public void PutInCollector(int amount)
         {
+            if (amount <= 0)
+            {
+                return;
+            }
+
             AmountCollected += amount;
-            // TODO: Update GameManager to add time.
+            _audio.PlayOneShot(_putClip);
         }
 
         public void SetTimePerShard(float time)
