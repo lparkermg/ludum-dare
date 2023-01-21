@@ -128,7 +128,11 @@ namespace Game.Player
             move *= _velocity.y;
             move *= _moveSpeed;
 
-            _controller.Move(move * Time.deltaTime);
+            var straff = transform.right;
+            straff *= _velocity.x;
+            straff *= _moveSpeed;
+
+            _controller.Move((move + straff) * Time.deltaTime);
         }
 
         public void HandleMove(InputAction.CallbackContext ctx)
