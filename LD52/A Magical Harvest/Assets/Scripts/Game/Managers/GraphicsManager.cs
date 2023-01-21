@@ -17,6 +17,12 @@ namespace Game.Managers
         [SerializeField]
         private List<ShardTypeToSprite> _availableSprites;
 
+        [SerializeField]
+        private List<ShardTypeToColor> _availableColors;
+
+        [SerializeField]
+        private List<ShardTypeToTrailMaterial> _availableTrailMaterials;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,6 +46,11 @@ namespace Game.Managers
         }
 
         public Sprite[] GrowthStages() => _growthStages;
+
+        public Color GetColor(ShardType type) => _availableColors.First(c => c.Type == type).Color;
+
+
+        public Material GetTrail(ShardType type) => _availableTrailMaterials.First(t => t.Type == type).Material;
     }
 
     [System.Serializable]
@@ -56,5 +67,21 @@ namespace Game.Managers
         public ShardType Type;
 
         public Sprite Sprite;
+    }
+
+    [System.Serializable]
+    public class ShardTypeToColor
+    {
+        public ShardType Type;
+
+        public Color Color;
+    }
+
+    [System.Serializable]
+    public class ShardTypeToTrailMaterial
+    {
+        public ShardType Type;
+
+        public Material Material;
     }
 }

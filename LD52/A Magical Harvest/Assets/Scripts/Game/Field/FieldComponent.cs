@@ -57,6 +57,10 @@ namespace Game.Field
         [SerializeField]
         private AudioClip _growthCompleteClip;
 
+        [Header("Effects")]
+        [SerializeField]
+        private ParticleSystem _particles;
+
         void Awake()
         {
             _plants = _plantParent.GetComponentsInChildren<PlantComponent>();
@@ -90,14 +94,18 @@ namespace Game.Field
             UpdateGrowth();
         }
 
-        public void InitialiseField(Material typeMaterial, Sprite[] growthStageSprites, Sprite fieldType)
+        public void InitialiseField(Material typeMaterial, Sprite[] growthStageSprites, Sprite fieldType, Color particleColor, Material particleMaterial)
         {
             foreach(var plant in _plants)
             {
-                plant.SetupPlant(typeMaterial, _currentGrowthStage);
+                plant.SetupPlant(typeMaterial, particleColor, _currentGrowthStage);
             }
-
             _typeImage.sprite = fieldType;
+            var main = _particles.main;
+            main.startColor = particleColor;
+
+            _particles.transform.GetComponent<ParticleSystemRenderer>().trailMaterial = particleMaterial;
+
             _growthStageSprites = growthStageSprites;
             UpdateGrowthUi(_currentGrowthStage);
         }
@@ -145,11 +153,13 @@ namespace Game.Field
 
             foreach (var plant in _plants)
             {
+                plant.Collecting();
                 plant.UpdatePlant(_currentGrowthStage);
             }
 
             UpdateGrowthUi(_currentGrowthStage);
             _collectionPointSource.PlayOneShot(_harvestClip);
+            _particles.Emit(15);
             return amount;
         }
 
@@ -157,6 +167,7 @@ namespace Game.Field
         {
             _growthMultiplier += 0.25f;
             _collectionPointSource.PlayOneShot(_plantClip);
+            _particles.Emit(15);
         }
 
         private void UpdateGrowthUi(int stage)

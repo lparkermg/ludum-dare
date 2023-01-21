@@ -22,6 +22,10 @@ namespace Game.Collector
         [SerializeField]
         private AudioClip _putClip;
 
+        [SerializeField]
+        private ParticleSystem _particles;
+
+
         // Start is called before the first frame update
         void Start()
         {
@@ -34,11 +38,16 @@ namespace Game.Collector
 
         }
 
-        public void InitialiseCollector(Sprite typeSprite)
+        public void InitialiseCollector(Sprite typeSprite, Material particleTrailMaterial, Color particleColor)
         {
             _collectorDisplay.sprite = typeSprite;
             AmountCollected = 0;
             TimePerShard = 0.25f;
+
+            _particles.GetComponent<ParticleSystemRenderer>().trailMaterial = particleTrailMaterial;
+
+            var main = _particles.main;
+            main.startColor = particleColor;
         }
 
         public void PutInCollector(int amount)
@@ -50,6 +59,7 @@ namespace Game.Collector
 
             AmountCollected += amount;
             _audio.PlayOneShot(_putClip);
+            _particles.Emit(15);
         }
 
         public void SetTimePerShard(float time)

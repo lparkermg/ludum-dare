@@ -404,6 +404,24 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 9a3311801fb4900458b85833eb20d04c, type: 3}
   - Type: 3
     Sprite: {fileID: 21300000, guid: 425737511014691419d8465632702d13, type: 3}
+  _availableColors:
+  - Type: 0
+    Color: {r: 1, g: 0.46260843, b: 0.09900004, a: 0.8509804}
+  - Type: 1
+    Color: {r: 0, g: 0.2585516, b: 1, a: 0.8509804}
+  - Type: 2
+    Color: {r: 0.457057, g: 0, b: 1, a: 0.8509804}
+  - Type: 3
+    Color: {r: 0.026491726, g: 0.4627451, b: 0, a: 0.8509804}
+  _availableTrailMaterials:
+  - Type: 0
+    Material: {fileID: 2100000, guid: a6dcc2c6e3e4abb488b76ff0dfa6e874, type: 2}
+  - Type: 1
+    Material: {fileID: 2100000, guid: d0256e19ecb264c438535dc2b4e65bf9, type: 2}
+  - Type: 2
+    Material: {fileID: 2100000, guid: 0dae5fcb17a7a8a48b8537f2c473bb9b, type: 2}
+  - Type: 3
+    Material: {fileID: 2100000, guid: dadc6dd58b3337247aa04a665505e5eb, type: 2}
 --- !u!1 &98423207
 GameObject:
   m_ObjectHideFlags: 0
