@@ -4,6 +4,11 @@ extends Node3D
 
 @export var tile_position: Vector2
 
+@export var grassland_model: PackedScene
+@export var forest_model: PackedScene
+@export var village_model: PackedScene
+@export var town_model: PackedScene
+
 var tile_id = ""
 var tile_type: TileEnums.Type = TileEnums.Type.GRASSLAND
 
@@ -28,7 +33,15 @@ func initialise(pos: Vector2, id: String, type: TileEnums.Type):
 	position.z = tile_position.y
 	
 	tile_type = type
-	print(type)
+	var display = get_node("DisplayArea")
+	if tile_type == TileEnums.Type.GRASSLAND:
+		display.add_child(grassland_model.instantiate())
+	elif tile_type == TileEnums.Type.FOREST:
+		display.add_child(forest_model.instantiate())
+	elif tile_type == TileEnums.Type.VILLAGE:
+		display.add_child(grassland_model.instantiate())
+	elif tile_type == TileEnums.Type.TOWN:
+		display.add_child(forest_model.instantiate())
 	
 func _on_turn_taken():
 	state_for -= 1

@@ -1,16 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://cixa782vdatek"]
+[gd_scene load_steps=4 format=3 uid="uid://cixa782vdatek"]
 
 [ext_resource type="Script" path="res://scripts/game/tile.gd" id="1_sr0wn"]
-[ext_resource type="PackedScene" uid="uid://brf3vxolsgeei" path="res://models/test/base-test.dae" id="2_hx64h"]
+[ext_resource type="PackedScene" uid="uid://cujqcid5u40vd" path="res://models/grassland-tile-01.dae" id="2_76hje"]
+[ext_resource type="PackedScene" uid="uid://c5rasb78rg0ty" path="res://models/forest-tile-01.dae" id="3_6t1cq"]
 
 [node name="Tile" type="Node3D"]
 script = ExtResource("1_sr0wn")
+grassland_model = ExtResource("2_76hje")
+forest_model = ExtResource("3_6t1cq")
 
 [node name="DisplayArea" type="Node3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="DisplayArea"]
 visible = false
 size = Vector3(1, 0.2, 1)
-
-[node name="base-test" parent="DisplayArea" instance=ExtResource("2_hx64h")]
-transform = Transform3D(0.9, 0, 0, 0, -3.93403e-08, 0.9, 0, -0.9, -3.93403e-08, 0, 0, 0)
