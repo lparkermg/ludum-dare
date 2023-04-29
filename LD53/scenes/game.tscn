@@ -13,10 +13,16 @@ ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 sky_material = SubResource("ProceduralSkyMaterial_hbcwg")
 
 [sub_resource type="Environment" id="Environment_6hkoo"]
-background_mode = 2
+background_mode = 1
+background_color = Color(0.572549, 0.941176, 0.980392, 1)
 sky = SubResource("Sky_1jkuc")
+ambient_light_color = Color(0.384314, 0.372549, 0.392157, 1)
+ambient_light_energy = 0.5
+reflected_light_source = 1
 tonemap_mode = 2
 glow_enabled = true
+glow_bloom = 0.2
+volumetric_fog_density = 0.0
 
 [node name="Node3D" type="Node3D"]
 
@@ -28,23 +34,27 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("position_node", "player_node")]
-transform = Transform3D(-0.80423, 0.249288, -0.539508, -2.15511e-08, 0.907777, 0.419452, 0.594318, 0.337336, -0.730062, 0, 4.85343, -2.89724)
-fov = 37.8493
+transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965925, 0.258819, 8.74228e-08, 0.258819, -0.965925, 0, 4.85343, -2.89724)
+fov = 60.0
 script = ExtResource("1_u44r2")
 position_node = NodePath("../Player/CameraPosition")
 player_node = NodePath("../Player")
 
 [node name="GameArea" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_6013r")
+grid_size = 15
 tile_base = ExtResource("1_tpg7v")
 player = NodePath("../Player")
 turns_remaining = 500
+grasslandThreshold = 60
+forestThreshold = 90
+villageThreshold = 95
 
 [node name="Player" type="Node3D" parent="."]
 script = ExtResource("4_4b4w2")
 
 [node name="CameraPosition" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -10)
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Player"]
 radius = 0.2

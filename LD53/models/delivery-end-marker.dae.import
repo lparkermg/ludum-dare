@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cujqcid5u40vd"
-path="res://.godot/imported/grassland-tile-01.dae-a11467b9eadb3cc74ecd1041b58a3f94.scn"
+uid="uid://wdej302nqd5v"
+path="res://.godot/imported/delivery-end-marker.dae-5e6eb063b5735c025053c25203392c84.scn"
 
 [deps]
 
-source_file="res://models/grassland-tile-01.dae"
-dest_files=["res://.godot/imported/grassland-tile-01.dae-a11467b9eadb3cc74ecd1041b58a3f94.scn"]
+source_file="res://models/delivery-end-marker.dae"
+dest_files=["res://.godot/imported/delivery-end-marker.dae-5e6eb063b5735c025053c25203392c84.scn"]
 
 [params]
 
@@ -19,7 +19,7 @@ nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true
 meshes/generate_lods=true
-meshes/create_shadow_meshes=false
+meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 skins/use_named_skins=true

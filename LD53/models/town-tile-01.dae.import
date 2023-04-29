@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cujqcid5u40vd"
-path="res://.godot/imported/grassland-tile-01.dae-a11467b9eadb3cc74ecd1041b58a3f94.scn"
+uid="uid://dpsm26wx7ev3j"
+path="res://.godot/imported/town-tile-01.dae-d7816509d7e829eb3cd1a560bf7cebef.scn"
 
 [deps]
 
-source_file="res://models/grassland-tile-01.dae"
-dest_files=["res://.godot/imported/grassland-tile-01.dae-a11467b9eadb3cc74ecd1041b58a3f94.scn"]
+source_file="res://models/town-tile-01.dae"
+dest_files=["res://.godot/imported/town-tile-01.dae-d7816509d7e829eb3cd1a560bf7cebef.scn"]
 
 [params]
 

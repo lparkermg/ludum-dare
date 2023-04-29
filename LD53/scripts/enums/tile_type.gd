@@ -5,3 +5,9 @@ enum Type {
 	TOWN,
 	FOREST
 }
+
+enum State {
+	NO_DELIVERY,
+	DELIVERY_START,
+	DELIVERY_END
+}

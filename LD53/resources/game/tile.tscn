@@ -1,17 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://cixa782vdatek"]
+[gd_scene load_steps=8 format=3 uid="uid://cixa782vdatek"]
 
 [ext_resource type="Script" path="res://scripts/game/tile.gd" id="1_sr0wn"]
 [ext_resource type="PackedScene" uid="uid://cujqcid5u40vd" path="res://models/grassland-tile-01.dae" id="2_76hje"]
 [ext_resource type="PackedScene" uid="uid://c5rasb78rg0ty" path="res://models/forest-tile-01.dae" id="3_6t1cq"]
+[ext_resource type="PackedScene" uid="uid://dhxuh0hdtd7bf" path="res://models/village-tile-01.dae" id="4_tqell"]
+[ext_resource type="PackedScene" uid="uid://dpsm26wx7ev3j" path="res://models/town-tile-01.dae" id="5_avl8r"]
+[ext_resource type="PackedScene" uid="uid://dm1mhtrpct8f6" path="res://models/delivery-start-marker.dae" id="6_8thn5"]
+[ext_resource type="PackedScene" uid="uid://wdej302nqd5v" path="res://models/delivery-end-marker.dae" id="7_6ss72"]
 
 [node name="Tile" type="Node3D"]
 script = ExtResource("1_sr0wn")
+tile_position = null
 grassland_model = ExtResource("2_76hje")
 forest_model = ExtResource("3_6t1cq")
+village_model = ExtResource("4_tqell")
+town_model = ExtResource("5_avl8r")
+delivery_start_model = ExtResource("6_8thn5")
+delivery_end_model = ExtResource("7_6ss72")
 
 [node name="DisplayArea" type="Node3D" parent="."]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 0, 0, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="DisplayArea"]
-visible = false
-size = Vector3(1, 0.2, 1)
+[node name="AlertArea" type="Node3D" parent="DisplayArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
