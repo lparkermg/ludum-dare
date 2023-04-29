@@ -1,0 +1,179 @@
+using Game.Enums;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Game.Field
+{
+    public class FieldComponent : MonoBehaviour
+    {
+        public ShardType Type;
+
+        private int _amount = 10;
+        private bool _grown = true;
+        [Header("Growth Properties")]
+        [SerializeField]
+        private float _growTime = 10.0f;
+
+        [SerializeField]
+        private float _currentGrowTime = 0f;
+
+        private float _growthMultiplier = 1f;
+
+        private int _currentGrowthStage = 3;
+
+        [SerializeField]
+        private Transform _plantParent;
+
+        private PlantComponent[] _plants;
+
+        [Header("World Space UI")]
+        [SerializeField]
+        private Image _typeImage;
+
+        [SerializeField]
+        private Image _growthImage;
+
+        [SerializeField]
+        private TextMeshProUGUI _growthText;
+
+        // World Space UI Images.
+        private Sprite[] _growthStageSprites;
+
+        [Header("Audio Sources")]
+        [SerializeField]
+        private AudioSource _fieldGrowthSource;
+
+        [SerializeField]
+        private AudioSource _collectionPointSource;
+
+        [Header("Audio Clips")]
+        [SerializeField]
+        private AudioClip _harvestClip;
+
+        [SerializeField]
+        private AudioClip _plantClip;
+
+        [SerializeField]
+        private AudioClip _growthCompleteClip;
+
+        [Header("Effects")]
+        [SerializeField]
+        private ParticleSystem _particles;
+
+        void Awake()
+        {
+            _plants = _plantParent.GetComponentsInChildren<PlantComponent>();
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (!_grown)
+            {
+                if(_currentGrowTime < _growTime)
+                {
+                    _currentGrowTime += Time.deltaTime * _growthMultiplier;
+                }
+                else
+                {
+                    _grown = true;
+                    _currentGrowTime = 0f;
+                    _growthMultiplier = 1f;
+                    _amount = Random.Range(5,11);
+                    _fieldGrowthSource.PlayOneShot(_growthCompleteClip);
+                }
+            }
+
+            UpdateGrowth();
+        }
+
+        public void InitialiseField(Material typeMaterial, Sprite[] growthStageSprites, Sprite fieldType, Color particleColor, Material particleMaterial)
+        {
+            foreach(var plant in _plants)
+            {
+                plant.SetupPlant(typeMaterial, particleColor, _currentGrowthStage);
+            }
+            _typeImage.sprite = fieldType;
+            var main = _particles.main;
+            main.startColor = particleColor;
+
+            _particles.transform.GetComponent<ParticleSystemRenderer>().trailMaterial = particleMaterial;
+
+            _growthStageSprites = growthStageSprites;
+            UpdateGrowthUi(_currentGrowthStage);
+        }
+
+        private void UpdateGrowth()
+        {
+            var amountPerStage = _growTime / 4f;
+            var oldGrowth = _currentGrowthStage;
+
+            if (!_grown)
+            {
+                if (_currentGrowTime >= amountPerStage && _currentGrowthStage == 0)
+                {
+                    // Stage 1 - Bud
+                    _currentGrowthStage++;
+                }
+                else if (_currentGrowTime >= (amountPerStage * 2f) && _currentGrowthStage == 1)
+                {
+                    // Stage 2 - Grow 1
+                    _currentGrowthStage++;
+                }
+                else if (_currentGrowTime >= (amountPerStage * 3f) && _currentGrowthStage == 2)
+                {
+                    // Stage 3 - Grow 2
+                    _currentGrowthStage++;
+                }
+            }
+
+            if (oldGrowth != _currentGrowthStage)
+            {
+                foreach (var plant in _plants)
+                {
+                    plant.UpdatePlant(_currentGrowthStage);
+                }
+                UpdateGrowthUi(_currentGrowthStage);
+            }
+        }
+
+        public int Collect()
+        {
+            _grown = false;
+            var amount = _amount;
+            _amount = 0;
+            _currentGrowthStage = 0;
+
+            foreach (var plant in _plants)
+            {
+                plant.Collecting();
+                plant.UpdatePlant(_currentGrowthStage);
+            }
+
+            UpdateGrowthUi(_currentGrowthStage);
+            _collectionPointSource.PlayOneShot(_harvestClip);
+            _particles.Emit(15);
+            return amount;
+        }
+
+        public void Plant()
+        {
+            _growthMultiplier += 0.25f;
+            _collectionPointSource.PlayOneShot(_plantClip);
+            _particles.Emit(15);
+        }
+
+        private void UpdateGrowthUi(int stage)
+        {
+            _growthImage.sprite = _growthStageSprites[stage];
+            _growthText.text = stage == 3 ? "Ready!" : "Growing!";
+        }
+    }
+}

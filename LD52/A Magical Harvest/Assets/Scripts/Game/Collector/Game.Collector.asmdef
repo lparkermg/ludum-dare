@@ -1,0 +1,16 @@
+{
+    "name": "Game.Collector",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c137bb9aa826c824c867a0e9b70c7c73"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

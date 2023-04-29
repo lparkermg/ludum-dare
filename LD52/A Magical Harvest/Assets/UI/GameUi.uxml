@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/test.uss?fileID=7433441132597879392&amp;guid=c5e1a3b630fb89c4d993e340d69a0619&amp;type=3#test" />
+    <Style src="project://database/Assets/UI/main-theme.uss?fileID=7433441132597879392&amp;guid=30fd1ae5623d88c4bbe2a257ca3ef2d8&amp;type=3#main-theme" />
+    <ui:VisualElement name="Main" style="flex-shrink: 0; flex-grow: 1; justify-content: space-between;">
+        <ui:VisualElement name="Top">
+            <ui:VisualElement style="align-items: center; justify-content: center;">
+                <ui:Label tabindex="-1" text="Time Left" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 16px;" />
+                <ui:Label tabindex="-1" text="69" display-tooltip-when-elided="true" name="TimeLeftLabel" style="-unity-text-align: upper-center; color: rgb(255, 255, 255); font-size: 24px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Bottom" style="align-items: center; flex-direction: column;">
+            <ui:VisualElement name="HelperUi" class="helper" style="transition-duration: 0.5s; transition-timing-function: ease-in-out;">
+                <ui:VisualElement style="flex-shrink: 0; flex-grow: 1; flex-direction: row; justify-content: center; -unity-text-align: middle-left;">
+                    <ui:Label tabindex="-1" text="Action to do!" display-tooltip-when-elided="true" name="ActionLabel" class="helpText-hide" style="font-size: 14px; color: rgb(255, 255, 255); -unity-text-align: middle-center;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="InventoryContainer" style="height: 104px; flex-grow: 1; width: 100%; align-items: center; flex-direction: row; flex-shrink: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Pause" style="justify-content: center; align-items: center; flex-grow: 1; flex-shrink: 0; display: none; background-color: rgba(0, 0, 0, 0.5);">
+        <ui:Label tabindex="-1" text="Game Paused" display-tooltip-when-elided="true" name="GamePaused" style="font-size: 40px; color: rgb(255, 255, 255); -unity-text-align: middle-center; margin-bottom: 10%;" />
+        <ui:VisualElement name="VisualElement" style="width: 30%;">
+            <ui:Button text="Resume" display-tooltip-when-elided="true" name="ResumeButton" />
+            <ui:Button text="Exit to Title" display-tooltip-when-elided="true" name="ExitButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Complete" style="justify-content: center; align-items: center; display: none; flex-grow: 1; background-color: rgba(0, 0, 0, 0.5);">
+        <ui:Label tabindex="-1" text="Complete!" display-tooltip-when-elided="true" name="Complete" style="font-size: 64px; margin-bottom: 5%;" />
+        <ui:Label tabindex="-1" text="00:00" display-tooltip-when-elided="true" name="CompletedTimeText" style="font-size: 24px; margin-bottom: 5%;" />
+        <ui:Button text="Exit to Title" display-tooltip-when-elided="true" name="ExitButton" style="width: 30%; max-width: none; min-width: 15%;" />
+    </ui:VisualElement>
+</ui:UXML>

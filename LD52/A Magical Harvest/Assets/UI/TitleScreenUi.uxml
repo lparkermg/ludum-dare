@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Container" style="flex-grow: 1; flex-shrink: 0; margin-left: 12px; margin-right: 12px; margin-top: 12px; margin-bottom: 12%; justify-content: space-between; width: auto; height: auto; align-items: center;">
+        <ui:Label tabindex="-1" text="A Magical Harvest" display-tooltip-when-elided="true" name="TitleLabel" style="font-size: 40%; color: rgb(255, 255, 255); -unity-text-align: upper-center; height: auto;" />
+        <ui:VisualElement name="HelpArea" style="width: 50%; align-items: stretch;">
+            <ui:Button text="Start" display-tooltip-when-elided="true" name="StartButton" style="font-size: 14px; -unity-font-style: bold;" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="ExitButton" tabindex="1" style="font-size: 14px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
