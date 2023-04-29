@@ -34,3 +34,7 @@ func _on_turn_taken():
 		state_for = range(1, 100)[randi()%range(1,100).size()]
 		has_delivery_start = !has_delivery_start
 		print("delivery state changed for %s" % self.name)
+
+func _on_delivery_set(expected_tile_id: String):
+	if expected_tile_id == tile_id:
+		print("Delivery has been set to this tile (%s) TODO: Update this code with display stuff etc.")
