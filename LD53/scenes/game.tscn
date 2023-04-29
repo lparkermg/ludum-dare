@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvcfrbkppd2tt"]
+[gd_scene load_steps=8 format=3 uid="uid://dvcfrbkppd2tt"]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1_6013r"]
 [ext_resource type="PackedScene" uid="uid://cixa782vdatek" path="res://resources/game/tile.tscn" id="1_tpg7v"]
+[ext_resource type="Script" path="res://scripts/game/camera_follow.gd" id="1_u44r2"]
+[ext_resource type="Script" path="res://scripts/game/player.gd" id="4_4b4w2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbcwg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -25,9 +27,22 @@ environment = SubResource("Environment_6hkoo")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("position_node", "player_node")]
 transform = Transform3D(-0.80423, 0.249288, -0.539508, -2.15511e-08, 0.907777, 0.419452, 0.594318, 0.337336, -0.730062, 0, 4.85343, -2.89724)
+fov = 37.8493
+script = ExtResource("1_u44r2")
+position_node = NodePath("../Player/CameraPosition")
+player_node = NodePath("../Player")
 
 [node name="GameArea" type="Node3D" parent="."]
 script = ExtResource("1_6013r")
 tile_base = ExtResource("1_tpg7v")
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("4_4b4w2")
+
+[node name="CameraPosition" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -5)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Player"]
+radius = 0.2
