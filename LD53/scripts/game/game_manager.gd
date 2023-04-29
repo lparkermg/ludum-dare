@@ -14,6 +14,11 @@ var current_tile_id = ""
 var current_delivery_end_id = ""
 var turns_until_delivery_invalid = 0
 
+@export var grasslandThreshold: int = 40
+@export var forestThreshold: int = 60
+@export var villageThreshold: int = 80
+@export var townThreshold:int = 100
+
 signal turn_taken
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +27,7 @@ func _ready():
 		for y in grid_size:
 			var new_tile = tile.instantiate()
 			new_tile.name = tile_id_base % [str(x * grid_multiplier), str(y * grid_multiplier)]
-			new_tile.initialise(Vector2(x * grid_multiplier, y * grid_multiplier), tile_id_base % [str(x * grid_multiplier), str(y * grid_multiplier)])
+			new_tile.initialise(Vector2(x * grid_multiplier, y * grid_multiplier), tile_id_base % [str(x * grid_multiplier), str(y * grid_multiplier)], get_tile_type())
 			turn_taken.connect(new_tile._on_turn_taken)
 			add_child(new_tile)
 			
@@ -83,3 +88,15 @@ func take_a_turn():
 
 func can_move_here(x:int, z:int):
 	return x >= 0 && x < grid_size * grid_multiplier && z >= 0 && z < grid_size * grid_multiplier
+	
+func get_tile_type():
+	var rn = range(0, 100)[randi()%range(0,100).size()]
+	
+	if rn < grasslandThreshold:
+		return TileEnums.Type.GRASSLAND
+	elif rn < forestThreshold:
+		return TileEnums.Type.FOREST
+	elif rn < villageThreshold:
+		return TileEnums.Type.VILLAGE
+	else:
+		return TileEnums.Type.TOWN

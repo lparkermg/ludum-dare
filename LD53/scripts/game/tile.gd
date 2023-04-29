@@ -5,6 +5,8 @@ extends Node3D
 @export var tile_position: Vector2
 
 var tile_id = ""
+var tile_type: TileEnums.Type = TileEnums.Type.GRASSLAND
+
 var state_for: int
 var has_delivery_start: bool = false
 
@@ -18,14 +20,15 @@ func _ready():
 func _process(delta):
 	pass
 	
-func initialise(pos: Vector2, id: String):
-	print(id)
+func initialise(pos: Vector2, id: String, type: TileEnums.Type):
 	tile_id = id
-	
-	print(pos)
+
 	tile_position = pos
 	position.x = tile_position.x
 	position.z = tile_position.y
+	
+	tile_type = type
+	print(type)
 	
 func _on_turn_taken():
 	state_for -= 1
