@@ -34,9 +34,11 @@ script = ExtResource("1_u44r2")
 position_node = NodePath("../Player/CameraPosition")
 player_node = NodePath("../Player")
 
-[node name="GameArea" type="Node3D" parent="."]
+[node name="GameArea" type="Node3D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("1_6013r")
 tile_base = ExtResource("1_tpg7v")
+player = NodePath("../Player")
+turns_remaining = 500
 
 [node name="Player" type="Node3D" parent="."]
 script = ExtResource("4_4b4w2")
