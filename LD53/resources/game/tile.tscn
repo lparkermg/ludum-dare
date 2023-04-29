@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cixa782vdatek"]
+
+[ext_resource type="Script" path="res://scripts/game/tile.gd" id="1_sr0wn"]
+
+[node name="Tile" type="Node3D"]
+script = ExtResource("1_sr0wn")
+
+[node name="DisplayArea" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="DisplayArea"]
+size = Vector3(1, 0.2, 1)
