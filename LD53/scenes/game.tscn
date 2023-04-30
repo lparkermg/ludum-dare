@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvcfrbkppd2tt"]
+[gd_scene load_steps=12 format=3 uid="uid://dvcfrbkppd2tt"]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1_6013r"]
 [ext_resource type="PackedScene" uid="uid://cixa782vdatek" path="res://resources/game/tile.tscn" id="1_tpg7v"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/game/player.gd" id="4_4b4w2"]
 [ext_resource type="Script" path="res://scripts/game/ui_manager.gd" id="5_4s437"]
 [ext_resource type="AudioStream" uid="uid://chraf2qebiqwu" path="res://audio/sfx/delivery-complete.wav" id="5_bc4ba"]
+[ext_resource type="AudioStream" uid="uid://boyj0k5ijxj1n" path="res://audio/bgm/above-the-clouds.ogg" id="6_l3kfr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbcwg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -60,6 +61,11 @@ base_score_per_delivery = 25
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_l3kfr")
+autoplay = true
+bus = &"BGM"
 
 [node name="Player" type="Node3D" parent="."]
 script = ExtResource("4_4b4w2")
