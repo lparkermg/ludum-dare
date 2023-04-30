@@ -13,6 +13,12 @@ const tile_id_base = "tile_%s_%s"
 # UI Area
 @export var ui: CanvasLayer
 
+# Audio Stuff
+@export var sfx_player: AudioStreamPlayer
+
+@export var sfx_delivery_pick_up: AudioStreamWAV
+@export var sfx_delivery_complete: AudioStreamWAV
+
 # Remaining turns.
 @export var turns_remaining: int
 
@@ -59,6 +65,10 @@ func _ready():
 	player.position.x = playerX
 	player.position.z = playerZ
 	current_tile_id = tile_id_base % [str(player.position.x), str(player.position.z)]
+	
+	# We don't want to loop the sfx stuff.
+	sfx_delivery_pick_up.loop_mode = AudioStreamWAV.LOOP_DISABLED
+	sfx_delivery_complete.loop_mode = AudioStreamWAV.LOOP_DISABLED
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,6 +103,8 @@ func take_a_turn():
 			randomize()
 			bonus_turns = range(0, max_bonus_turns)[randi()%range(0, max_bonus_turns).size()]
 			ui.show_delivery_panel(bonus_turns)
+			sfx_player.stream = sfx_delivery_pick_up
+			sfx_player.play()
 			delivery_start.emit(current_delivery_end_id, current_tile_id)
 	else:
 		if current_tile_id == current_delivery_end_id:
@@ -107,6 +119,8 @@ func take_a_turn():
 			end_tile.delivery_success()
 			ui.update_score_ui(current_score)
 			ui.hide_delivery_panel()
+			sfx_player.stream = sfx_delivery_complete
+			sfx_player.play()
 			current_delivery_end_id = ""
 		if bonus_turns > 0:
 			bonus_turns -= 1
