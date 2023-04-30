@@ -63,7 +63,7 @@ func delivery_success():
 func _on_turn_taken():
 	# If we're on delivery end then we handle that elsewhere...
 	if state == TileEnums.State.DELIVERY_END:
-		pass
+		return
 	# Only villages and towns can spawn deliveries.
 	if tile_type == TileEnums.Type.VILLAGE || tile_type == TileEnums.Type.TOWN:
 		state_for -= 1
@@ -88,7 +88,8 @@ func _on_delivery_set(expected_end_tile_id: String, expected_start_tile_id: Stri
 		var alert_area = get_node("DisplayArea/AlertArea")
 		for n in alert_area.get_children():
 			alert_area.remove_child(n)
-		state_for = 15 #We should wait for 15 turns to revert the state so spamming cannot happen.
+		state_for = range(15, 25)[randi()%range(15,25).size()]
+		state = TileEnums.State.NO_DELIVERY
 	
 	if expected_end_tile_id == tile_id:
 		var alert_area = get_node("DisplayArea/AlertArea")

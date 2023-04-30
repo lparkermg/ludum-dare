@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvcfrbkppd2tt"]
+[gd_scene load_steps=9 format=3 uid="uid://dvcfrbkppd2tt"]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1_6013r"]
 [ext_resource type="PackedScene" uid="uid://cixa782vdatek" path="res://resources/game/tile.tscn" id="1_tpg7v"]
 [ext_resource type="Script" path="res://scripts/game/camera_follow.gd" id="1_u44r2"]
 [ext_resource type="Script" path="res://scripts/game/player.gd" id="4_4b4w2"]
+[ext_resource type="Script" path="res://scripts/game/ui_manager.gd" id="5_4s437"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbcwg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,11 +41,12 @@ script = ExtResource("1_u44r2")
 position_node = NodePath("../Player/CameraPosition")
 player_node = NodePath("../Player")
 
-[node name="GameArea" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+[node name="GameArea" type="Node3D" parent="." node_paths=PackedStringArray("player", "ui")]
 script = ExtResource("1_6013r")
 grid_size = 15
 tile_base = ExtResource("1_tpg7v")
 player = NodePath("../Player")
+ui = NodePath("../HUD")
 turns_remaining = 500
 grasslandThreshold = 60
 forestThreshold = 90
@@ -59,3 +61,73 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -10)
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Player"]
 radius = 0.2
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_4s437")
+
+[node name="ScorePanel" type="Panel" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -219.0
+offset_bottom = 60.0
+grow_horizontal = 0
+
+[node name="ScoreLabel" type="RichTextLabel" parent="HUD/ScorePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Score: 00000"
+text_direction = 2
+
+[node name="TurnsPanel" type="Panel" parent="HUD"]
+offset_right = 219.0
+offset_bottom = 60.0
+
+[node name="TurnsLabel" type="RichTextLabel" parent="HUD/TurnsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Turns: 000"
+
+[node name="DeliveryPanel" type="Panel" parent="HUD"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -40.0
+offset_right = 166.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BonusTurnsLabel" type="RichTextLabel" parent="HUD/DeliveryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -4.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]Bonus Turns: 000[/center]"
+fit_content = true

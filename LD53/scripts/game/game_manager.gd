@@ -10,6 +10,9 @@ const tile_id_base = "tile_%s_%s"
 @export var tile_base: PackedScene
 @export var player: Node3D
 
+# UI Area
+@export var ui: CanvasLayer
+
 # Remaining turns.
 @export var turns_remaining: int
 
@@ -80,7 +83,7 @@ func try_move(x: int, z: int):
 		
 func take_a_turn():
 	turns_remaining -= 1
-	
+	ui.update_turns_ui(turns_remaining)
 	if current_delivery_end_id == "":
 		var current_tile = get_node("%s" % current_tile_id)
 		if current_tile.state == TileEnums.State.DELIVERY_START:
@@ -89,7 +92,7 @@ func take_a_turn():
 			current_delivery_end_id = tile_id
 			randomize()
 			bonus_turns = range(0, max_bonus_turns)[randi()%range(0, max_bonus_turns).size()]
-			# ui_manager.show_delivery_ui(bonus_turns)
+			ui.show_delivery_panel(bonus_turns)
 			delivery_start.emit(current_delivery_end_id, current_tile_id)
 	else:
 		if current_tile_id == current_delivery_end_id:
@@ -102,12 +105,12 @@ func take_a_turn():
 				current_score += base_score_per_delivery
 			var end_tile = get_node("%s" % current_delivery_end_id)
 			end_tile.delivery_success()
-			# ui_manager.update_score(current_score)
+			ui.update_score_ui(current_score)
+			ui.hide_delivery_panel()
 			current_delivery_end_id = ""
-			print("Delivered - New Score: %s - Turns Remaining: %s" % [str(current_score), str(turns_remaining)])
 		if bonus_turns > 0:
 			bonus_turns -= 1
-			#ui_manager.update_delivery_ui(bonus_turns)
+			ui.update_delivery_panel(bonus_turns)
 	turn_taken.emit()
 
 func can_move_here(x:int, z:int):
