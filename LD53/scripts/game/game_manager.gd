@@ -83,7 +83,7 @@ func _process(_delta):
 		try_move(player.position.x + 2, player.position.z)
 
 func try_move(x: int, z: int):
-	if turns_remaining >= 0:
+	if turns_remaining <= 0:
 		var file = FileAccess.open("user://temp_score.dat", FileAccess.WRITE)
 		file.store_16(current_score)
 		file = null

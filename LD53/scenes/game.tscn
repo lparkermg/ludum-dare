@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvcfrbkppd2tt"]
+[gd_scene load_steps=14 format=3 uid="uid://dvcfrbkppd2tt"]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1_6013r"]
 [ext_resource type="PackedScene" uid="uid://cixa782vdatek" path="res://resources/game/tile.tscn" id="1_tpg7v"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://chraf2qebiqwu" path="res://audio/sfx/delivery-complete.wav" id="5_bc4ba"]
 [ext_resource type="AudioStream" uid="uid://boyj0k5ijxj1n" path="res://audio/bgm/above-the-clouds.ogg" id="6_l3kfr"]
 [ext_resource type="Theme" uid="uid://bojgbij4spku3" path="res://theme/main_theme.tres" id="9_ea0kl"]
+[ext_resource type="Script" path="res://scripts/game/orb_follow.gd" id="10_xjqa0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbcwg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -73,8 +74,8 @@ script = ExtResource("4_4b4w2")
 [node name="CameraPosition" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -10)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Player"]
-radius = 0.75
+[node name="OrbPosition" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("5_4s437")
@@ -115,3 +116,9 @@ theme = ExtResource("9_ea0kl")
 bbcode_enabled = true
 text = "[center]Bonus Turns: 000[/center]"
 fit_content = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." node_paths=PackedStringArray("position_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+radius = 0.25
+script = ExtResource("10_xjqa0")
+position_node = NodePath("../Player/OrbPosition")

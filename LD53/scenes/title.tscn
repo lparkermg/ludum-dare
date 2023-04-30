@@ -1,8 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://ct4lah8vepbau"]
+[gd_scene load_steps=13 format=3 uid="uid://ct4lah8vepbau"]
 
 [ext_resource type="Script" path="res://scripts/title/title_screen.gd" id="1_wa26j"]
 [ext_resource type="Theme" uid="uid://bojgbij4spku3" path="res://theme/main_theme.tres" id="2_kxleu"]
 [ext_resource type="AudioStream" uid="uid://boyj0k5ijxj1n" path="res://audio/bgm/above-the-clouds.ogg" id="3_4uw4s"]
+[ext_resource type="PackedScene" uid="uid://c5rasb78rg0ty" path="res://models/forest-tile-01.dae" id="4_6u615"]
+[ext_resource type="PackedScene" uid="uid://cujqcid5u40vd" path="res://models/grassland-tile-01.dae" id="5_mevko"]
+[ext_resource type="PackedScene" uid="uid://dpsm26wx7ev3j" path="res://models/town-tile-01.dae" id="6_lfe4c"]
+[ext_resource type="PackedScene" uid="uid://dhxuh0hdtd7bf" path="res://models/village-tile-01.dae" id="7_hfogr"]
+[ext_resource type="PackedScene" uid="uid://dm1mhtrpct8f6" path="res://models/delivery-start-marker.dae" id="8_b26v6"]
+[ext_resource type="PackedScene" uid="uid://wdej302nqd5v" path="res://models/delivery-end-marker.dae" id="9_e4p7l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_68ams"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -35,10 +41,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -33.0
+offset_left = -428.0
+offset_top = -40.0
 offset_right = -6.0
-offset_bottom = 33.0
+offset_bottom = 40.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
@@ -101,8 +107,31 @@ text = "Current Highscore: None Recorded"
 [node name="DisplayArea" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.221961, 2.34383, 6.00917)
+fov = 80.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_4uw4s")
 autoplay = true
 bus = &"BGM"
+
+[node name="forest-tile-01" parent="." instance=ExtResource("4_6u615")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+
+[node name="grassland-tile-01" parent="." instance=ExtResource("5_mevko")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 2.5)
+
+[node name="town-tile-01" parent="." instance=ExtResource("6_lfe4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 2.5)
+
+[node name="village-tile-01" parent="." instance=ExtResource("7_hfogr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.635389, -0.336201, 0.695161, -0.163039, 0.82154, 0.546343, -0.754784, -0.460479, 0.467184, -0.00625658, 0, 0)
+
+[node name="delivery-start-marker" parent="." instance=ExtResource("8_b26v6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, 2.5)
+
+[node name="delivery-end-marker" parent="." instance=ExtResource("9_e4p7l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, 0)
