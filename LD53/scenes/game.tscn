@@ -49,6 +49,7 @@ turns_remaining = 500
 grasslandThreshold = 60
 forestThreshold = 90
 villageThreshold = 95
+base_score_per_delivery = 25
 
 [node name="Player" type="Node3D" parent="."]
 script = ExtResource("4_4b4w2")

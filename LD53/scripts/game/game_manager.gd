@@ -2,22 +2,36 @@ extends Node
 
 const tile_id_base = "tile_%s_%s"
 
+# Grid details.
 @export var grid_size: int = 25
 @export var grid_multiplier: int = 2
 
+# Tile and player stuff.
 @export var tile_base: PackedScene
 @export var player: Node3D
 
+# Remaining turns.
 @export var turns_remaining: int
 
+# Internal tile_id states.
 var current_tile_id = ""
 var current_delivery_end_id = ""
-var turns_until_delivery_invalid = 0
 
+# Delivery bonus stuff.
+@export var max_bonus_turns: int = 10
+var bonus_turns: int = 0
+
+var valid_end_tiles = []
+
+# Spawn thresholds.
 @export var grasslandThreshold: int = 40
 @export var forestThreshold: int = 60
 @export var villageThreshold: int = 80
 @export var townThreshold:int = 100
+
+# Scoreing
+var current_score: int = 0
+@export var base_score_per_delivery: int = 100
 
 signal turn_taken
 signal delivery_start
@@ -28,7 +42,10 @@ func _ready():
 		for y in grid_size:
 			var new_tile = tile.instantiate()
 			new_tile.name = tile_id_base % [str(x * grid_multiplier), str(y * grid_multiplier)]
-			new_tile.initialise(Vector2(x * grid_multiplier, y * grid_multiplier), tile_id_base % [str(x * grid_multiplier), str(y * grid_multiplier)], get_tile_type())
+			var tile_type = get_tile_type()
+			new_tile.initialise(Vector2(x * grid_multiplier, y * grid_multiplier), tile_id_base % [str(x * grid_multiplier), str(y * grid_multiplier)], tile_type)
+			if tile_type == TileEnums.Type.TOWN || tile_type == TileEnums.Type.VILLAGE:
+				valid_end_tiles.append(new_tile.name)
 			turn_taken.connect(new_tile._on_turn_taken)
 			delivery_start.connect(new_tile._on_delivery_set)
 			add_child(new_tile)
@@ -67,32 +84,30 @@ func take_a_turn():
 	if current_delivery_end_id == "":
 		var current_tile = get_node("%s" % current_tile_id)
 		if current_tile.state == TileEnums.State.DELIVERY_START:
-			var tileX = range(0, grid_size)[randi()%range(0, grid_size).size()] * grid_multiplier
-			var tileZ = range(0, grid_size)[randi()%range(0, grid_size).size()] * grid_multiplier
-			current_delivery_end_id = tile_id_base % [str(tileX), str(tileZ)] # TODO: Update with valid tile.
 			randomize()
-			turns_until_delivery_invalid = range(1, 10)[randi()%range(1,10).size()]
+			var tile_id = valid_end_tiles[randi() % valid_end_tiles.size()]
+			current_delivery_end_id = tile_id
+			randomize()
+			bonus_turns = range(0, max_bonus_turns)[randi()%range(0, max_bonus_turns).size()]
+			# ui_manager.show_delivery_ui(bonus_turns)
 			delivery_start.emit(current_delivery_end_id, current_tile_id)
-			print("DEBUG: Tile ID - %s | Turns Remaining - %s" % [current_tile_id, str(turns_until_delivery_invalid)])
-		# if it is, select a valid end point and set the id in this script.
-		# TODO Later: flag on and off the display bits on the tile.
 	else:
 		if current_tile_id == current_delivery_end_id:
 			print("We've made a delivery!!")
 			# TODO: Reward stuff here.
+			if bonus_turns >= 1:
+				current_score += base_score_per_delivery * bonus_turns
+				turns_remaining += bonus_turns
+			else:
+				current_score += base_score_per_delivery
 			var end_tile = get_node("%s" % current_delivery_end_id)
 			end_tile.delivery_success()
-			
+			# ui_manager.update_score(current_score)
 			current_delivery_end_id = ""
-			turns_until_delivery_invalid = 0
-		elif turns_until_delivery_invalid > 0:
-			turns_until_delivery_invalid -= 1
-		else:
-			print("Delivery invalidated")
-			var end_tile = get_node("%s" % current_delivery_end_id)
-			end_tile.delivery_invalidated()
-			# TODO Clear anything on the tile. Plus punishments?
-			current_delivery_end_id = ""
+			print("Delivered - New Score: %s - Turns Remaining: %s" % [str(current_score), str(turns_remaining)])
+		if bonus_turns > 0:
+			bonus_turns -= 1
+			#ui_manager.update_delivery_ui(bonus_turns)
 	turn_taken.emit()
 
 func can_move_here(x:int, z:int):

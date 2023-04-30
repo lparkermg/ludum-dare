@@ -46,6 +46,7 @@ func initialise(pos: Vector2, id: String, type: TileEnums.Type):
 	elif tile_type == TileEnums.Type.TOWN:
 		display.add_child(town_model.instantiate())
 
+# It should be possible to cancel the delivery.
 func delivery_invalidated():
 	var alert_area = get_node("DisplayArea/AlertArea")
 	for n in alert_area.get_children():
