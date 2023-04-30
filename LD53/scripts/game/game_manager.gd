@@ -76,11 +76,11 @@ func _process(_delta):
 	if Input.is_action_just_pressed("move_north"):
 		try_move(player.position.x, player.position.z + 2)
 	elif Input.is_action_just_pressed("move_east"):
-		try_move(player.position.x + 2, player.position.z)
+		try_move(player.position.x - 2, player.position.z)
 	elif Input.is_action_just_pressed("move_south"):
 		try_move(player.position.x, player.position.z - 2)
 	elif Input.is_action_just_pressed("move_west"):
-		try_move(player.position.x - 2, player.position.z)
+		try_move(player.position.x + 2, player.position.z)
 
 func try_move(x: int, z: int):
 	if turns_remaining <= 0:

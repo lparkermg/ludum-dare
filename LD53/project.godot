@@ -11,7 +11,11 @@ config_version=5
 [application]
 
 config/name="delivery"
+run/main_scene="res://scenes/title.tscn"
+run/disable_stdout=true
+run/disable_stderr=true
 config/features=PackedStringArray("4.0", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [input]
