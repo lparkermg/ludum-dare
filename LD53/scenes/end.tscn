@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://vnaokk6gc3no"]
+[gd_scene load_steps=7 format=3 uid="uid://vnaokk6gc3no"]
 
 [ext_resource type="Script" path="res://scripts/end/end-screen.gd" id="1_p41tj"]
+[ext_resource type="Theme" uid="uid://bojgbij4spku3" path="res://theme/main_theme.tres" id="2_pgja2"]
+[ext_resource type="AudioStream" uid="uid://boyj0k5ijxj1n" path="res://audio/bgm/above-the-clouds.ogg" id="3_tjjvj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kog3w"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,7 +18,7 @@ sky = SubResource("Sky_biean")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Control" type="Control" node_paths=PackedStringArray("go_again_button", "title_button", "exit_button")]
+[node name="Control" type="Control" node_paths=PackedStringArray("go_again_button", "title_button", "exit_button", "score_display")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +29,7 @@ script = ExtResource("1_p41tj")
 go_again_button = NodePath("VBoxContainer/PlayAgainButton")
 title_button = NodePath("VBoxContainer/TitleScreenButton")
 exit_button = NodePath("VBoxContainer/ExitGameButton")
+score_display = NodePath("RichTextLabel2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_o0w0j")
@@ -37,6 +40,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 160.0
 grow_horizontal = 2
+theme = ExtResource("2_pgja2")
 bbcode_enabled = true
 text = "[center]
 [font_size=80]No Turns Left[/font_size]
@@ -54,10 +58,10 @@ offset_right = -1.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_pgja2")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[center]
-[font_size=40]You scored 00000 points![/font_size]
-[/center]"
+text = "[center][font_size=40]You scored 00000 points![/font_size][/center]"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -71,17 +75,26 @@ offset_right = -6.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("2_pgja2")
 
 [node name="PlayAgainButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_pgja2")
 text = "Play again"
 
 [node name="TitleScreenButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_pgja2")
 text = "Back to title screen"
 
 [node name="ExitGameButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_pgja2")
 text = "Exit Game"
 
 [node name="Camera3D" type="Camera3D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tjjvj")
+autoplay = true
+bus = &"BGM"

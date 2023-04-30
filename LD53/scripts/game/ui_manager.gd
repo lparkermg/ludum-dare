@@ -11,23 +11,23 @@ func _process(_delta):
 	pass
 	
 func update_score_ui(current_score: int):
-	var score_label = get_node("ScorePanel/ScoreLabel")
+	var score_label = get_node("ScoreLabel")
 	score_label.text = "Score: %s" % str(current_score)
 	
 func update_turns_ui(turns_left: int):
-	var turns_label = get_node("TurnsPanel/TurnsLabel")
+	var turns_label = get_node("TurnsLabel")
 	turns_label.text = "Turns: %s" % str(turns_left)
 
 func show_delivery_panel(bonus_turns: int):
-	var delivery_panel = get_node("DeliveryPanel")
+	var delivery_panel = get_node("BonusTurnsLabel")
 	delivery_panel.visible = true
-	var delivery_label = get_node("DeliveryPanel/BonusTurnsLabel")
+	var delivery_label = get_node("BonusTurnsLabel")
 	delivery_label.text = "Bonus Turns: %s" % str(bonus_turns)
 	
 func update_delivery_panel(bonus_turns: int):
-	var delivery_label = get_node("DeliveryPanel/BonusTurnsLabel")
+	var delivery_label = get_node("BonusTurnsLabel")
 	delivery_label.text = "Bonus Turns: %s" % str(bonus_turns)
 
 func hide_delivery_panel():
-	var delivery_panel = get_node("DeliveryPanel")
+	var delivery_panel = get_node("BonusTurnsLabel")
 	delivery_panel.visible = false

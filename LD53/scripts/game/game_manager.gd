@@ -83,8 +83,22 @@ func _process(_delta):
 		try_move(player.position.x + 2, player.position.z)
 
 func try_move(x: int, z: int):
-	if turns_remaining <= 0:
-		print("Game End: kick off finish process here.")
+	if turns_remaining >= 0:
+		var file = FileAccess.open("user://temp_score.dat", FileAccess.WRITE)
+		file.store_16(current_score)
+		file = null
+		
+		if FileAccess.file_exists("user://highscore.dat"):
+			var highscore_file = FileAccess.open("user://highscore.dat", FileAccess.READ_WRITE)
+			var current_highscore = highscore_file.get_16()
+			if current_score > current_highscore:
+				highscore_file.store_16(current_highscore)
+			highscore_file = null
+		else:
+			var highscore_file = FileAccess.open("user://highscore.dat", FileAccess.WRITE)
+			highscore_file.store_16(current_score)
+			highscore_file = null
+		get_tree().change_scene_to_file("scenes/end.tscn")
 	elif can_move_here(x, z):
 		player.position.x = x
 		player.position.z = z
@@ -108,8 +122,6 @@ func take_a_turn():
 			delivery_start.emit(current_delivery_end_id, current_tile_id)
 	else:
 		if current_tile_id == current_delivery_end_id:
-			print("We've made a delivery!!")
-			# TODO: Reward stuff here.
 			if bonus_turns >= 1:
 				current_score += base_score_per_delivery * bonus_turns
 				turns_remaining += bonus_turns

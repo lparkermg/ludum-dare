@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvcfrbkppd2tt"]
+[gd_scene load_steps=13 format=3 uid="uid://dvcfrbkppd2tt"]
 
 [ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1_6013r"]
 [ext_resource type="PackedScene" uid="uid://cixa782vdatek" path="res://resources/game/tile.tscn" id="1_tpg7v"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/game/ui_manager.gd" id="5_4s437"]
 [ext_resource type="AudioStream" uid="uid://chraf2qebiqwu" path="res://audio/sfx/delivery-complete.wav" id="5_bc4ba"]
 [ext_resource type="AudioStream" uid="uid://boyj0k5ijxj1n" path="res://audio/bgm/above-the-clouds.ogg" id="6_l3kfr"]
+[ext_resource type="Theme" uid="uid://bojgbij4spku3" path="res://theme/main_theme.tres" id="9_ea0kl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbcwg"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -78,69 +79,39 @@ radius = 0.75
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("5_4s437")
 
-[node name="ScorePanel" type="Panel" parent="HUD"]
+[node name="ScoreLabel" type="RichTextLabel" parent="HUD"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -219.0
-offset_bottom = 60.0
+offset_left = -181.0
+offset_bottom = 31.0
 grow_horizontal = 0
-
-[node name="ScoreLabel" type="RichTextLabel" parent="HUD/ScorePanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
+theme = ExtResource("9_ea0kl")
 text = "Score: 00000"
 text_direction = 2
 
-[node name="TurnsPanel" type="Panel" parent="HUD"]
-offset_right = 219.0
-offset_bottom = 60.0
-
-[node name="TurnsLabel" type="RichTextLabel" parent="HUD/TurnsPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TurnsLabel" type="RichTextLabel" parent="HUD"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 137.0
+offset_bottom = 41.0
+theme = ExtResource("9_ea0kl")
 text = "Turns: 000"
 
-[node name="DeliveryPanel" type="Panel" parent="HUD"]
+[node name="BonusTurnsLabel" type="RichTextLabel" parent="HUD"]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -164.0
-offset_top = -40.0
-offset_right = 166.0
+offset_left = -181.0
+offset_top = -34.0
+offset_right = 181.0
+offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="BonusTurnsLabel" type="RichTextLabel" parent="HUD/DeliveryPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -4.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
+theme = ExtResource("9_ea0kl")
 bbcode_enabled = true
 text = "[center]Bonus Turns: 000[/center]"
 fit_content = true
