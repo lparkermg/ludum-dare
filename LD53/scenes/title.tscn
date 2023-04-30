@@ -77,9 +77,9 @@ theme = ExtResource("2_kxleu")
 bbcode_enabled = true
 text = "[b]Aim:[/b]
 The aim of the game is to make as many deliveries as you can within the amount of turns you have.
+Deliver early for more turns!
 
 [b]Controls:[/b]
-
 [ul]
 Move - WASD
 Use mouse for the menus
