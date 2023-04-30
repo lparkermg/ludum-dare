@@ -1,0 +1,125 @@
+[gd_scene load_steps=14 format=3 uid="uid://dvcfrbkppd2tt"]
+
+[ext_resource type="Script" path="res://scripts/game/game_manager.gd" id="1_6013r"]
+[ext_resource type="PackedScene" uid="uid://cixa782vdatek" path="res://resources/game/tile.tscn" id="1_tpg7v"]
+[ext_resource type="Script" path="res://scripts/game/camera_follow.gd" id="1_u44r2"]
+[ext_resource type="AudioStream" uid="uid://cc5o2cx6ornve" path="res://audio/sfx/delivery-picked-up.wav" id="4_1e3nk"]
+[ext_resource type="Script" path="res://scripts/game/player.gd" id="4_4b4w2"]
+[ext_resource type="Script" path="res://scripts/game/ui_manager.gd" id="5_4s437"]
+[ext_resource type="AudioStream" uid="uid://chraf2qebiqwu" path="res://audio/sfx/delivery-complete.wav" id="5_bc4ba"]
+[ext_resource type="AudioStream" uid="uid://boyj0k5ijxj1n" path="res://audio/bgm/above-the-clouds.ogg" id="6_l3kfr"]
+[ext_resource type="Theme" uid="uid://bojgbij4spku3" path="res://theme/main_theme.tres" id="9_ea0kl"]
+[ext_resource type="Script" path="res://scripts/game/orb_follow.gd" id="10_xjqa0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hbcwg"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1jkuc"]
+sky_material = SubResource("ProceduralSkyMaterial_hbcwg")
+
+[sub_resource type="Environment" id="Environment_6hkoo"]
+background_mode = 1
+background_color = Color(0.572549, 0.941176, 0.980392, 1)
+sky = SubResource("Sky_1jkuc")
+ambient_light_color = Color(0.384314, 0.372549, 0.392157, 1)
+ambient_light_energy = 0.5
+reflected_light_source = 1
+tonemap_mode = 2
+glow_enabled = true
+glow_bloom = 0.2
+volumetric_fog_density = 0.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6hkoo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("position_node", "player_node")]
+transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965925, 0.258819, 8.74228e-08, 0.258819, -0.965925, 0, 4.85343, -2.89724)
+fov = 60.0
+script = ExtResource("1_u44r2")
+position_node = NodePath("../Player/CameraPosition")
+player_node = NodePath("../Player")
+
+[node name="GameArea" type="Node3D" parent="." node_paths=PackedStringArray("player", "ui", "sfx_player")]
+script = ExtResource("1_6013r")
+grid_size = 15
+tile_base = ExtResource("1_tpg7v")
+player = NodePath("../Player")
+ui = NodePath("../HUD")
+sfx_player = NodePath("../SFXPlayer")
+sfx_delivery_pick_up = ExtResource("4_1e3nk")
+sfx_delivery_complete = ExtResource("5_bc4ba")
+turns_remaining = 500
+max_bonus_turns = 25
+grasslandThreshold = 60
+forestThreshold = 90
+villageThreshold = 95
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_l3kfr")
+autoplay = true
+bus = &"BGM"
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("4_4b4w2")
+
+[node name="CameraPosition" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -10)
+
+[node name="OrbPosition" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("5_4s437")
+
+[node name="ScoreLabel" type="RichTextLabel" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -181.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme = ExtResource("9_ea0kl")
+text = "Score: 00000"
+text_direction = 2
+
+[node name="TurnsLabel" type="RichTextLabel" parent="HUD"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 137.0
+offset_bottom = 41.0
+theme = ExtResource("9_ea0kl")
+text = "Turns: 000"
+
+[node name="BonusTurnsLabel" type="RichTextLabel" parent="HUD"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -181.0
+offset_top = -34.0
+offset_right = 181.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("9_ea0kl")
+bbcode_enabled = true
+text = "[center]Bonus Turns: 000[/center]"
+fit_content = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." node_paths=PackedStringArray("position_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+radius = 0.25
+script = ExtResource("10_xjqa0")
+position_node = NodePath("../Player/OrbPosition")
