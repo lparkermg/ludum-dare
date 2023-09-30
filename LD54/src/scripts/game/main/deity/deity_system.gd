@@ -2,7 +2,7 @@ extends Node
 class_name DeitySystem
 
 @export var ui_controller: Node
-@export var map_controller: Node
+@export var map_controller: MapController
 @export var islander_system: Node
 
 signal place_at_selected_tile() # Attempts to place at selected tile (map_controller)
