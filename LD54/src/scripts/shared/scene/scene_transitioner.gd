@@ -1,4 +1,5 @@
 extends Node
+class_name SceneTransitioner
 
 @export var loading_scene_root: Node # Holds the loading scene
 @export var scene_root: Node # Holds the scene that's being displayed.
@@ -13,8 +14,9 @@ extends Node
 signal load_completed(scene: SceneEnums)
 
 func transition_scene(new_scene: SceneEnums.SceneTypes):
+	print("transitioning to new scene")
 	# Show the loading scene
-	var loading_instance = loading_scene.new()
+	var loading_instance = loading_scene.instantiate()
 	
 	loading_instance.name = "loading_scene"
 	loading_scene_root.add_child(loading_instance)
@@ -43,6 +45,6 @@ func transition_scene(new_scene: SceneEnums.SceneTypes):
 	load_completed.emit(new_scene)
 
 func _load_scene(new_scene: PackedScene, parent: Node) -> Node:
-	var scene = new_scene.new()
+	var scene = new_scene.instantiate()
 	parent.add_child(scene)
 	return scene

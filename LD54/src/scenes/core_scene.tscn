@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bv7pd1to17sry" path="res://scenes/game_scene.tscn" id="4_fnmid"]
 [ext_resource type="PackedScene" uid="uid://bh48bapr5jra" path="res://scenes/end_scene.tscn" id="5_qo8sx"]
 
-[node name="core_scene" type="Window"]
+[node name="core_scene" type="Node"]
 
 [node name="scene_handler" type="Node" parent="." node_paths=PackedStringArray("loading_scene_root", "scene_root")]
 script = ExtResource("1_y158f")
@@ -21,3 +21,5 @@ load_buffer_seconds = 5
 [node name="loading_root" type="Node" parent="."]
 
 [node name="scene_root" type="Node" parent="."]
+
+[node name="title_scene" parent="scene_root" instance=ExtResource("3_jo5v0")]
