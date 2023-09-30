@@ -13,9 +13,10 @@ signal wonder_placed_ui()
 signal wonder_placed_map()
 
 signal try_place_settlement(position: Vector2i)
-signal settlement_placed_ui(settlement_amount: int, worship_points_amount: int)
+signal settlement_placed_ui(settlement_amount: int, new_max_settlers: int, worship_points_amount: int)
 signal settlement_placed_map()
 
+signal settlers_arrived_ui()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -26,6 +27,7 @@ func _ready():
 	# Islander Signals
 	islander_system.wonder_placed.connect(_wonder_placed)
 	islander_system.settlement_placed.connect(_settlement_placed)
+	islander_system.settlers_arrived.connect(_settlers_arrived)
 	# Listen for
 		# Ui Updates
 		# Map updates
@@ -62,7 +64,10 @@ func _wonder_placed():
 	wonder_placed_ui.emit()
 	wonder_placed_map.emit()
 
-func _settlement_placed(settlement_amount: int, worship_points: int):
+func _settlement_placed(settlement_amount: int, new_max_settlers: int, worship_points: int):
 	print("settlement placed")
 	settlement_placed_map.emit()
-	settlement_placed_ui.emit(settlement_amount, worship_points)
+	settlement_placed_ui.emit(settlement_amount, new_max_settlers, worship_points)
+	
+func _settlers_arrived(new_settler_amount: int):
+	settlers_arrived_ui.emit(new_settler_amount)

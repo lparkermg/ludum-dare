@@ -84,6 +84,10 @@ layout_mode = 2
 text = "Place
 Settlement"
 
-[node name="islanders" type="Node" parent="." node_paths=PackedStringArray("deity_system")]
+[node name="islanders" type="Node" parent="." node_paths=PackedStringArray("deity_system", "settler_spawn_timer")]
 script = ExtResource("5_lpbdl")
 deity_system = NodePath("../diety")
+settler_spawn_timer = NodePath("settler_spawn_timer")
+
+[node name="settler_spawn_timer" type="Timer" parent="islanders"]
+wait_time = 5.0

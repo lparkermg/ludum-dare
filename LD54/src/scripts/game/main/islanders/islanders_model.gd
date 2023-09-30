@@ -13,3 +13,6 @@ class_name IslandersModel
 
 # Settlement state
 @export var amount_of_settlements: int
+
+@export var max_amount_of_settlers: int
+@export var amount_of_settlers: int

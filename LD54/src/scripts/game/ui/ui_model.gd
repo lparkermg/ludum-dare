@@ -7,8 +7,8 @@ class_name UiModel
 
 @export var settlements: int
 
-@export var max_population: int
-@export var current_population: int
+@export var max_settlers: int
+@export var current_settlers: int
 
 @export var current_deity_points: int
 
