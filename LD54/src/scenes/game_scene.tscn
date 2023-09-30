@@ -1,26 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv7pd1to17sry"]
+[gd_scene load_steps=6 format=3 uid="uid://bv7pd1to17sry"]
 
 [ext_resource type="TileSet" uid="uid://cpx8b0h2rlvpg" path="res://resources/tile_sets/test_tiles.tres" id="2_5f2n6"]
 [ext_resource type="Script" path="res://scripts/game/main/map/map_controller.gd" id="2_lmklw"]
+[ext_resource type="Script" path="res://scripts/game/ui/ui_controller.gd" id="4_1l4at"]
 [ext_resource type="Script" path="res://scripts/game/main/deity/deity_system.gd" id="4_rjtb8"]
+[ext_resource type="Script" path="res://scripts/game/main/islanders/islanders_system.gd" id="5_lpbdl"]
 
-[node name="game_scene" type="Node2D"]
-
-[node name="ui" type="Control" parent="."]
+[node name="game_scene" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-alignment = 1
-
-[node name="TransitionToEndButton" type="Button" parent="ui/VBoxContainer"]
-layout_mode = 2
-text = "Transition to End Scene!"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="game_display" type="Node2D" parent="." node_paths=PackedStringArray("deity_system")]
 script = ExtResource("2_lmklw")
@@ -32,14 +24,66 @@ cell_quadrant_size = 32
 format = 2
 layer_0/name = "base"
 layer_0/tile_data = PackedInt32Array(0, 65537, 0, 65536, 65537, 0, 131072, 65537, 0, 196608, 65537, 0, 196609, 65537, 0, 262145, 65537, 0, 327681, 65537, 0, 393217, 65537, 0, 393216, 65537, 0, 327680, 65537, 0, 262144, 65537, 0, 65537, 65537, 0, 1, 65537, 0, 2, 65537, 0, 3, 65537, 0, 4, 65537, 0, 5, 65537, 0, 6, 65537, 0, 7, 65537, 0, 8, 65537, 0, 9, 65537, 0, 10, 65537, 0, 11, 65537, 0, 65547, 65537, 0, 131083, 65537, 0, 196619, 65537, 0, 262155, 65537, 0, 327691, 65537, 0, 393227, 65537, 0, 393226, 65537, 0, 393225, 65537, 0, 393224, 65537, 0, 393223, 65537, 0, 393222, 65537, 0, 393221, 65537, 0, 393220, 65537, 0, 393219, 65537, 0, 458755, 65537, 0, 458754, 65537, 0, 393218, 65537, 0, 327682, 65537, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 65537, 0, 327689, 65537, 0, 327690, 65537, 0, 262154, 65537, 0, 196618, 65537, 0, 196617, 65537, 0, 262152, 1, 0, 262151, 1, 0, 262150, 1, 0, 262149, 1, 0, 262148, 1, 0, 262147, 1, 0, 262146, 1, 0, 262153, 1, 0, 196616, 1, 0, 196615, 1, 0, 196614, 1, 0, 196613, 1, 0, 131076, 1, 0, 196612, 1, 0, 196611, 1, 0, 196610, 1, 0, 131073, 65537, 0, 131074, 65537, 0, 131075, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 65537, 0, 131080, 65537, 0, 131081, 65537, 0, 131082, 65537, 0, 65546, 65537, 0, 65545, 65537, 0, 65544, 65537, 0, 65543, 65537, 0, 65542, 65537, 0, 65541, 65537, 0, 65540, 65537, 0, 65539, 65537, 0, 65538, 65537, 0, 458752, 65537, 0, 458753, 65537, 0, 458756, 65537, 0, 458757, 65537, 0, 458758, 65537, 0, 458759, 65537, 0, 458762, 65537, 0, 458763, 65537, 0, 458761, 65537, 0, 458760, 65537, 0)
-layer_1/name = "cursor"
+layer_1/name = "placements"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array(0, 1, 1)
+layer_1/tile_data = PackedInt32Array()
+layer_2/name = "cursor"
+layer_2/enabled = true
+layer_2/modulate = Color(1, 1, 1, 1)
+layer_2/y_sort_enabled = false
+layer_2/y_sort_origin = 0
+layer_2/z_index = 2
+layer_2/tile_data = PackedInt32Array(0, 1, 1)
 
-[node name="diety" type="Node" parent="." node_paths=PackedStringArray("map_controller")]
+[node name="diety" type="Node" parent="." node_paths=PackedStringArray("ui_controller", "map_controller", "islander_system")]
 script = ExtResource("4_rjtb8")
+ui_controller = NodePath("../ui")
 map_controller = NodePath("../game_display")
+islander_system = NodePath("../islanders")
+
+[node name="ui" type="Control" parent="." node_paths=PackedStringArray("deity_system", "place_wonder_button", "place_settlement_button")]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_1l4at")
+deity_system = NodePath("../diety")
+place_wonder_button = NodePath("VBoxContainer/HFlowContainer/PlaceWonderButton")
+place_settlement_button = NodePath("VBoxContainer/HFlowContainer/PlaceSettlementButton2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="spacer" type="Control" parent="ui/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HFlowContainer" type="HFlowContainer" parent="ui/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlaceWonderButton" type="Button" parent="ui/VBoxContainer/HFlowContainer"]
+layout_mode = 2
+text = "Place
+Wonder"
+
+[node name="PlaceSettlementButton2" type="Button" parent="ui/VBoxContainer/HFlowContainer"]
+layout_mode = 2
+text = "Place
+Settlement"
+
+[node name="islanders" type="Node" parent="." node_paths=PackedStringArray("deity_system")]
+script = ExtResource("5_lpbdl")
+deity_system = NodePath("../diety")
