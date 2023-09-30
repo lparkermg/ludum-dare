@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://bldp1jftixjns"]
+
+[ext_resource type="Script" path="res://scripts/shared/scene/scene_transitioner.gd" id="1_y158f"]
+[ext_resource type="PackedScene" uid="uid://phwfhu2bd73q" path="res://scenes/loading_scene.tscn" id="2_b46hs"]
+[ext_resource type="PackedScene" uid="uid://d2u3y04xy7eld" path="res://scenes/title_scene.tscn" id="3_jo5v0"]
+[ext_resource type="PackedScene" uid="uid://bv7pd1to17sry" path="res://scenes/game_scene.tscn" id="4_fnmid"]
+[ext_resource type="PackedScene" uid="uid://bh48bapr5jra" path="res://scenes/end_scene.tscn" id="5_qo8sx"]
+
+[node name="core_scene" type="Window"]
+
+[node name="scene_handler" type="Node" parent="." node_paths=PackedStringArray("loading_scene_root", "scene_root")]
+script = ExtResource("1_y158f")
+loading_scene_root = NodePath("../loading_root")
+scene_root = NodePath("../scene_root")
+loading_scene = ExtResource("2_b46hs")
+title_scene = ExtResource("3_jo5v0")
+game_scene = ExtResource("4_fnmid")
+end_scene = ExtResource("5_qo8sx")
+load_buffer_seconds = 5
+
+[node name="loading_root" type="Node" parent="."]
+
+[node name="scene_root" type="Node" parent="."]
