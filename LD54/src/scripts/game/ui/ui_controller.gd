@@ -18,17 +18,16 @@ func _ready():
 	deity_system.wonder_placed_ui.connect(_wonder_placed)
 	deity_system.settlement_placed_ui.connect(_settlement_placed)
 	deity_system.settlers_arrived_ui.connect(_settlers_arrived)
+	deity_system.deity_points_changed_ui.connect(_deity_points_changed)
 	
 	model = UiModel.new()
 	
 	model.worship_amount = 0
-	model.worship_points = 5
+	model.deity_points = 5
 	model.settlements = 0
 	
 	model.max_settlers = 0
 	model.current_settlers = 0
-	
-	model.current_deity_points = 0
 	
 	model.can_place_settlement = false
 	model.can_place_wonder = true
@@ -58,13 +57,22 @@ func _update_view(ui_model: UiModel):
 func _wonder_placed():
 	update_action_states(false, true)
 	
-func _settlement_placed(settlement_amount: int, new_max_settlers: int, worship_points_amount: int):
+func _settlement_placed(settlement_amount: int, new_max_settlers: int):
 	model.settlements = settlement_amount
-	model.worship_points = worship_points_amount
 	model.max_settlers = new_max_settlers
 	_update_view(model)
 	
 func _settlers_arrived(new_settler_amount: int):
 	model.current_settlers = new_settler_amount
-	print("%s/%s" % [str(model.current_settlers), str(model.max_settlers)])
+	
+	_update_view(model)
+	
+func _worship_level_changed(new_level: int):
+	model.worship_amount = new_level
+	
+	_update_view(model)
+	
+func _deity_points_changed(new_amount: int):
+	model.deity_points = new_amount
+
 	_update_view(model)

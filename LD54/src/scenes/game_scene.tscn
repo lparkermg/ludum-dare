@@ -1,10 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://bv7pd1to17sry"]
+[gd_scene load_steps=8 format=3 uid="uid://bv7pd1to17sry"]
 
 [ext_resource type="TileSet" uid="uid://cpx8b0h2rlvpg" path="res://resources/tile_sets/test_tiles.tres" id="2_5f2n6"]
 [ext_resource type="Script" path="res://scripts/game/main/map/map_controller.gd" id="2_lmklw"]
 [ext_resource type="Script" path="res://scripts/game/ui/ui_controller.gd" id="4_1l4at"]
 [ext_resource type="Script" path="res://scripts/game/main/deity/deity_system.gd" id="4_rjtb8"]
 [ext_resource type="Script" path="res://scripts/game/main/islanders/islanders_system.gd" id="5_lpbdl"]
+
+[sub_resource type="Curve" id="Curve_eol8s"]
+max_value = 10.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 10), -1.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_n5jwj"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="game_scene" type="Control"]
 layout_mode = 3
@@ -84,10 +94,19 @@ layout_mode = 2
 text = "Place
 Settlement"
 
-[node name="islanders" type="Node" parent="." node_paths=PackedStringArray("deity_system", "settler_spawn_timer")]
+[node name="islanders" type="Node" parent="." node_paths=PackedStringArray("deity_system", "settler_spawn_timer", "worship_increase_timer", "deity_points_increase_timer")]
 script = ExtResource("5_lpbdl")
 deity_system = NodePath("../diety")
 settler_spawn_timer = NodePath("settler_spawn_timer")
+worship_increase_timer = NodePath("worship_increase_timer")
+deity_points_increase_timer = NodePath("deity_points_timer")
+worship_curve = SubResource("Curve_eol8s")
+deity_points_curve = SubResource("Curve_n5jwj")
 
 [node name="settler_spawn_timer" type="Timer" parent="islanders"]
-wait_time = 5.0
+wait_time = 10.0
+
+[node name="worship_increase_timer" type="Timer" parent="islanders"]
+wait_time = 2.0
+
+[node name="deity_points_timer" type="Timer" parent="islanders"]

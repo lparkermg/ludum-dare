@@ -4,8 +4,8 @@ class_name IslandersModel
 # Holds all the state relating to the islanders.
 
 # Worship states
-@export var worship_amount: int
-@export var worship_points: int
+@export var worship_amount: float
+@export var deity_points: float
 
 # Wonder state
 @export var wonder_placed: bool
