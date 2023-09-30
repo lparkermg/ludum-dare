@@ -13,6 +13,7 @@ class_name IslandersModel
 
 # Settlement state
 @export var amount_of_settlements: int
+@export var settlement_locations: Array[Vector2i]
 
 @export var max_amount_of_settlers: int
 @export var amount_of_settlers: int

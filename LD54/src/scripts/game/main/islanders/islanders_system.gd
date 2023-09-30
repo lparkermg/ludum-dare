@@ -9,7 +9,10 @@ class_name IslandersSystem
 
 # Cost stuff
 @export var settlement_cost: int = 5
-
+@export var lightning_cost: int = 5
+@export var flood_cost: int = 5
+@export var earthquake_cost: int = 5
+@export var fire_cost: int = 5
 
 # Max Stuff
 @export var max_settlers_per_settlement: int = 5
@@ -31,6 +34,9 @@ signal settlement_not_placed()
 signal settlers_arrived(new_settler_amount: int)
 signal worship_level_changed(new_level: int)
 signal deity_points_increased(new_deity_points: int)
+
+signal wonder_destroyed()
+signal settlements_destroyed(locations: Array[Vector2i])
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = IslandersModel.new()
@@ -107,3 +113,100 @@ func _deity_points_increased():
 	state.deity_points = round(state.deity_points + deity_points_curve.sample(state.worship_amount / 100))
 	
 	deity_points_increased.emit(int(state.deity_points))
+	
+func _disaster_activated(type: DisasterEnums.Disaster, location: Vector2i):
+	if type == DisasterEnums.Disaster.Lightning:
+		_handle_lightning_disaster(location)
+	elif type == DisasterEnums.Disaster.Flood:
+		_handle_flood_disaster()
+	elif type == DisasterEnums.Disaster.Earthquake:
+		_handle_earthquake_disaster()
+	elif type == DisasterEnums.Disaster.Fire:
+		_handle_fire_disaster(location)
+
+func _handle_lightning_disaster(location:Vector2i):
+	if state.deity_points < lightning_cost:
+		return
+	state.deity_points = state.deity_points - lightning_cost
+	deity_points_increased.emit(state.deity_points)
+	# Lightning Strike
+			# - Single tile
+			# - Instant destruction of whats on the tile
+			# - Can destroy Wonder
+			# - Removes 5 settlers
+	if location == state.wonder_placed_at:
+		wonder_destroyed.emit()
+
+	if state.settlement_locations.any(func(settlement: Vector2i): return settlement == location):
+		settlements_destroyed.emit([location])
+	
+	state.amount_of_settlers = state.amount_of_settlers - 5
+	
+	if state.amount_of_settlers < 0:
+		state.amount_of_settlers = 0
+		
+	settlers_arrived.emit(state.amount_of_settlers)
+
+func _handle_flood_disaster():
+	if state.deity_points < flood_cost:
+		return
+	state.deity_points = state.deity_points - flood_cost
+	deity_points_increased.emit(state.deity_points)
+	# Flood
+			# - All tiles
+			# - Chance to destroy what is on a tile
+			# - Cannot destroy Wonder
+			# - halves settlers
+	
+	# Implement random number here.
+	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return false)
+	settlements_destroyed.emit(settlements_to_remove)
+	
+	state.amount_of_settlers = state.amount_of_settlers / 2
+	settlers_arrived.emit(state.amount_of_settlers)
+
+func _handle_earthquake_disaster():
+	if state.deity_points < earthquake_cost:
+		return
+	state.deity_points = state.deity_points - earthquake_cost
+	deity_points_increased.emit(state.deity_points)
+	# Earthquake
+			# - All tiles
+			# - Small chance to destroy what is on a tile
+			# - Can destroy Wonder
+			# - Removes half or more settlers
+	var destroy_wonder = false # TODO: random number here
+	
+	if destroy_wonder:
+		wonder_destroyed.emit()
+	
+	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return false)
+	settlements_destroyed.emit(settlements_to_remove)
+	
+	state.amount_of_settlers = state.amount_of_settlers / 2 
+	settlers_arrived.emit(state.amount_of_settlers)
+	
+func _handle_fire_disaster(location: Vector2i):
+	if state.deity_points < fire_cost:
+		return
+	state.deity_points = state.deity_points - fire_cost
+	deity_points_increased.emit(state.deity_points)
+	# Fire
+			# - Single tile
+			# - Chance to destroy what is on the tile
+			# - Can destroy Wonder
+			# - Removes  between 5 and 10 settlers
+	var should_destroy_at_location = false # TODO: Random number here
+	if should_destroy_at_location:
+		if location == state.wonder_placed_at:
+			wonder_destroyed.emit()
+
+		if state.settlement_locations.any(func(settlement: Vector2i): return settlement == location):
+			settlements_destroyed.emit([location])
+	
+	state.amount_of_settlers = state.amount_of_settlers - 5 # Random between 5 and 10
+	
+	if state.amount_of_settlers < 0:
+		state.amount_of_settlers = 0
+		
+	settlers_arrived.emit(state.amount_of_settlers)
