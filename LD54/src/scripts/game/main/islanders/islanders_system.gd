@@ -31,12 +31,15 @@ signal wonder_placed()
 signal settlement_placed(new_settlement_amount: int, new_max_settlers: int, deity_points_left: int)
 signal settlement_not_placed()
 
+# TODO: Change settlers_arrived and deity_points_increased to be changed or something.
 signal settlers_arrived(new_settler_amount: int)
 signal worship_level_changed(new_level: int)
 signal deity_points_increased(new_deity_points: int)
 
 signal wonder_destroyed()
-signal settlements_destroyed(locations: Array[Vector2i])
+signal settlements_destroyed(locations: Array[Vector2i]) 
+signal disaster_complete()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	state = IslandersModel.new()
@@ -52,6 +55,7 @@ func _ready():
 	
 	deity_system.try_place_wonder.connect(_place_wonder)
 	deity_system.try_place_settlement.connect(_place_settlement)
+	deity_system.try_start_disaster.connect(_start_disaster)
 	
 	settler_spawn_timer.timeout.connect(_spawn_settlers)
 	worship_increase_timer.timeout.connect(_worship_changed)
@@ -114,15 +118,19 @@ func _deity_points_increased():
 	
 	deity_points_increased.emit(int(state.deity_points))
 	
-func _disaster_activated(type: DisasterEnums.Disaster, location: Vector2i):
+func _start_disaster(type: DisasterEnums.Disaster, location: Vector2i):
 	if type == DisasterEnums.Disaster.Lightning:
 		_handle_lightning_disaster(location)
+		disaster_complete.emit()
 	elif type == DisasterEnums.Disaster.Flood:
 		_handle_flood_disaster()
+		disaster_complete.emit()
 	elif type == DisasterEnums.Disaster.Earthquake:
 		_handle_earthquake_disaster()
+		disaster_complete.emit()
 	elif type == DisasterEnums.Disaster.Fire:
 		_handle_fire_disaster(location)
+		disaster_complete.emit()
 
 func _handle_lightning_disaster(location:Vector2i):
 	if state.deity_points < lightning_cost:
@@ -138,6 +146,7 @@ func _handle_lightning_disaster(location:Vector2i):
 		wonder_destroyed.emit()
 
 	if state.settlement_locations.any(func(settlement: Vector2i): return settlement == location):
+		# TODO Remove destroyed locations form array
 		settlements_destroyed.emit([location])
 	
 	state.amount_of_settlers = state.amount_of_settlers - 5
@@ -160,6 +169,7 @@ func _handle_flood_disaster():
 	
 	# Implement random number here.
 	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return false)
+	# TODO Remove destroyed locations form array
 	settlements_destroyed.emit(settlements_to_remove)
 	
 	state.amount_of_settlers = state.amount_of_settlers / 2
@@ -180,6 +190,7 @@ func _handle_earthquake_disaster():
 	if destroy_wonder:
 		wonder_destroyed.emit()
 	
+	# TODO Remove destroyed locations form array
 	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return false)
 	settlements_destroyed.emit(settlements_to_remove)
 	
@@ -202,6 +213,7 @@ func _handle_fire_disaster(location: Vector2i):
 			wonder_destroyed.emit()
 
 		if state.settlement_locations.any(func(settlement: Vector2i): return settlement == location):
+			# TODO Remove destroyed locations form array
 			settlements_destroyed.emit([location])
 	
 	state.amount_of_settlers = state.amount_of_settlers - 5 # Random between 5 and 10

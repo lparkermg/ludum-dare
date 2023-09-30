@@ -59,8 +59,7 @@ ui_controller = NodePath("../ui")
 map_controller = NodePath("../game_display")
 islander_system = NodePath("../islanders")
 
-[node name="ui" type="Control" parent="." node_paths=PackedStringArray("deity_system", "place_wonder_button", "place_settlement_button", "settlements_label", "settlers_label", "worship_label", "deity_points_label")]
-custom_minimum_size = Vector2(512, 512)
+[node name="ui" type="Control" parent="." node_paths=PackedStringArray("deity_system", "place_wonder_button", "place_settlement_button", "activate_lightning_disaster", "activate_flood_disaster", "activate_earthquake_disaster", "activate_fire_disaster", "disaster_disable_timer", "settlements_label", "settlers_label", "worship_label", "deity_points_label")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,6 +70,11 @@ script = ExtResource("4_1l4at")
 deity_system = NodePath("../diety")
 place_wonder_button = NodePath("main_area/action_area/PlaceWonderButton")
 place_settlement_button = NodePath("main_area/action_area/PlaceSettlementButton2")
+activate_lightning_disaster = NodePath("main_area/action_area/LightningDisasterButton")
+activate_flood_disaster = NodePath("main_area/action_area/FloodDisasterButton")
+activate_earthquake_disaster = NodePath("main_area/action_area/EarthquakeDisasterButton")
+activate_fire_disaster = NodePath("main_area/action_area/FireDisasterButton")
+disaster_disable_timer = NodePath("disaster_disable_timer")
 settlements_label = NodePath("main_area/status_area/settlements_item/MarginContainer/HBoxContainer/Label")
 settlers_label = NodePath("main_area/status_area/settlers_item/MarginContainer/HBoxContainer/Label")
 worship_label = NodePath("main_area/status_area/worship_item/MarginContainer/HBoxContainer/Label")
@@ -206,6 +210,26 @@ Wonder"
 layout_mode = 2
 text = "Place
 Settlement"
+
+[node name="LightningDisasterButton" type="Button" parent="ui/main_area/action_area"]
+layout_mode = 2
+text = "Lightning"
+
+[node name="FloodDisasterButton" type="Button" parent="ui/main_area/action_area"]
+layout_mode = 2
+text = "Flood"
+
+[node name="EarthquakeDisasterButton" type="Button" parent="ui/main_area/action_area"]
+layout_mode = 2
+text = "Earthquake"
+
+[node name="FireDisasterButton" type="Button" parent="ui/main_area/action_area"]
+layout_mode = 2
+text = "Fire"
+
+[node name="disaster_disable_timer" type="Timer" parent="ui"]
+wait_time = 10.0
+one_shot = true
 
 [node name="islanders" type="Node" parent="." node_paths=PackedStringArray("deity_system", "settler_spawn_timer", "worship_increase_timer", "deity_points_increase_timer")]
 script = ExtResource("5_lpbdl")

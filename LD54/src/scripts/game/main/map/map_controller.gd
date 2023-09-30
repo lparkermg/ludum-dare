@@ -20,6 +20,7 @@ func _ready():
 	deity_system.select_new_tile.connect(move_cursor)
 	deity_system.wonder_placed_map.connect(_place_wonder)
 	deity_system.settlement_placed_map.connect(_place_settlement)
+	deity_system.disaster_settlements_destroyed_map.connect(_destory_settlements)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -50,3 +51,8 @@ func _place_wonder():
 func _place_settlement():
 	model.current.set_cell(1, model.select_position, 1, Vector2i(0, 2))
 	settlement_placed.emit()
+	
+func _destory_settlements(locations: Array[Vector2i]):
+	for s in locations:
+		model.current.erase_cell(1, s)
+		# Probably should add some kind of mark to show something there?

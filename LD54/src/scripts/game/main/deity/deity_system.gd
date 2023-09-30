@@ -16,6 +16,10 @@ signal try_place_settlement(position: Vector2i)
 signal settlement_placed_ui(settlement_amount: int, new_max_settlers: int)
 signal settlement_placed_map()
 
+signal try_start_disaster(type: DisasterEnums.Disaster, location: Vector2i)
+signal disaster_completed_ui()
+signal disaster_settlements_destroyed_map(locations: Array[Vector2i])
+
 signal settlers_arrived_ui(new_settler_amount: int)
 signal worship_level_changed_ui(new_level: int)
 signal deity_points_changed_ui(new_amount: int)
@@ -26,12 +30,22 @@ func _ready():
 	ui_controller.place_wonder_clicked.connect(_try_place_wonder)
 	ui_controller.place_settlement_clicked.connect(_try_place_settlement)
 	
+	ui_controller.activate_earthquake_disaster_clicked.connect(func(): _try_start_disaster(DisasterEnums.Disaster.Earthquake))
+	ui_controller.activate_flood_disaster_clicked.connect(func(): _try_start_disaster(DisasterEnums.Disaster.Flood))
+	ui_controller.activate_fire_disaster_clicked.connect(func(): _try_start_disaster(DisasterEnums.Disaster.Fire))
+	ui_controller.activate_lightning_disaster_clicked.connect(func(): _try_start_disaster(DisasterEnums.Disaster.Lightning))
+	
+	
 	# Islander Signals
 	islander_system.wonder_placed.connect(_wonder_placed)
 	islander_system.settlement_placed.connect(_settlement_placed)
 	islander_system.settlers_arrived.connect(_settlers_arrived)
 	islander_system.worship_level_changed.connect(_worship_level_changed)
 	islander_system.deity_points_increased.connect(_deity_points_increased)
+	islander_system.disaster_complete.connect(_disaster_complete)
+	
+	islander_system.wonder_destroyed.connect(_disaster_wonder_destroyed)
+	islander_system.settlements_destroyed.connect(_disaster_settlements_destroyed)
 	
 	# Listen for
 		# Ui Updates
@@ -83,3 +97,19 @@ func _worship_level_changed(new_worship_level: int):
 	
 func _deity_points_increased(new_amount: int):
 	deity_points_changed_ui.emit(new_amount)
+	
+func _try_start_disaster(type: DisasterEnums.Disaster):
+	var select_pos = map_controller.get_select_position()
+	
+	try_start_disaster.emit(type, select_pos)
+
+func _disaster_settlements_destroyed(locations: Array[Vector2i]):
+	disaster_settlements_destroyed_map.emit(locations)
+
+func _disaster_wonder_destroyed():
+	# This is actually game over. A message needs to be populated and the scene 
+	# needs to transition to the end.
+	print("Peeps, it's game over.")
+
+func _disaster_complete():
+	disaster_completed_ui.emit()
