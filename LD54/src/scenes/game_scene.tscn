@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bv7pd1to17sry"]
+[gd_scene load_steps=12 format=3 uid="uid://bv7pd1to17sry"]
 
 [ext_resource type="TileSet" uid="uid://cpx8b0h2rlvpg" path="res://resources/tile_sets/test_tiles.tres" id="2_5f2n6"]
 [ext_resource type="Script" path="res://scripts/game/main/map/map_controller.gd" id="2_lmklw"]
 [ext_resource type="Script" path="res://scripts/game/ui/ui_controller.gd" id="4_1l4at"]
 [ext_resource type="Script" path="res://scripts/game/main/deity/deity_system.gd" id="4_rjtb8"]
+[ext_resource type="Texture2D" uid="uid://blhon4vlincpo" path="res://graphics/ui/icons/settlements_icon.png" id="5_atryx"]
 [ext_resource type="Script" path="res://scripts/game/main/islanders/islanders_system.gd" id="5_lpbdl"]
+[ext_resource type="Texture2D" uid="uid://brh7qke57d4s4" path="res://graphics/ui/icons/settlers_icon.png" id="6_8ggcj"]
+[ext_resource type="Texture2D" uid="uid://dauaxxsw48btx" path="res://graphics/ui/icons/worship_amount_icon.png" id="7_3dqvk"]
+[ext_resource type="Texture2D" uid="uid://qkp8v2safj7j" path="res://graphics/ui/icons/deity_points_icon.png" id="8_m6olh"]
 
 [sub_resource type="Curve" id="Curve_eol8s"]
 max_value = 10.0
@@ -55,7 +59,7 @@ ui_controller = NodePath("../ui")
 map_controller = NodePath("../game_display")
 islander_system = NodePath("../islanders")
 
-[node name="ui" type="Control" parent="." node_paths=PackedStringArray("deity_system", "place_wonder_button", "place_settlement_button")]
+[node name="ui" type="Control" parent="." node_paths=PackedStringArray("deity_system", "place_wonder_button", "place_settlement_button", "settlements_label", "settlers_label", "worship_label", "deity_points_label")]
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 1
 anchors_preset = 15
@@ -65,10 +69,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_1l4at")
 deity_system = NodePath("../diety")
-place_wonder_button = NodePath("VBoxContainer/HFlowContainer/PlaceWonderButton")
-place_settlement_button = NodePath("VBoxContainer/HFlowContainer/PlaceSettlementButton2")
+place_wonder_button = NodePath("main_area/action_area/PlaceWonderButton")
+place_settlement_button = NodePath("main_area/action_area/PlaceSettlementButton2")
+settlements_label = NodePath("main_area/status_area/settlements_item/MarginContainer/HBoxContainer/Label")
+settlers_label = NodePath("main_area/status_area/settlers_item/MarginContainer/HBoxContainer/Label")
+worship_label = NodePath("main_area/status_area/worship_item/MarginContainer/HBoxContainer/Label")
+deity_points_label = NodePath("main_area/status_area/deity_points_item/MarginContainer/HBoxContainer/Label")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ui"]
+[node name="main_area" type="VBoxContainer" parent="ui"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,20 +84,125 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="spacer" type="Control" parent="ui/VBoxContainer"]
+[node name="status_area" type="HFlowContainer" parent="ui/main_area"]
+layout_mode = 2
+size_flags_vertical = 2
+alignment = 2
+
+[node name="settlements_item" type="PanelContainer" parent="ui/main_area/status_area"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/main_area/status_area/settlements_item"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="ui/main_area/status_area/settlements_item/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+columns = 2
+
+[node name="Icon" type="TextureRect" parent="ui/main_area/status_area/settlements_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_atryx")
+
+[node name="Label" type="Label" parent="ui/main_area/status_area/settlements_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "settlements"
+horizontal_alignment = 1
+
+[node name="settlers_item" type="PanelContainer" parent="ui/main_area/status_area"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/main_area/status_area/settlers_item"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="ui/main_area/status_area/settlers_item/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+columns = 2
+
+[node name="Icon" type="TextureRect" parent="ui/main_area/status_area/settlers_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_8ggcj")
+
+[node name="Label" type="Label" parent="ui/main_area/status_area/settlers_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "settlers"
+horizontal_alignment = 1
+
+[node name="worship_item" type="PanelContainer" parent="ui/main_area/status_area"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/main_area/status_area/worship_item"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="ui/main_area/status_area/worship_item/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+columns = 2
+
+[node name="Icon" type="TextureRect" parent="ui/main_area/status_area/worship_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("7_3dqvk")
+
+[node name="Label" type="Label" parent="ui/main_area/status_area/worship_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "worship amount"
+horizontal_alignment = 1
+
+[node name="deity_points_item" type="PanelContainer" parent="ui/main_area/status_area"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/main_area/status_area/deity_points_item"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="ui/main_area/status_area/deity_points_item/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+columns = 2
+
+[node name="Icon" type="TextureRect" parent="ui/main_area/status_area/deity_points_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_m6olh")
+
+[node name="Label" type="Label" parent="ui/main_area/status_area/deity_points_item/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "deity points"
+horizontal_alignment = 1
+
+[node name="spacer" type="Control" parent="ui/main_area"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HFlowContainer" type="HFlowContainer" parent="ui/VBoxContainer"]
+[node name="action_area" type="HFlowContainer" parent="ui/main_area"]
 layout_mode = 2
 alignment = 1
 
-[node name="PlaceWonderButton" type="Button" parent="ui/VBoxContainer/HFlowContainer"]
+[node name="PlaceWonderButton" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
 text = "Place
 Wonder"
 
-[node name="PlaceSettlementButton2" type="Button" parent="ui/VBoxContainer/HFlowContainer"]
+[node name="PlaceSettlementButton2" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
 text = "Place
 Settlement"

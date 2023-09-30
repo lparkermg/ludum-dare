@@ -8,6 +8,12 @@ class_name UiController
 @export var place_wonder_button: BaseButton
 @export var place_settlement_button: BaseButton
 
+# Stats display UI
+@export var settlements_label: Label
+@export var settlers_label: Label
+@export var worship_label: Label
+@export var deity_points_label: Label
+
 var model: UiModel
 
 signal place_wonder_clicked()
@@ -38,21 +44,21 @@ func _ready():
 	
 	_update_view(model)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+# Applies the provided ui model to the UI (our view in this case
+func _update_view(ui_model: UiModel):
+	place_wonder_button.disabled = !ui_model.can_place_wonder
+	place_settlement_button.disabled = !ui_model.can_place_settlement
+	
+	settlements_label.text = "%s" % str(ui_model.settlements)
+	settlers_label.text = "%s/%s" % [str(ui_model.current_settlers), str(ui_model.max_settlers)]
+	worship_label.text = "%s%" % str(ui_model.worship_amount)
+	deity_points_label.text = "%s" % str(ui_model.deity_points)
 
 func update_action_states(can_place_wonder: bool, can_place_settlement: bool):
 	model.can_place_settlement = can_place_settlement
 	model.can_place_wonder = can_place_wonder
 	
 	_update_view(model)
-
-# Applies the provided ui model to the UI (our view in this case
-func _update_view(ui_model: UiModel):
-	place_wonder_button.disabled = !ui_model.can_place_wonder
-	place_settlement_button.disabled = !ui_model.can_place_settlement
 	
 func _wonder_placed():
 	update_action_states(false, true)
