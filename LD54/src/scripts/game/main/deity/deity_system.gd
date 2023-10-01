@@ -59,7 +59,7 @@ func _ready():
 		# Ui Updates
 		# Map updates
 		# Islander Updates
-	pass # Replace with function body.
+	audio_handler.play_game_bgm()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -124,6 +124,7 @@ func _disaster_settlement_destroyed(locations: Vector2i, new_settlement_amount: 
 func _disaster_wonder_destroyed():
 	# This is actually game over. A message needs to be populated and the scene 
 	# needs to transition to the end.
+	audio_handler.stop_bgm()
 	audio_handler.sfx_complete.connect(_move_to_game_over)
 	audio_handler.play_error_sound()
 

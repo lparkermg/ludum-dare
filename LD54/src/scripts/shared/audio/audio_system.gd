@@ -4,6 +4,7 @@ class_name AudioSystem
 # BGM
 @export var title_bgm: AudioStreamOggVorbis
 @export var bad_game_over_bgm: AudioStreamOggVorbis
+@export var game_bgm: AudioStreamOggVorbis
 # SFX
 # Main Sounds
 @export var bad_sound: AudioStreamWAV
@@ -27,6 +28,8 @@ signal sfx_complete()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	title_bgm.loop = true
+	game_bgm.loop = true
+	
 	bad_game_over_bgm.loop = false
 	sfx_player.finished.connect(func(): sfx_complete.emit())
 
@@ -78,4 +81,9 @@ func play_bgm_title():
 func play_bgm_bad_game_over():
 	bgm_player.stop()
 	bgm_player.stream = bad_game_over_bgm
+	bgm_player.play()
+
+func play_game_bgm():
+	bgm_player.stop()
+	bgm_player.stream = game_bgm
 	bgm_player.play()
