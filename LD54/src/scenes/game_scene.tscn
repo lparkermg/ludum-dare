@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bv7pd1to17sry"]
+[gd_scene load_steps=16 format=3 uid="uid://bv7pd1to17sry"]
 
 [ext_resource type="Script" path="res://scripts/game/main/map/map_controller.gd" id="2_lmklw"]
 [ext_resource type="TileSet" uid="uid://dx6vdwbtu8ucq" path="res://resources/tile_sets/main_tileset.tres" id="2_tsbb6"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://brh7qke57d4s4" path="res://graphics/ui/icons/settlers_icon.png" id="6_8ggcj"]
 [ext_resource type="Texture2D" uid="uid://dauaxxsw48btx" path="res://graphics/ui/icons/worship_amount_icon.png" id="7_3dqvk"]
 [ext_resource type="Texture2D" uid="uid://qkp8v2safj7j" path="res://graphics/ui/icons/deity_points_icon.png" id="8_m6olh"]
+[ext_resource type="Texture2D" uid="uid://blvyw3tcxxqa6" path="res://graphics/ui/icons/lightning_disaster_icon.png" id="10_j63tq"]
+[ext_resource type="Texture2D" uid="uid://dc0jg0e4fms32" path="res://graphics/ui/icons/flood_disaster_icon.png" id="11_5scp7"]
+[ext_resource type="Texture2D" uid="uid://wlu52eja1u5k" path="res://graphics/ui/icons/earthquake_disaster_icon.png" id="12_gtouj"]
+[ext_resource type="Texture2D" uid="uid://bi2sf8qrs8l2i" path="res://graphics/ui/icons/fire_disaster_icon.png" id="13_6d5u0"]
 
 [sub_resource type="Curve" id="Curve_eol8s"]
 max_value = 10.0
@@ -228,29 +232,27 @@ alignment = 1
 
 [node name="PlaceWonderButton" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
-text = "Place
-Wonder"
+icon = ExtResource("7_3dqvk")
 
 [node name="PlaceSettlementButton2" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
-text = "Place
-Settlement"
+icon = ExtResource("6_8ggcj")
 
 [node name="LightningDisasterButton" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
-text = "Lightning"
+icon = ExtResource("10_j63tq")
 
 [node name="FloodDisasterButton" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
-text = "Flood"
+icon = ExtResource("11_5scp7")
 
 [node name="EarthquakeDisasterButton" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
-text = "Earthquake"
+icon = ExtResource("12_gtouj")
 
 [node name="FireDisasterButton" type="Button" parent="ui/main_area/action_area"]
 layout_mode = 2
-text = "Fire"
+icon = ExtResource("13_6d5u0")
 
 [node name="disaster_disable_timer" type="Timer" parent="ui"]
 wait_time = 5.0
