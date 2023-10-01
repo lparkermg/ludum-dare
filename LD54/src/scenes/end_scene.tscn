@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh48bapr5jra"]
+[gd_scene load_steps=5 format=3 uid="uid://bh48bapr5jra"]
 
 [ext_resource type="Script" path="res://scripts/end/ui/end_controller.gd" id="1_0j6gn"]
+[ext_resource type="FontFile" uid="uid://biyj6xe7kkqql" path="res://font/CompassPro.otf" id="2_ausdf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hcto4"]
 font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_m4rtk"]
+font = ExtResource("2_ausdf")
 font_size = 32
 
 [node name="end_scene" type="Control" node_paths=PackedStringArray("title", "message")]
@@ -39,6 +41,7 @@ grow_vertical = 2
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ausdf")
 text = "The End"
 label_settings = SubResource("LabelSettings_hcto4")
 horizontal_alignment = 1

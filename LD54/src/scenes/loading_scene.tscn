@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://phwfhu2bd73q"]
+[gd_scene load_steps=2 format=3 uid="uid://phwfhu2bd73q"]
+
+[ext_resource type="FontFile" uid="uid://biyj6xe7kkqql" path="res://font/CompassPro.otf" id="1_v0vtg"]
 
 [node name="loading_scene" type="Control"]
 layout_mode = 3
@@ -28,6 +30,7 @@ alignment = 1
 
 [node name="LoadingLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_v0vtg")
 text = "Loading..."
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2u3y04xy7eld"]
+[gd_scene load_steps=4 format=3 uid="uid://d2u3y04xy7eld"]
 
 [ext_resource type="Script" path="res://scripts/title/title_controller.gd" id="1_a4rgd"]
+[ext_resource type="FontFile" uid="uid://biyj6xe7kkqql" path="res://font/CompassPro.otf" id="2_27ucw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1hhg5"]
+font = ExtResource("2_27ucw")
 font_size = 60
 
 [node name="title_scene" type="Control" node_paths=PackedStringArray("title_label", "title_action", "title_button")]
@@ -37,13 +39,14 @@ grow_vertical = 2
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "LD54 Game"
+text = "Islanders"
 label_settings = SubResource("LabelSettings_1hhg5")
 horizontal_alignment = 1
 
 [node name="ActionLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_27ucw")
 text = "Click here to start"
 
 [node name="TextureButton" type="Button" parent="."]

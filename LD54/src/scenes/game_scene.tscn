@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bv7pd1to17sry"]
+[gd_scene load_steps=17 format=3 uid="uid://bv7pd1to17sry"]
 
 [ext_resource type="Script" path="res://scripts/game/main/map/map_controller.gd" id="2_lmklw"]
 [ext_resource type="TileSet" uid="uid://dx6vdwbtu8ucq" path="res://resources/tile_sets/main_tileset.tres" id="2_tsbb6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/game/main/islanders/islanders_system.gd" id="5_lpbdl"]
 [ext_resource type="Texture2D" uid="uid://brh7qke57d4s4" path="res://graphics/ui/icons/settlers_icon.png" id="6_8ggcj"]
 [ext_resource type="Texture2D" uid="uid://dauaxxsw48btx" path="res://graphics/ui/icons/worship_amount_icon.png" id="7_3dqvk"]
+[ext_resource type="FontFile" uid="uid://biyj6xe7kkqql" path="res://font/CompassPro.otf" id="7_uq33u"]
 [ext_resource type="Texture2D" uid="uid://qkp8v2safj7j" path="res://graphics/ui/icons/deity_points_icon.png" id="8_m6olh"]
 [ext_resource type="Texture2D" uid="uid://blvyw3tcxxqa6" path="res://graphics/ui/icons/lightning_disaster_icon.png" id="10_j63tq"]
 [ext_resource type="Texture2D" uid="uid://dc0jg0e4fms32" path="res://graphics/ui/icons/flood_disaster_icon.png" id="11_5scp7"]
@@ -144,6 +145,7 @@ texture = ExtResource("5_atryx")
 
 [node name="Label" type="Label" parent="ui/main_area/status_area/settlements_item/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_uq33u")
 text = "settlements"
 horizontal_alignment = 1
 
@@ -169,6 +171,7 @@ texture = ExtResource("6_8ggcj")
 
 [node name="Label" type="Label" parent="ui/main_area/status_area/settlers_item/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_uq33u")
 text = "settlers"
 horizontal_alignment = 1
 
@@ -194,6 +197,7 @@ texture = ExtResource("7_3dqvk")
 
 [node name="Label" type="Label" parent="ui/main_area/status_area/worship_item/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_uq33u")
 text = "worship amount"
 horizontal_alignment = 1
 
@@ -219,6 +223,7 @@ texture = ExtResource("8_m6olh")
 
 [node name="Label" type="Label" parent="ui/main_area/status_area/deity_points_item/MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("7_uq33u")
 text = "deity points"
 horizontal_alignment = 1
 
