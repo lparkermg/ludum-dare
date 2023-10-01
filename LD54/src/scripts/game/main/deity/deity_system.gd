@@ -5,6 +5,8 @@ class_name DeitySystem
 @export var map_controller: MapController
 @export var islander_system: IslandersSystem
 
+var audio_handler: AudioSystem
+
 signal place_at_selected_tile() # Attempts to place at selected tile (map_controller)
 signal select_new_tile(direction: MoveEnums.Tile) #Attempts to select a tile (map_controller)
 
@@ -27,6 +29,7 @@ signal worship_level_changed_ui(new_level: int)
 signal deity_points_changed_ui(new_amount: int)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	audio_handler = get_tree().get_root().get_node("core_scene/audio_handler")
 	
 	# UI Signals
 	ui_controller.place_wonder_clicked.connect(_try_place_wonder)
@@ -49,6 +52,7 @@ func _ready():
 	islander_system.wonder_destroyed.connect(_disaster_wonder_destroyed)
 	islander_system.settlement_destroyed.connect(_disaster_settlement_destroyed)
 	
+	map_controller.move_complete.connect(_move_complete)
 	# Listen for
 		# Ui Updates
 		# Map updates
@@ -71,6 +75,9 @@ func _handle_input():
 		select_new_tile.emit(MoveEnums.Tile.Left)
 	# Note: Placing stuff is handled when UI icons are clicked.
 
+func _move_complete():
+	audio_handler.play_cursor_move()
+
 func _try_place_wonder():
 	var select_pos = map_controller.get_select_position()
 
@@ -82,11 +89,13 @@ func _try_place_settlement():
 	try_place_settlement.emit(select_pos)
 	
 func _wonder_placed():
+	audio_handler.play_placement(true)
 	wonder_placed_ui.emit()
 	wonder_placed_map.emit()
 
 func _settlement_placed(settlement_amount: int, new_max_settlers: int, deity_points: int):
 	print("settlement placed")
+	audio_handler.play_placement(false)
 	settlement_placed_map.emit()
 	settlement_placed_ui.emit(settlement_amount, new_max_settlers)
 	deity_points_changed_ui.emit(deity_points)
@@ -113,8 +122,10 @@ func _disaster_settlement_destroyed(locations: Vector2i, new_settlement_amount: 
 func _disaster_wonder_destroyed():
 	# This is actually game over. A message needs to be populated and the scene 
 	# needs to transition to the end.
+	audio_handler.play_error_sound()
 	print("Peeps, it's game over.")
 
-func _disaster_complete():
+func _disaster_complete(type: DisasterEnums.Disaster):
+	audio_handler.play_disaster_sound(type)
 	print("Disaster Complete")
 	disaster_completed_ui.emit()

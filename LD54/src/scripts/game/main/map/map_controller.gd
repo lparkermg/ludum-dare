@@ -10,6 +10,8 @@ var model: MapModel
 
 signal wonder_placed()
 signal settlement_placed()
+
+signal move_complete()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	model = MapModel.new()
@@ -40,6 +42,8 @@ func move_cursor(direction: MoveEnums.Tile):
 		model.select_position.x = model.select_position.x - 1
 	
 	model.current.set_cell(2, model.select_position, 1, Vector2i(0, 1))
+	
+	move_complete.emit()
 
 func get_select_position() -> Vector2i:
 	return model.select_position

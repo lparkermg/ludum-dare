@@ -55,7 +55,7 @@ signal deity_points_increased(new_deity_points: int)
 
 signal wonder_destroyed()
 signal settlement_destroyed(location: Vector2i, new_settlement_amount: int, new_max_settlers_amount) 
-signal disaster_complete()
+signal disaster_complete(type: DisasterEnums.Disaster)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -140,16 +140,16 @@ func _deity_points_increased():
 func _start_disaster(type: DisasterEnums.Disaster, location: Vector2i):
 	if type == DisasterEnums.Disaster.Lightning:
 		_handle_lightning_disaster(location)
-		disaster_complete.emit()
+		disaster_complete.emit(type)
 	elif type == DisasterEnums.Disaster.Flood:
 		_handle_flood_disaster()
-		disaster_complete.emit()
+		disaster_complete.emit(type)
 	elif type == DisasterEnums.Disaster.Earthquake:
 		_handle_earthquake_disaster()
-		disaster_complete.emit()
+		disaster_complete.emit(type)
 	elif type == DisasterEnums.Disaster.Fire:
 		_handle_fire_disaster(location)
-		disaster_complete.emit()
+		disaster_complete.emit(type)
 
 func _handle_lightning_disaster(location:Vector2i):
 	if state.deity_points < lightning_cost:
