@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2u3y04xy7eld"]
+[gd_scene load_steps=5 format=3 uid="uid://d2u3y04xy7eld"]
 
 [ext_resource type="Script" path="res://scripts/title/title_controller.gd" id="1_a4rgd"]
+[ext_resource type="Texture2D" uid="uid://uod0xxrplynf" path="res://graphics/full/title.png" id="2_5ayvb"]
 [ext_resource type="FontFile" uid="uid://biyj6xe7kkqql" path="res://font/CompassPro.otf" id="2_27ucw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1hhg5"]
@@ -19,7 +20,17 @@ title_label = NodePath("VBoxContainer/TitleLabel")
 title_action = NodePath("VBoxContainer/ActionLabel")
 title_button = NodePath("TextureButton")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5ayvb")
+
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +46,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 168)
+layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2

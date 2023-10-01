@@ -3,6 +3,11 @@ extends Control
 @export var title: Label
 @export var message: Label
 
+@export var background_image: TextureRect
+
+@export var game_over_image: CompressedTexture2D
+@export var complete_image: CompressedTexture2D
+
 var audio_system: AudioSystem
 
 # Called when the node enters the scene tree for the first time.
@@ -14,3 +19,4 @@ func _ready():
 	
 	title.text = "Game Complete"
 	message.text = "There could be some kind of message here to do with if you managed or not to keep your island nation in check..."
+	background_image.texture = game_over_image
