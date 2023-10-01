@@ -1,6 +1,10 @@
 extends Node
 class_name AudioSystem
 
+# BGM
+@export var title_bgm: AudioStreamOggVorbis
+@export var bad_game_over_bgm: AudioStreamOggVorbis
+# SFX
 # Main Sounds
 @export var bad_sound: AudioStreamWAV
 @export var cursor_move_sound: AudioStreamWAV
@@ -22,8 +26,9 @@ class_name AudioSystem
 signal sfx_complete()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	title_bgm.loop = true
+	bad_game_over_bgm.loop = false
 	sfx_player.finished.connect(func(): sfx_complete.emit())
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -61,3 +66,16 @@ func play_placement(is_wonder: bool):
 	else:
 		sfx_player.stream = settlement_place_sound
 	sfx_player.play()
+
+func stop_bgm():
+	bgm_player.stop()
+
+func play_bgm_title():
+	bgm_player.stop()
+	bgm_player.stream = title_bgm
+	bgm_player.play()
+
+func play_bgm_bad_game_over():
+	bgm_player.stop()
+	bgm_player.stream = bad_game_over_bgm
+	bgm_player.play()

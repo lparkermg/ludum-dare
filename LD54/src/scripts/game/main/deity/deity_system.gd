@@ -5,6 +5,7 @@ class_name DeitySystem
 @export var map_controller: MapController
 @export var islander_system: IslandersSystem
 
+var scene_handler: SceneTransitioner
 var audio_handler: AudioSystem
 
 signal place_at_selected_tile() # Attempts to place at selected tile (map_controller)
@@ -29,6 +30,7 @@ signal worship_level_changed_ui(new_level: int)
 signal deity_points_changed_ui(new_amount: int)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	scene_handler = get_tree().get_root().get_node("core_scene/scene_handler")
 	audio_handler = get_tree().get_root().get_node("core_scene/audio_handler")
 	
 	# UI Signals
@@ -122,8 +124,11 @@ func _disaster_settlement_destroyed(locations: Vector2i, new_settlement_amount: 
 func _disaster_wonder_destroyed():
 	# This is actually game over. A message needs to be populated and the scene 
 	# needs to transition to the end.
+	audio_handler.sfx_complete.connect(_move_to_game_over)
 	audio_handler.play_error_sound()
-	print("Peeps, it's game over.")
+
+func _move_to_game_over():
+	scene_handler.transition_scene(SceneEnums.SceneTypes.End)
 
 func _disaster_complete(type: DisasterEnums.Disaster):
 	audio_handler.play_disaster_sound(type)

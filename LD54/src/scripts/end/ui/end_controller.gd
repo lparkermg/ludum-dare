@@ -3,8 +3,12 @@ extends Control
 @export var title: Label
 @export var message: Label
 
+var audio_system: AudioSystem
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	audio_system = get_tree().get_root().get_node("core_scene/audio_handler")
+	audio_system.play_bgm_bad_game_over()
 	# TODO: Have a model populated from the games outcome (probably via storage)
 	# TODO: Change to load from a model
 	
