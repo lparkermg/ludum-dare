@@ -14,3 +14,4 @@ class_name UiModel
 # Action stuff
 @export var can_place_wonder: bool
 @export var can_place_settlement: bool
+@export var can_perform_actions: bool

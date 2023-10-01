@@ -72,23 +72,31 @@ func _update_view(ui_model: UiModel):
 	place_wonder_button.disabled = !ui_model.can_place_wonder
 	place_settlement_button.disabled = !ui_model.can_place_settlement
 	
+	activate_lightning_disaster.disabled = !ui_model.can_perform_actions
+	activate_earthquake_disaster.disabled = !ui_model.can_perform_actions
+	activate_flood_disaster.disabled = !ui_model.can_perform_actions
+	activate_fire_disaster.disabled = !ui_model.can_perform_actions
+	
 	settlements_label.text = "%s" % str(ui_model.settlements)
 	settlers_label.text = "%s/%s" % [str(ui_model.current_settlers), str(ui_model.max_settlers)]
 	worship_label.text = "%s" % str(ui_model.worship_amount)
 	deity_points_label.text = "%s" % str(ui_model.deity_points)
 
-func update_action_states(can_place_wonder: bool, can_place_settlement: bool):
+func update_action_states(can_place_wonder: bool, can_place_settlement: bool, can_perform_disasters: bool):
 	model.can_place_settlement = can_place_settlement
 	model.can_place_wonder = can_place_wonder
-	
+	model.can_perform_actions = can_perform_disasters
 	_update_view(model)
 	
 func _wonder_placed():
-	update_action_states(false, true)
+	update_action_states(false, true, false)
 	
 func _settlement_placed(settlement_amount: int, new_max_settlers: int):
 	model.settlements = settlement_amount
 	model.max_settlers = new_max_settlers
+	
+	if settlement_amount == 1:
+		model.can_perform_actions = true
 	_update_view(model)
 	
 func _settlement_destroyed(settlement_amount: int, new_max_settlers: int):
@@ -113,16 +121,14 @@ func _deity_points_changed(new_amount: int):
 	
 func _disable_disaster_buttons():
 	print("Disaster buttons disabled.")
-	activate_earthquake_disaster.disabled = true
-	activate_fire_disaster.disabled = true
-	activate_flood_disaster.disabled = true
-	activate_lightning_disaster.disabled = true
+	model.can_perform_actions = false
+	
+	_update_view(model)
 	disaster_disable_timer.start(2.5)
 
 func _enable_disaster_buttons():
 	print("Enabling disaster buttons")
-	activate_earthquake_disaster.disabled = false
-	activate_fire_disaster.disabled = false
-	activate_flood_disaster.disabled = false
-	activate_lightning_disaster.disabled = false
+	model.can_perform_actions = true
+	
+	_update_view(model)
 	disaster_disable_timer.stop()
