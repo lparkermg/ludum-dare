@@ -7,6 +7,8 @@ class_name IslandersModel
 @export var worship_amount: float
 @export var deity_points: float
 
+@export var ascension_level: int
+
 # Wonder state
 @export var wonder_placed: bool
 @export var wonder_placed_at: Vector2i

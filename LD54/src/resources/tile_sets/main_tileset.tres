@@ -5,7 +5,9 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4jgtt"]
 texture = ExtResource("1_t1pd0")
 0:0/0 = 0
+0:0/0/custom_data_0 = true
 1:0/0 = 0
+1:0/0/custom_data_0 = true
 2:0/0 = 0
 3:0/0 = 0
 4:0/0 = 0
@@ -32,4 +34,6 @@ texture = ExtResource("1_t1pd0")
 5:4/0 = 0
 
 [resource]
+custom_data_layer_0/name = "can_place"
+custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_4jgtt")

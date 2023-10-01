@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bldp1jftixjns"]
+[gd_scene load_steps=20 format=3 uid="uid://bldp1jftixjns"]
 
 [ext_resource type="Script" path="res://scripts/shared/scene/scene_transitioner.gd" id="1_y158f"]
 [ext_resource type="PackedScene" uid="uid://phwfhu2bd73q" path="res://scenes/loading_scene.tscn" id="2_b46hs"]
@@ -14,9 +14,11 @@
 [ext_resource type="AudioStream" uid="uid://kbstjmjt14y6" path="res://audio/fire.wav" id="9_3j7iu"]
 [ext_resource type="AudioStream" uid="uid://dbfccnoeylhl0" path="res://audio/wonder_placed.wav" id="9_137b0"]
 [ext_resource type="AudioStream" uid="uid://sykr04olh8gn" path="res://audio/bgm/worship-the-darkness.ogg" id="9_lbnti"]
+[ext_resource type="AudioStream" uid="uid://bx81tj702yuid" path="res://audio/bgm/ascended.ogg" id="9_q35tm"]
 [ext_resource type="AudioStream" uid="uid://b1bef06d1awp6" path="res://audio/place_settlement.wav" id="10_h21xt"]
 [ext_resource type="AudioStream" uid="uid://c2ecxx7hfrda7" path="res://audio/flood.wav" id="10_rm1vm"]
 [ext_resource type="AudioStream" uid="uid://jevnv0p7y7do" path="res://audio/lightning_strike.wav" id="11_dn2vi"]
+[ext_resource type="AudioStream" uid="uid://y6j3mtdp3ln2" path="res://audio/ascension.wav" id="12_1k3mm"]
 
 [node name="core_scene" type="Node"]
 
@@ -43,8 +45,10 @@ one_shot = true
 script = ExtResource("6_ubjy8")
 title_bgm = ExtResource("7_1y27t")
 bad_game_over_bgm = ExtResource("8_443rc")
+good_game_complete_bgm = ExtResource("9_q35tm")
 game_bgm = ExtResource("9_lbnti")
 bad_sound = ExtResource("7_x6fc2")
+success_sound = ExtResource("12_1k3mm")
 cursor_move_sound = ExtResource("8_ktgy2")
 wonder_place_sound = ExtResource("9_137b0")
 settlement_place_sound = ExtResource("10_h21xt")

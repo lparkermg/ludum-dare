@@ -12,7 +12,7 @@ font_size = 60
 font = ExtResource("2_ausdf")
 font_size = 32
 
-[node name="end_scene" type="Control" node_paths=PackedStringArray("title", "message", "background_image")]
+[node name="end_scene" type="Control" node_paths=PackedStringArray("title", "message", "back_to_title_button", "background_image")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,7 @@ grow_vertical = 2
 script = ExtResource("1_0j6gn")
 title = NodePath("VBoxContainer/TitleLabel")
 message = NodePath("VBoxContainer/MessageLabel")
+back_to_title_button = NodePath("VBoxContainer/BackToTitleButton")
 background_image = NodePath("TextureRect")
 game_over_image = ExtResource("2_q54or")
 complete_image = ExtResource("3_wiewi")
@@ -72,3 +73,8 @@ autowrap_mode = 2
 [node name="SpacerControl" type="Control" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="BackToTitleButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ausdf")
+text = "Click here to go to title screen."

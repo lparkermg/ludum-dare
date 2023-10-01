@@ -18,6 +18,9 @@ class_name MapController
 
 @export var destruction_atlas_position: Vector2i = Vector2i(0, 4)
 
+@export var cursor_boundaries_min: int = 1
+@export var cursor_boundaries_max: int = 18
+
 var model: MapModel
 
 signal wonder_placed()
@@ -29,7 +32,9 @@ func _ready():
 	model = MapModel.new()
 	
 	model.current = get_node("./Island")
-	model.select_position = Vector2i(0, 0)
+	
+	model.select_position = Vector2i(2, 2)
+	model.current.set_cell(cursor_layer, model.select_position, tile_source_id, cursor_atlas_position)
 	
 	deity_system.select_new_tile.connect(move_cursor)
 	deity_system.wonder_placed_map.connect(_place_wonder)
@@ -41,26 +46,39 @@ func _process(delta):
 	pass
 
 func move_cursor(direction: MoveEnums.Tile):
-	model.current.erase_cell(cursor_layer, model.select_position)
+	var old_position = model.select_position
+	var changed = false
 	
 	# update position in model here
-	if direction == MoveEnums.Tile.Up:
+	if direction == MoveEnums.Tile.Up && model.select_position.y - 1 > cursor_boundaries_min:
 		model.select_position.y = model.select_position.y - 1
-	elif direction == MoveEnums.Tile.Right:
+		changed = true
+	elif direction == MoveEnums.Tile.Right && model.select_position.x + 1 < cursor_boundaries_max:
 		model.select_position.x = model.select_position.x + 1
-	elif direction == MoveEnums.Tile.Down:
+		changed = true
+	elif direction == MoveEnums.Tile.Down && model.select_position.y + 1 < cursor_boundaries_max:
 		model.select_position.y = model.select_position.y + 1
-	elif direction == MoveEnums.Tile.Left:
+		changed = true
+	elif direction == MoveEnums.Tile.Left && model.select_position.x - 1 > cursor_boundaries_min:
 		model.select_position.x = model.select_position.x - 1
+		changed = true
 	
-	model.current.set_cell(cursor_layer, model.select_position, tile_source_id, cursor_atlas_position)
-	
-	move_complete.emit()
+	if changed:
+		model.current.erase_cell(cursor_layer, old_position)
+		model.current.set_cell(cursor_layer, model.select_position, tile_source_id, cursor_atlas_position)
+
+		move_complete.emit()
 
 func get_select_position() -> Vector2i:
 	return model.select_position
 
-func _place_wonder():
+func can_place_at_position() -> bool:
+	var data = model.current.get_cell_tile_data(0, model.select_position)
+	return data.get_custom_data("can_place")
+
+func _place_wonder():	
+	var data = model.current.get_cell_tile_data(0, model.select_position)
+	
 	model.current.set_cell(placements_layer, model.select_position, tile_source_id, wonder_atlas_position)
 	wonder_placed.emit()
 	

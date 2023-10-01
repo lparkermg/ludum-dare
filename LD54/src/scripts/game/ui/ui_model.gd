@@ -1,6 +1,8 @@
 extends Node
 class_name UiModel
 
+@export var showing_help: bool
+
 # Stat display
 @export var worship_amount: int # 0 to 100 %
 
@@ -10,6 +12,8 @@ class_name UiModel
 @export var current_settlers: int
 
 @export var deity_points: int
+
+@export var ascension_level: int
 
 # Action stuff
 @export var can_place_wonder: bool

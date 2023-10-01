@@ -5,6 +5,10 @@ class_name UiController
 
 @export var deity_system: DeitySystem
 
+# Help stuff
+@export var help_display: Panel
+@export var start_game_button: BaseButton
+
 # Action buttons
 @export var place_wonder_button: BaseButton
 @export var place_settlement_button: BaseButton
@@ -17,6 +21,8 @@ class_name UiController
 @export var disaster_disable_timer: Timer
 
 # Stats display UI
+@export var ascension_progress: ProgressBar
+
 @export var settlements_label: Label
 @export var settlers_label: Label
 @export var worship_label: Label
@@ -41,18 +47,20 @@ func _ready():
 	deity_system.deity_points_changed_ui.connect(_deity_points_changed)
 	deity_system.disaster_completed_ui.connect(_disable_disaster_buttons)
 	deity_system.settlement_destroyed_ui.connect(_settlement_destroyed)
+	deity_system.ascension_level_increased_ui.connect(_ascension_changed)
 	
 	model = UiModel.new()
 	
 	model.worship_amount = 0
-	model.deity_points = 5
+	model.deity_points = 10
 	model.settlements = 0
 	
 	model.max_settlers = 0
 	model.current_settlers = 0
 	
 	model.can_place_settlement = false
-	model.can_place_wonder = true
+	model.can_place_wonder = false
+	model.showing_help = true
 	
 	#UI Signals
 	place_wonder_button.pressed.connect(func(): place_wonder_clicked.emit())
@@ -65,10 +73,14 @@ func _ready():
 	
 	disaster_disable_timer.timeout.connect(_enable_disaster_buttons)
 	
+	start_game_button.pressed.connect(_start_game)
+	
 	_update_view(model)
 
 # Applies the provided ui model to the UI (our view in this case
 func _update_view(ui_model: UiModel):
+	help_display.visible = ui_model.showing_help
+	
 	place_wonder_button.disabled = !ui_model.can_place_wonder
 	place_settlement_button.disabled = !ui_model.can_place_settlement
 	
@@ -81,6 +93,8 @@ func _update_view(ui_model: UiModel):
 	settlers_label.text = "%s/%s" % [str(ui_model.current_settlers), str(ui_model.max_settlers)]
 	worship_label.text = "%s" % str(ui_model.worship_amount)
 	deity_points_label.text = "%s" % str(ui_model.deity_points)
+	
+	ascension_progress.value = ui_model.ascension_level
 
 func update_action_states(can_place_wonder: bool, can_place_settlement: bool, can_perform_disasters: bool):
 	model.can_place_settlement = can_place_settlement
@@ -119,6 +133,11 @@ func _deity_points_changed(new_amount: int):
 
 	_update_view(model)
 	
+func _ascension_changed(new_amount: int):
+	model.ascension_level = new_amount
+	
+	_update_view(model)
+	
 func _disable_disaster_buttons():
 	print("Disaster buttons disabled.")
 	model.can_perform_actions = false
@@ -132,3 +151,9 @@ func _enable_disaster_buttons():
 	
 	_update_view(model)
 	disaster_disable_timer.stop()
+
+func _start_game():
+	model.showing_help = false
+	model.can_place_wonder = true
+	
+	_update_view(model)

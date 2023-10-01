@@ -6,6 +6,7 @@ class_name IslandersSystem
 @export var settler_spawn_timer: Timer
 @export var worship_increase_timer: Timer
 @export var deity_points_increase_timer: Timer
+@export var ascension_increase_timer: Timer
 
 # Cost stuff
 @export var settlement_cost: int = 5
@@ -52,6 +53,8 @@ signal settlement_not_placed()
 signal settlers_arrived(new_settler_amount: int)
 signal worship_level_changed(new_level: int)
 signal deity_points_increased(new_deity_points: int)
+signal ascension_level_increased(new_ascension_level: int)
+signal ascension_level_maxed()
 
 signal wonder_destroyed()
 signal settlement_destroyed(location: Vector2i, new_settlement_amount: int, new_max_settlers_amount) 
@@ -65,7 +68,7 @@ func _ready():
 	
 	state.amount_of_settlements = 0
 	state.worship_amount = 0
-	state.deity_points = 50
+	state.deity_points = 10
 	
 	state.amount_of_settlers = 0
 	state.max_amount_of_settlers = 0
@@ -77,10 +80,12 @@ func _ready():
 	settler_spawn_timer.timeout.connect(_spawn_settlers)
 	worship_increase_timer.timeout.connect(_worship_changed)
 	deity_points_increase_timer.timeout.connect(_deity_points_increased)
+	ascension_increase_timer.timeout.connect(_ascension_level_increased)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if state.wonder_placed && state.amount_of_settlements > 0:
+		_handle_ascension()
 
 func _place_wonder(place_at: Vector2i):
 	if state.wonder_placed:
@@ -91,7 +96,7 @@ func _place_wonder(place_at: Vector2i):
 	wonder_placed.emit()
 	
 func _place_settlement(place_at: Vector2i):
-	if state.deity_points < settlement_cost or state.wonder_placed_at == place_at:
+	if state.deity_points < settlement_cost or state.wonder_placed_at == place_at or state.settlement_locations.any(func(settlement: Vector2i): return settlement.x == place_at.x && settlement.y == place_at.y):
 		settlement_not_placed.emit()
 		return
 	
@@ -136,6 +141,15 @@ func _deity_points_increased():
 	state.deity_points = round(state.deity_points + deity_points_curve.sample(state.worship_amount / 100))
 	
 	deity_points_increased.emit(int(state.deity_points))
+	
+func _ascension_level_increased():
+	if state.ascension_level >= 60:
+		ascension_level_maxed.emit()
+		return
+	
+	state.ascension_level = state.ascension_level + 1
+	
+	ascension_level_increased.emit(state.ascension_level)
 	
 func _start_disaster(type: DisasterEnums.Disaster, location: Vector2i):
 	if type == DisasterEnums.Disaster.Lightning:
@@ -252,3 +266,11 @@ func _remove_settlements(locations: Array[Vector2i]):
 		state.amount_of_settlements = state.amount_of_settlements - 1
 		state.max_amount_of_settlers = state.max_amount_of_settlers - max_settlers_per_settlement
 		settlement_destroyed.emit(loc, state.amount_of_settlements, state.max_amount_of_settlers)
+
+func _handle_ascension():
+	if ascension_increase_timer.is_stopped:
+		if state.worship_amount >= 75.0 && state.amount_of_settlers / state.max_amount_of_settlers >= 0.75:
+			ascension_increase_timer.start()
+	elif !ascension_increase_timer.is_stopped:
+		if state.worship_amount < 75.0 || state.amount_of_settlers / state.max_amount_of_settlers < 0.75:
+			ascension_increase_timer.stop()

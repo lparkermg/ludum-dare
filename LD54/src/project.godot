@@ -10,11 +10,12 @@ config_version=5
 
 [application]
 
-config/name="ld54-game"
+config/name="Islanders"
+config/description="Islanders, a small god game for Ludum Dare 54."
 run/main_scene="res://scenes/core_scene.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 run/max_fps=60
-config/icon="res://icon.svg"
+config/icon="res://graphics/ui/icons/worship_amount_icon.png"
 
 [display]
 

@@ -4,10 +4,12 @@ class_name AudioSystem
 # BGM
 @export var title_bgm: AudioStreamOggVorbis
 @export var bad_game_over_bgm: AudioStreamOggVorbis
+@export var good_game_complete_bgm: AudioStreamOggVorbis
 @export var game_bgm: AudioStreamOggVorbis
 # SFX
 # Main Sounds
 @export var bad_sound: AudioStreamWAV
+@export var success_sound: AudioStreamWAV
 @export var cursor_move_sound: AudioStreamWAV
 
 # Placement Sounds
@@ -30,6 +32,7 @@ func _ready():
 	title_bgm.loop = true
 	game_bgm.loop = true
 	
+	good_game_complete_bgm.loop = false
 	bad_game_over_bgm.loop = false
 	sfx_player.finished.connect(func(): sfx_complete.emit())
 
@@ -56,6 +59,11 @@ func play_error_sound():
 	sfx_player.stop()
 	sfx_player.stream = bad_sound
 	sfx_player.play()
+	
+func play_success_sound():
+	sfx_player.stop()
+	sfx_player.stream = success_sound
+	sfx_player.play()
 
 func play_cursor_move():
 	move_sfx_player.stop()
@@ -81,6 +89,11 @@ func play_bgm_title():
 func play_bgm_bad_game_over():
 	bgm_player.stop()
 	bgm_player.stream = bad_game_over_bgm
+	bgm_player.play()
+	
+func play_bgm_good_game_complete():
+	bgm_player.stop()
+	bgm_player.stream = good_game_complete_bgm
 	bgm_player.play()
 
 func play_game_bgm():
