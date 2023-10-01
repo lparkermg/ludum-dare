@@ -18,7 +18,9 @@ signal settlement_placed_map()
 
 signal try_start_disaster(type: DisasterEnums.Disaster, location: Vector2i)
 signal disaster_completed_ui()
-signal disaster_settlements_destroyed_map(locations: Array[Vector2i])
+signal disaster_settlements_destroyed_map(location: Vector2i)
+
+signal settlement_destroyed_ui(settlement_amount: int, new_max_settlers: int)
 
 signal settlers_arrived_ui(new_settler_amount: int)
 signal worship_level_changed_ui(new_level: int)
@@ -45,7 +47,7 @@ func _ready():
 	islander_system.disaster_complete.connect(_disaster_complete)
 	
 	islander_system.wonder_destroyed.connect(_disaster_wonder_destroyed)
-	islander_system.settlements_destroyed.connect(_disaster_settlements_destroyed)
+	islander_system.settlement_destroyed.connect(_disaster_settlement_destroyed)
 	
 	# Listen for
 		# Ui Updates
@@ -103,8 +105,10 @@ func _try_start_disaster(type: DisasterEnums.Disaster):
 	
 	try_start_disaster.emit(type, select_pos)
 
-func _disaster_settlements_destroyed(locations: Array[Vector2i]):
+func _disaster_settlement_destroyed(locations: Vector2i, new_settlement_amount: int, new_max_settlers_amount):
+	print("deity system - settlements destroyed")
 	disaster_settlements_destroyed_map.emit(locations)
+	settlement_destroyed_ui.emit(new_settlement_amount, new_max_settlers_amount)
 
 func _disaster_wonder_destroyed():
 	# This is actually game over. A message needs to be populated and the scene 
@@ -112,4 +116,5 @@ func _disaster_wonder_destroyed():
 	print("Peeps, it's game over.")
 
 func _disaster_complete():
+	print("Disaster Complete")
 	disaster_completed_ui.emit()

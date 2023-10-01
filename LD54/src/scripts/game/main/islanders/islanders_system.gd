@@ -14,6 +14,23 @@ class_name IslandersSystem
 @export var earthquake_cost: int = 5
 @export var fire_cost: int = 5
 
+# rng stuff
+@export var flood_max_range: int = 30
+@export var flood_min_range: int = -50
+@export var flood_greater_range: int = 0
+
+@export var earthquake_destroy_wonder_range_max: int = 50
+@export var earthquake_destroy_wonder_range_min: int = -100
+@export var earthquake_destroy_wonder_range_greater_than: int = 35
+
+@export var earthquake_max_range: int = 30
+@export var earthquake_min_range: int = -50
+@export var earthquake_greater_range: int = 0
+
+@export var fire_max_range: int = 30
+@export var fire_min_range: int = -50
+@export var fire_greater_range: int = 0
+
 # Max Stuff
 @export var max_settlers_per_settlement: int = 5
 
@@ -37,7 +54,7 @@ signal worship_level_changed(new_level: int)
 signal deity_points_increased(new_deity_points: int)
 
 signal wonder_destroyed()
-signal settlements_destroyed(locations: Array[Vector2i]) 
+signal settlement_destroyed(location: Vector2i, new_settlement_amount: int, new_max_settlers_amount) 
 signal disaster_complete()
 
 # Called when the node enters the scene tree for the first time.
@@ -48,7 +65,7 @@ func _ready():
 	
 	state.amount_of_settlements = 0
 	state.worship_amount = 0
-	state.deity_points = 5
+	state.deity_points = 50
 	
 	state.amount_of_settlers = 0
 	state.max_amount_of_settlers = 0
@@ -78,6 +95,8 @@ func _place_settlement(place_at: Vector2i):
 		settlement_not_placed.emit()
 		return
 	
+	state.settlement_locations.append(place_at)
+	
 	state.deity_points = state.deity_points - settlement_cost
 	state.amount_of_settlements = state.amount_of_settlements + 1
 	state.max_amount_of_settlers = state.max_amount_of_settlers + max_settlers_per_settlement
@@ -88,7 +107,7 @@ func _place_settlement(place_at: Vector2i):
 		worship_increase_timer.start()
 		deity_points_increase_timer.start()
 		_spawn_settlers()
-	
+
 func _spawn_settlers():
 	# 1 per settlement or maybe randon between 0 and amount of settlements?
 	state.amount_of_settlers = state.amount_of_settlers + state.amount_of_settlements
@@ -145,9 +164,8 @@ func _handle_lightning_disaster(location:Vector2i):
 	if location == state.wonder_placed_at:
 		wonder_destroyed.emit()
 
-	if state.settlement_locations.any(func(settlement: Vector2i): return settlement == location):
-		# TODO Remove destroyed locations form array
-		settlements_destroyed.emit([location])
+	if state.settlement_locations.any(func(settlement: Vector2i): return settlement.x == location.x && settlement.y == location.y):
+		_remove_settlements([location])
 	
 	state.amount_of_settlers = state.amount_of_settlers - 5
 	
@@ -168,9 +186,11 @@ func _handle_flood_disaster():
 			# - halves settlers
 	
 	# Implement random number here.
-	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return false)
+	var rng = RandomNumberGenerator.new()
+	
+	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return rng.randi_range(flood_min_range, flood_max_range) > flood_greater_range)
 	# TODO Remove destroyed locations form array
-	settlements_destroyed.emit(settlements_to_remove)
+	_remove_settlements(settlements_to_remove)
 	
 	state.amount_of_settlers = state.amount_of_settlers / 2
 	settlers_arrived.emit(state.amount_of_settlers)
@@ -185,14 +205,16 @@ func _handle_earthquake_disaster():
 			# - Small chance to destroy what is on a tile
 			# - Can destroy Wonder
 			# - Removes half or more settlers
-	var destroy_wonder = false # TODO: random number here
+	var rng = RandomNumberGenerator.new()
+	var destroy_wonder = rng.randi_range(earthquake_destroy_wonder_range_min, earthquake_destroy_wonder_range_max) > earthquake_destroy_wonder_range_greater_than # TODO: random number here
 	
 	if destroy_wonder:
 		wonder_destroyed.emit()
 	
 	# TODO Remove destroyed locations form array
-	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return false)
-	settlements_destroyed.emit(settlements_to_remove)
+	
+	var settlements_to_remove = state.settlement_locations.filter(func(settlement: Vector2i): return rng.randi_range(earthquake_min_range, earthquake_max_range) > earthquake_greater_range)
+	_remove_settlements(settlements_to_remove)
 	
 	state.amount_of_settlers = state.amount_of_settlers / 2 
 	settlers_arrived.emit(state.amount_of_settlers)
@@ -207,18 +229,26 @@ func _handle_fire_disaster(location: Vector2i):
 			# - Chance to destroy what is on the tile
 			# - Can destroy Wonder
 			# - Removes  between 5 and 10 settlers
-	var should_destroy_at_location = false # TODO: Random number here
+	var rng = RandomNumberGenerator.new()
+	var should_destroy_at_location = rng.randi_range(fire_min_range, fire_max_range) > fire_greater_range
 	if should_destroy_at_location:
 		if location == state.wonder_placed_at:
 			wonder_destroyed.emit()
 
-		if state.settlement_locations.any(func(settlement: Vector2i): return settlement == location):
-			# TODO Remove destroyed locations form array
-			settlements_destroyed.emit([location])
+		if state.settlement_locations.any(func(settlement: Vector2i): return settlement.x == location.x && settlement.y == location.y):
+			_remove_settlements([location])
 	
-	state.amount_of_settlers = state.amount_of_settlers - 5 # Random between 5 and 10
+	state.amount_of_settlers = state.amount_of_settlers - rng.randi_range(5, 10) # Random between 5 and 10
 	
 	if state.amount_of_settlers < 0:
 		state.amount_of_settlers = 0
 		
 	settlers_arrived.emit(state.amount_of_settlers)
+
+func _remove_settlements(locations: Array[Vector2i]):
+	for loc in locations:
+		var loc_index = state.settlement_locations.find(loc)
+		state.settlement_locations.remove_at(loc_index)
+		state.amount_of_settlements = state.amount_of_settlements - 1
+		state.max_amount_of_settlers = state.max_amount_of_settlers - max_settlers_per_settlement
+		settlement_destroyed.emit(loc, state.amount_of_settlements, state.max_amount_of_settlers)

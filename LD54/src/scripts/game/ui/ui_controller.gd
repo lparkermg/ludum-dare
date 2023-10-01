@@ -40,6 +40,7 @@ func _ready():
 	deity_system.worship_level_changed_ui.connect(_worship_level_changed)
 	deity_system.deity_points_changed_ui.connect(_deity_points_changed)
 	deity_system.disaster_completed_ui.connect(_disable_disaster_buttons)
+	deity_system.settlement_destroyed_ui.connect(_settlement_destroyed)
 	
 	model = UiModel.new()
 	
@@ -62,7 +63,7 @@ func _ready():
 	activate_earthquake_disaster.pressed.connect(func(): activate_earthquake_disaster_clicked.emit())
 	activate_fire_disaster.pressed.connect(func(): activate_fire_disaster_clicked.emit())
 	
-	disaster_disable_timer.timeout.emit(_enable_disaster_buttons)
+	disaster_disable_timer.timeout.connect(_enable_disaster_buttons)
 	
 	_update_view(model)
 
@@ -90,6 +91,11 @@ func _settlement_placed(settlement_amount: int, new_max_settlers: int):
 	model.max_settlers = new_max_settlers
 	_update_view(model)
 	
+func _settlement_destroyed(settlement_amount: int, new_max_settlers: int):
+	model.settlements = settlement_amount
+	model.max_settlers = new_max_settlers
+	_update_view(model)
+	
 func _settlers_arrived(new_settler_amount: int):
 	model.current_settlers = new_settler_amount
 	
@@ -106,14 +112,17 @@ func _deity_points_changed(new_amount: int):
 	_update_view(model)
 	
 func _disable_disaster_buttons():
+	print("Disaster buttons disabled.")
 	activate_earthquake_disaster.disabled = true
 	activate_fire_disaster.disabled = true
 	activate_flood_disaster.disabled = true
 	activate_lightning_disaster.disabled = true
-	disaster_disable_timer.start()
+	disaster_disable_timer.start(2.5)
 
 func _enable_disaster_buttons():
+	print("Enabling disaster buttons")
 	activate_earthquake_disaster.disabled = false
 	activate_fire_disaster.disabled = false
 	activate_flood_disaster.disabled = false
 	activate_lightning_disaster.disabled = false
+	disaster_disable_timer.stop()

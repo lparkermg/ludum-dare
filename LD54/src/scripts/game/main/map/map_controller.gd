@@ -52,7 +52,7 @@ func _place_settlement():
 	model.current.set_cell(1, model.select_position, 1, Vector2i(0, 2))
 	settlement_placed.emit()
 	
-func _destory_settlements(locations: Array[Vector2i]):
-	for s in locations:
-		model.current.erase_cell(1, s)
+func _destory_settlements(location: Vector2i):
+	print("map controller - destroying settlements")
+	model.current.erase_cell(1, location)
 		# Probably should add some kind of mark to show something there?
