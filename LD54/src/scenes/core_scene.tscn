@@ -1,0 +1,71 @@
+[gd_scene load_steps=20 format=3 uid="uid://bldp1jftixjns"]
+
+[ext_resource type="Script" path="res://scripts/shared/scene/scene_transitioner.gd" id="1_y158f"]
+[ext_resource type="PackedScene" uid="uid://phwfhu2bd73q" path="res://scenes/loading_scene.tscn" id="2_b46hs"]
+[ext_resource type="PackedScene" uid="uid://d2u3y04xy7eld" path="res://scenes/title_scene.tscn" id="3_jo5v0"]
+[ext_resource type="PackedScene" uid="uid://bv7pd1to17sry" path="res://scenes/game_scene.tscn" id="4_fnmid"]
+[ext_resource type="PackedScene" uid="uid://bh48bapr5jra" path="res://scenes/end_scene.tscn" id="5_qo8sx"]
+[ext_resource type="Script" path="res://scripts/shared/audio/audio_system.gd" id="6_ubjy8"]
+[ext_resource type="AudioStream" uid="uid://pixn6uqwmcbj" path="res://audio/bgm/islanders_march.ogg" id="7_1y27t"]
+[ext_resource type="AudioStream" uid="uid://cb4u6dj4uxu2i" path="res://audio/bad_sound.wav" id="7_x6fc2"]
+[ext_resource type="AudioStream" uid="uid://dcya24pemx4uf" path="res://audio/earthquake.wav" id="8_5avbw"]
+[ext_resource type="AudioStream" uid="uid://b5hdbisrva7fe" path="res://audio/bgm/all-over.ogg" id="8_443rc"]
+[ext_resource type="AudioStream" uid="uid://bslnabsxedikg" path="res://audio/cursor_move.wav" id="8_ktgy2"]
+[ext_resource type="AudioStream" uid="uid://kbstjmjt14y6" path="res://audio/fire.wav" id="9_3j7iu"]
+[ext_resource type="AudioStream" uid="uid://dbfccnoeylhl0" path="res://audio/wonder_placed.wav" id="9_137b0"]
+[ext_resource type="AudioStream" uid="uid://sykr04olh8gn" path="res://audio/bgm/worship-the-darkness.ogg" id="9_lbnti"]
+[ext_resource type="AudioStream" uid="uid://bx81tj702yuid" path="res://audio/bgm/ascended.ogg" id="9_q35tm"]
+[ext_resource type="AudioStream" uid="uid://b1bef06d1awp6" path="res://audio/place_settlement.wav" id="10_h21xt"]
+[ext_resource type="AudioStream" uid="uid://c2ecxx7hfrda7" path="res://audio/flood.wav" id="10_rm1vm"]
+[ext_resource type="AudioStream" uid="uid://jevnv0p7y7do" path="res://audio/lightning_strike.wav" id="11_dn2vi"]
+[ext_resource type="AudioStream" uid="uid://y6j3mtdp3ln2" path="res://audio/ascension.wav" id="12_1k3mm"]
+
+[node name="core_scene" type="Node"]
+
+[node name="scene_handler" type="Node" parent="." node_paths=PackedStringArray("loading_screen_timer", "loading_scene_root", "scene_root")]
+script = ExtResource("1_y158f")
+loading_screen_timer = NodePath("loading_screen_timer")
+loading_scene_root = NodePath("../loading_root")
+scene_root = NodePath("../scene_root")
+loading_scene = ExtResource("2_b46hs")
+title_scene = ExtResource("3_jo5v0")
+game_scene = ExtResource("4_fnmid")
+end_scene = ExtResource("5_qo8sx")
+
+[node name="loading_screen_timer" type="Timer" parent="scene_handler"]
+one_shot = true
+
+[node name="scene_root" type="Node" parent="."]
+
+[node name="title_scene" parent="scene_root" instance=ExtResource("3_jo5v0")]
+
+[node name="loading_root" type="Node" parent="."]
+
+[node name="audio_handler" type="Node" parent="." node_paths=PackedStringArray("sfx_player", "move_sfx_player", "bgm_player")]
+script = ExtResource("6_ubjy8")
+title_bgm = ExtResource("7_1y27t")
+bad_game_over_bgm = ExtResource("8_443rc")
+good_game_complete_bgm = ExtResource("9_q35tm")
+game_bgm = ExtResource("9_lbnti")
+bad_sound = ExtResource("7_x6fc2")
+success_sound = ExtResource("12_1k3mm")
+cursor_move_sound = ExtResource("8_ktgy2")
+wonder_place_sound = ExtResource("9_137b0")
+settlement_place_sound = ExtResource("10_h21xt")
+earthquake_sound = ExtResource("8_5avbw")
+fire_sound = ExtResource("9_3j7iu")
+flood_sound = ExtResource("10_rm1vm")
+lightning_strike_sound = ExtResource("11_dn2vi")
+sfx_player = NodePath("sfx_player")
+move_sfx_player = NodePath("move_sfx_player")
+bgm_player = NodePath("bgm_player")
+
+[node name="sfx_player" type="AudioStreamPlayer" parent="audio_handler"]
+volume_db = -10.0
+
+[node name="bgm_player" type="AudioStreamPlayer" parent="audio_handler"]
+volume_db = -10.0
+autoplay = true
+
+[node name="move_sfx_player" type="AudioStreamPlayer" parent="audio_handler"]
+volume_db = -10.0

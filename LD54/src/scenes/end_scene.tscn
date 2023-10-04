@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://bh48bapr5jra"]
+
+[ext_resource type="Script" path="res://scripts/end/ui/end_controller.gd" id="1_0j6gn"]
+[ext_resource type="FontFile" uid="uid://biyj6xe7kkqql" path="res://font/CompassPro.otf" id="2_ausdf"]
+[ext_resource type="Texture2D" uid="uid://6y585qtmsq24" path="res://graphics/full/game_over.png" id="2_q54or"]
+[ext_resource type="Texture2D" uid="uid://uod0xxrplynf" path="res://graphics/full/title.png" id="3_wiewi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hcto4"]
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_m4rtk"]
+font = ExtResource("2_ausdf")
+font_size = 32
+
+[node name="end_scene" type="Control" node_paths=PackedStringArray("title", "message", "back_to_title_button", "background_image")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0j6gn")
+title = NodePath("VBoxContainer/TitleLabel")
+message = NodePath("VBoxContainer/MessageLabel")
+back_to_title_button = NodePath("VBoxContainer/BackToTitleButton")
+background_image = NodePath("TextureRect")
+game_over_image = ExtResource("2_q54or")
+complete_image = ExtResource("3_wiewi")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0.00392157, 0.00392157, 0.615686)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_ausdf")
+text = "The End"
+label_settings = SubResource("LabelSettings_hcto4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "There could be some kind of message here to do with if you managed or not to keep your island nation in check..."
+label_settings = SubResource("LabelSettings_m4rtk")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SpacerControl" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BackToTitleButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ausdf")
+text = "Click here to go to title screen."
